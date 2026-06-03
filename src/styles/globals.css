@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "./animations.css";
+@import "./utilities.css";
+
+:root {
+  --primary-accent: #A7FF4A;
+  --accent-glow: #B7FF62;
+  --background: #030712;
+  --foreground: #ffffff;
+}
+
+@theme {
+  --color-primary-bg: #030712;
+  --color-secondary-bg: #07131A;
+  --color-primary-accent: var(--primary-accent);
+  --color-accent-glow: var(--accent-glow);
+  --color-text-main: #FFFFFF;
+  --color-text-muted: #AAB2C0;
+  --color-card-bg: rgba(255, 255, 255, 0.04);
+  --color-border-custom: rgba(255, 255, 255, 0.08);
+
+  --font-sans: var(--font-geist-sans), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Fira Code", monospace;
+
+  --animate-scan: scan 6s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-reverse: float-reverse 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-orbit-slow: orbit 30s linear infinite;
+  --animate-orbit-medium: orbit 20s linear infinite;
+  --animate-orbit-fast: orbit 10s linear infinite;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  html, body {
+    max-width: 100vw;
+    background-color: #030712;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+}
