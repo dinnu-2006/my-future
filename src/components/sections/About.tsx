@@ -64,7 +64,7 @@ export const About: React.FC = () => {
           <Badge variant="primary" className="mb-3">
             Mission Control
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wider text-white">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wider text-white hover-glitch inline-block" data-text="Architecting the Future">
             Architecting the Future
           </h2>
           <div className="h-[2px] w-24 bg-gradient-to-r from-transparent via-primary-accent to-transparent mx-auto mt-4" />

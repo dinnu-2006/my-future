@@ -2,6 +2,8 @@
 
 /* Glassmorphism Styles */
 .glass-card {
+  position: relative;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
@@ -9,6 +11,29 @@
   border-radius: 12px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(167, 255, 74, 0.04) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass-card:hover::before {
+  left: 150%;
 }
 
 .glass-card:hover {
@@ -120,4 +145,80 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(167, 255, 74, 0.4);
+}
+
+/* Cyber Spinning Glow Card */
+.cyber-glow-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #030712;
+}
+
+.cyber-glow-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 20%,
+    #A7FF4A 40%,
+    #00FFB2 60%,
+    transparent 80%
+  );
+  animation: border-glow-spin 8s linear infinite;
+  pointer-events: none;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.cyber-glow-card:hover::before {
+  opacity: 0.6;
+}
+
+.cyber-glow-card-inner {
+  position: relative;
+  margin: 1px;
+  height: calc(100% - 2px);
+  background: #030712;
+  border-radius: 11px;
+  z-index: 1;
+}
+
+/* Text Glitch Effect */
+.hover-glitch {
+  position: relative;
+}
+
+.hover-glitch::before,
+.hover-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #030712;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hover-glitch:hover::before {
+  opacity: 0.8;
+  color: #A7FF4A;
+  animation: glitch-slice-1 1s linear infinite alternate-reverse;
+  text-shadow: -2px 0 rgba(255, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.hover-glitch:hover::after {
+  opacity: 0.8;
+  color: #00FFB2;
+  animation: glitch-slice-2 1s linear infinite alternate;
+  text-shadow: 2px 0 rgba(0, 0, 255, 0.5);
+  z-index: -1;
 }
