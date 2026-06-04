@@ -67,16 +67,27 @@ export default function ResumePage() {
           
           {/* Header Info */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-8 text-left">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-wide">
-                Dinesh P
-              </h1>
-              <h2 className="text-base md:text-lg font-mono text-primary-accent uppercase tracking-widest mt-1">
-                Web Developer & AI Developer
-              </h2>
-              <span className="text-xs text-text-muted mt-2 block font-medium">
-                CSE Undergraduate Student (3rd Year)
-              </span>
+            <div className="flex flex-col sm:flex-row gap-5 items-center">
+              {/* Profile image for resume */}
+              <div className="w-20 h-20 rounded-full border border-white/10 overflow-hidden bg-white/5 flex-shrink-0">
+                <img
+                  src="/profile.jpg"
+                  alt="Dinesh P"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="text-center sm:text-left">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                  Dinesh P
+                </h1>
+                <h2 className="text-base md:text-lg font-mono text-primary-accent uppercase tracking-widest mt-1">
+                  Web Developer & AI Developer
+                </h2>
+                <span className="text-xs text-text-muted mt-2 block font-medium">
+                  CSE Undergraduate Student (3rd Year)
+                </span>
+              </div>
             </div>
 
             <div className="flex flex-col gap-2 text-xs font-mono text-text-muted">

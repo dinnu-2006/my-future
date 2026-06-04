@@ -82,17 +82,34 @@ export const About: React.FC = () => {
           >
             {/* Story Card */}
             <Card glowColor="rgba(0, 255, 178, 0.12)" className="p-6 md:p-8 bg-[#030712]/40">
-              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-white">
-                Who Is Dinesh P?
-              </h3>
-              <p className="text-sm md:text-base text-text-muted leading-relaxed mb-4">
-                Hi, I'm a 3rd-year Computer Science Engineering student at Jaya Engineering College. I am deeply interested in Artificial Intelligence, Web Development, and Digital Marketing, focusing on building practical applications and continuously sharpening my technical toolkit.
-              </p>
-              <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6">
-                I spend my time exploring modern frameworks, building responsive web projects, and exploring digital marketing strategies like SEO and content marketing to create high-impact software experiences.
-              </p>
+              <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+                
+                {/* Profile Photo Thumbnail with Cyber Border */}
+                <div className="relative w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-[#00FFB2] to-primary-accent shadow-[0_0_15px_rgba(167,255,74,0.15)] flex-shrink-0">
+                  <div className="w-full h-full rounded-full bg-[#030712] overflow-hidden relative">
+                    <img
+                      src="/profile.jpg"
+                      alt="Dinesh P"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary-accent to-transparent opacity-60 animate-scan pointer-events-none" />
+                  </div>
+                </div>
 
-              <div className="border-t border-white/8 pt-5">
+                <div className="flex-1 text-center sm:text-left">
+                  <h3 className="text-xl md:text-2xl font-semibold mb-4 text-white">
+                    Who Is Dinesh P?
+                  </h3>
+                  <p className="text-sm md:text-base text-text-muted leading-relaxed mb-4">
+                    Hi, I'm a 3rd-year Computer Science Engineering student at Jaya Engineering College. I am deeply interested in Artificial Intelligence, Web Development, and Digital Marketing, focusing on building practical applications and continuously sharpening my technical toolkit.
+                  </p>
+                  <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6">
+                    I spend my time exploring modern frameworks, building responsive web projects, and exploring digital marketing strategies like SEO and content marketing to create high-impact software experiences.
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-t border-white/8 pt-5 mt-4">
                 <span className="text-xs uppercase tracking-wider text-primary-accent font-semibold block mb-2">
                   My Core Creed
                 </span>
