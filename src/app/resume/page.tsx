@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/Badge';
 import { experience } from '@/data/experience';
 import { skills } from '@/data/skills';
 import { achievements } from '@/data/achievements';
-import { Printer, ArrowLeft, Mail, Calendar, GraduationCap, Briefcase, Award } from 'lucide-react';
+import { Printer, ArrowLeft, Mail, Calendar, GraduationCap, Briefcase, Award, ExternalLink } from 'lucide-react';
 
 export default function ResumePage() {
   const [consoleOpen, setConsoleOpen] = useState(false);
@@ -72,7 +72,7 @@ export default function ResumePage() {
                 Dinesh P
               </h1>
               <h2 className="text-base md:text-lg font-mono text-primary-accent uppercase tracking-widest mt-1">
-                AI Architect & Full Stack Engineer
+                Web Developer & AI Developer
               </h2>
               <span className="text-xs text-text-muted mt-2 block font-medium">
                 CSE Undergraduate Student (3rd Year)
@@ -106,9 +106,20 @@ export default function ResumePage() {
                 <h3 className="text-xs uppercase font-mono tracking-widest text-primary-accent font-semibold mb-3 pb-1.5 border-b border-white/6">
                   Executive Brief
                 </h3>
-                <p className="text-xs md:text-sm text-text-muted leading-relaxed">
-                  Aggressive AI builder and full-stack developer. Specializing in autonomous LLM planning nodes, complex backend API routers, n8n automation sheets, and organic programmatic traffic acquisition.
-                </p>
+                <ul className="flex flex-col gap-1.5 text-xs text-text-muted leading-relaxed">
+                  <li className="flex items-start gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-primary-accent/80 mt-1.5 flex-shrink-0" />
+                    <span>Computer Science Engineering student with interests in Artificial Intelligence, Web Development, and Digital Marketing.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-primary-accent/80 mt-1.5 flex-shrink-0" />
+                    <span>Building practical projects while continuously improving software development and problem-solving skills.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-primary-accent/80 mt-1.5 flex-shrink-0" />
+                    <span>Currently learning AI development and exploring modern technologies to create useful applications.</span>
+                  </li>
+                </ul>
               </div>
 
               {/* Education */}
@@ -118,16 +129,16 @@ export default function ResumePage() {
                 </h3>
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-bold text-white uppercase">
-                    B.Tech in CSE
+                    B.E. Computer Science Engineering
                   </span>
                   <span className="text-[10px] text-text-muted font-medium">
-                    State Technical University
+                    Jaya Engineering College
                   </span>
                   <span className="text-[10px] font-mono text-text-muted">
-                    2023 - 2027 (Expected)
+                    2024 – 2028 (Expected)
                   </span>
                   <span className="text-[10px] font-mono text-primary-accent font-semibold mt-1">
-                    CGPA: 9.1/10 (Top 5%)
+                    Third Year Undergraduate Student
                   </span>
                 </div>
               </div>
@@ -157,7 +168,19 @@ export default function ResumePage() {
                 <div className="flex flex-col gap-3 text-[10px] font-mono text-text-muted">
                   {achievements.filter(a => a.category === 'certification').map((cert) => (
                     <div key={cert.id} className="flex flex-col">
-                      <span className="text-white font-bold">{cert.title}</span>
+                      {cert.credentialUrl ? (
+                        <a
+                          href={cert.credentialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white font-bold hover:text-primary-accent transition-colors flex items-center gap-1 group/link"
+                        >
+                          {cert.title}
+                          <ExternalLink className="w-3 h-3 text-primary-accent opacity-60 group-hover/link:opacity-100 transition-opacity" />
+                        </a>
+                      ) : (
+                        <span className="text-white font-bold">{cert.title}</span>
+                      )}
                       <span>{cert.event}</span>
                     </div>
                   ))}

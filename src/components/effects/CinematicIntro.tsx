@@ -18,7 +18,7 @@ const hexToRgba = (hex: string, alpha: number) => {
 export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const [showLogo, setShowLogo] = useState(false);
   const [zoomOut, setZoomOut] = useState(false);
 
@@ -123,7 +123,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
       if (coreAlpha > 0 && !isExploded) {
         corePulse = Math.sin(Date.now() * 0.008) * 2;
         const currentCoreRadius = Math.max(0.1, coreRadius + corePulse);
-        
+
         // Draw glow ring
         const gradient = ctx.createRadialGradient(
           centerX, centerY, 0,
@@ -131,7 +131,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         );
         gradient.addColorStop(0, hexToRgba(primaryColorHex, 0.4 * coreAlpha));
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        
+
         ctx.beginPath();
         ctx.arc(centerX, centerY, currentCoreRadius * 6, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
@@ -154,7 +154,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           p.y += dy * 0.16;
           p.radius = Math.max(0.2, p.radius * 0.95);
           p.alpha = Math.min(1.0, p.alpha + 0.05);
-          
+
           // Core shrink
           coreRadius = Math.max(0, coreRadius - 0.25);
         } else if (isAttracting) {
@@ -162,7 +162,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           const dx = centerX - p.x;
           const dy = centerY - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (dist > 10) {
             // Apply gravitational pull force
             const pull = 0.8 / (dist * 0.015);
@@ -226,8 +226,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
       if (!isExploded) {
         const maxDist = 95;
         // Soft pulsing network alpha limit
-        const networkAlphaMultiplier = isAttracting 
-          ? 1.0 
+        const networkAlphaMultiplier = isAttracting
+          ? 1.0
           : 0.45 + Math.sin(Date.now() * 0.003) * 0.15;
 
         for (let i = 0; i < particles.length; i++) {
@@ -269,7 +269,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           ctx.arc(centerX, centerY, shockwaveRadius, 0, Math.PI * 2);
           ctx.strokeStyle = hexToRgba(primaryColorHex, shockwaveAlpha);
           ctx.lineWidth = 2.5;
-          
+
           // Outer blur path shadow
           ctx.shadowColor = primaryColorHex;
           ctx.shadowBlur = 12;
@@ -314,8 +314,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         {showLogo && (
           <motion.div
             initial={{ opacity: 0, scale: 0.84, filter: 'blur(15px)' }}
-            animate={zoomOut 
-              ? { opacity: 0, scale: 1.35, filter: 'blur(20px)' } 
+            animate={zoomOut
+              ? { opacity: 0, scale: 1.35, filter: 'blur(20px)' }
               : { opacity: 1, scale: 1.0, filter: 'blur(0px)' }
             }
             transition={zoomOut
@@ -330,7 +330,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
             <h1 className="text-3xl md:text-5xl font-extrabold uppercase tracking-[0.25em] font-sans text-white select-none drop-shadow-[0_0_20px_rgba(167,255,74,0.15)]">
               Synapse<span className="text-primary-accent">.core</span>
             </h1>
-            
+
             <span className="text-[9px] md:text-[10px] uppercase font-mono tracking-[0.45em] text-text-muted/70 block mt-2">
               Artificial Intelligence awakened
             </span>

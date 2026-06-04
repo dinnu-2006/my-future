@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-accent/8 border border-primary-accent/20 text-xs md:text-sm font-semibold tracking-wider text-primary-accent uppercase shadow-[0_0_12px_rgba(167,255,74,0.12)]">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-accent animate-pulse" />
-            AI Architect & Founder
+            AI & Web Developer
           </div>
 
           {/* Headline */}

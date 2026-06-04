@@ -11,55 +11,42 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     id: 'exp-1',
-    role: 'Co-Founder & Lead AI Engineer',
-    company: 'Synapse Core Automations (Stealth Builder)',
-    type: 'Startup',
-    duration: 'Jan 2026 - Present',
+    role: 'Web Development & AI Enthusiast',
+    company: 'Independent Study & Projects',
+    type: 'Freelance',
+    duration: '2024 - Present',
     description: [
-      'Architected semantic parsing nodes that automatically extract key entities from contract PDFs.',
-      'Deployed production n8n workflows that save early-stage clients 10-18 operational hours weekly.',
-      'Managed full client relations, delivering custom cognitive agents under tight timelines.'
+      'Developing responsive web applications and continuously improving frontend and backend development skills.',
+      'Exploring AI concepts and machine learning fundamentals through personal projects and hands-on practice.',
+      'Currently learning AI development and modern software technologies.'
     ],
-    skills: ['LangChain', 'Python', 'n8n', 'Next.js', 'PostgreSQL']
+    skills: ['Web Development', 'Artificial Intelligence', 'React', 'Node.js', 'Python']
   },
   {
     id: 'exp-2',
-    role: 'AI Research & Engineering Intern',
-    company: 'Aura AI Solutions Group',
-    type: 'Internship',
-    duration: 'Nov 2025 - Feb 2026',
+    role: 'Digital Marketing Learner',
+    company: 'Self-Directed',
+    type: 'Freelance',
+    duration: '2025 - Present',
     description: [
-      'Benchmarked embedding models to identify optimal vectors for high-recall document chats.',
-      'Constructed modular Express APIs connecting proprietary agent scripts to a React frontend.',
-      'Implemented automated regression tests for LLM outputs using guardrails.'
+      'Understanding SEO, content marketing, and online brand growth fundamentals.',
+      'Exploring digital marketing strategies and audience engagement techniques.',
+      'Applying marketing concepts while building personal and portfolio projects.'
     ],
-    skills: ['Node.js', 'OpenAI API', 'Vector DBs', 'TypeScript', 'Jest']
+    skills: ['Digital Marketing', 'SEO', 'Web Development']
   },
   {
     id: 'exp-3',
-    role: 'Freelance Automation Specialist',
-    company: 'Self-Employed (Digital Platforms)',
-    type: 'Freelance',
-    duration: 'May 2025 - Present',
-    description: [
-      'Developed custom Google Sheets scraping automations and automated calendar bookers.',
-      'Advised local business networks on organic Google Search SEO strategies, yielding 80%+ traffic bumps.',
-      'Crafted high-fidelity Framer landing pages converting over 15% of inbound visitors.'
-    ],
-    skills: ['Zapier', 'SEO Auditing', 'Content Growth', 'Make.com', 'Framer']
-  },
-  {
-    id: 'exp-4',
-    role: 'B.Tech in Computer Science Engineering (3rd Year)',
-    company: 'State Technical University',
+    role: 'B.E. Computer Science Engineering (3rd Year)',
+    company: 'Jaya Engineering College',
     type: 'Education',
-    duration: '2023 - 2027 (Expected)',
+    duration: '2024 – 2028 (Expected)',
     description: [
-      'Specializing in Artificial Intelligence and Machine Learning paradigms.',
-      'CGPA: 9.1/10 (Top 5% of Department).',
-      'Relevant Coursework: Design and Analysis of Algorithms, Databases, Neural Networks, Soft Computing.'
+      'Currently pursuing Bachelor of Engineering in Computer Science Engineering.',
+      'Interested in Artificial Intelligence, Web Development, and Software Engineering.',
+      'Continuously learning modern technologies through projects and self-study.'
     ],
-    skills: ['Data Structures', 'Database Systems', 'Neural Networks', 'Python']
+    skills: ['Python', 'JavaScript', 'HTML & CSS', 'Machine Learning']
   }
 ];
 

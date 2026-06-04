@@ -6,14 +6,13 @@ import { Badge } from '../ui/Badge';
 import { Card } from '../ui/Card';
 import { fadeUp } from '@/lib/animations';
 import { skills } from '@/data/skills';
-import { Cpu, Layout, Server, TrendingUp, Cpu as AutomateIcon } from 'lucide-react';
+import { Cpu, Layout, Server, TrendingUp } from 'lucide-react';
 
 const CATEGORIES = [
   { id: 'ai', label: 'AI Engineering', icon: Cpu, color: '#A7FF4A', radius: 130, speed: '40s' },
   { id: 'frontend', label: 'Frontend UI', icon: Layout, color: '#00FFB2', radius: 195, speed: '55s' },
   { id: 'backend', label: 'Backend Core', icon: Server, color: '#38BDF8', radius: 260, speed: '70s' },
-  { id: 'automation', label: 'Automation', icon: AutomateIcon, color: '#B7FF62', radius: 320, speed: '85s' },
-  { id: 'marketing', label: 'Growth/SEO', icon: TrendingUp, color: '#F472B6', radius: 375, speed: '100s' }
+  { id: 'marketing', label: 'Growth/SEO', icon: TrendingUp, color: '#F472B6', radius: 325, speed: '85s' }
 ];
 
 export const Skills: React.FC = () => {

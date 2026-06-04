@@ -12,51 +12,35 @@ const TIMELINE_STEPS = [
     id: 'student',
     icon: BookOpen,
     label: 'Student',
-    period: '2023 - Present',
-    title: 'CSE Foundations',
-    details: 'Mastering advanced algorithms, system design, discrete mathematics, and neural network fundamentals. Maintaining a 9.1 CGPA.',
+    period: '2024 - 2028 (Expected)',
+    title: 'CSE Undergraduate',
+    details: 'Pursuing Bachelor of Engineering in Computer Science Engineering at Jaya Engineering College. Enthusiastic about Artificial Intelligence, Web Development, and Software Engineering.',
   },
   {
     id: 'developer',
     icon: Code,
     label: 'Developer',
     period: '2024 - Present',
-    title: 'Full Stack Engineering',
-    details: 'Constructing robust web applications, database schemas, API backends, and responsive frontend client layers using modern frameworks.',
+    title: 'Web & AI Builder',
+    details: 'Developing responsive web applications and exploring AI concepts and machine learning fundamentals through personal projects.',
   },
   {
-    id: 'builder',
-    icon: Cpu,
-    label: 'AI Builder',
-    period: '2025 - Present',
-    title: 'Cognitive Workflows',
-    details: 'Architecting retrieval-augmented generation pipelines, semantic search nodes, custom vector stores, and multi-agent operations.',
-  },
-  {
-    id: 'creator',
+    id: 'marketer',
     icon: Rocket,
-    label: 'Startup Creator',
+    label: 'Marketer',
     period: '2025 - Present',
-    title: 'Bootstrapping MVPs',
-    details: 'Transforming theoretical systems into market-viable products. Automating lead pipelines and charging clients for production SaaS tools.',
-  },
-  {
-    id: 'founder',
-    icon: Award,
-    label: 'Future Tech Founder',
-    period: 'Beyond 2027',
-    title: 'Cognitive Operations Scale',
-    details: 'Scaling autonomous systems that replace manual administrative overhead, raising seed funding, and managing teams.',
+    title: 'Digital Marketing',
+    details: 'Understanding SEO, content marketing, and online brand growth fundamentals. Applying marketing concepts to personal portfolio projects.',
   }
 ];
 
 const STATS = [
-  { label: 'Projects Built', value: '18+' },
-  { label: 'Tech Stack Stack', value: '25+' },
-  { label: 'Certifications', value: '12+' },
-  { label: 'GitHub Contribs', value: '800+' },
-  { label: 'Learning Hours', value: '2,500+' },
-  { label: 'Clients Served', value: '6+' }
+  { label: 'Projects Built', value: '8+' },
+  { label: 'Core Toolkit Skills', value: '12' },
+  { label: 'Certifications', value: '2' },
+  { label: 'CSE Department Year', value: '3rd' },
+  { label: 'Graduation Year', value: '2028' },
+  { label: 'Github Repository', value: 'Active' }
 ];
 
 export const About: React.FC = () => {
@@ -99,13 +83,13 @@ export const About: React.FC = () => {
             {/* Story Card */}
             <Card glowColor="rgba(0, 255, 178, 0.12)" className="p-6 md:p-8 bg-[#030712]/40">
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-white">
-                Who Is Behind Synapse?
+                Who Is Dinesh P?
               </h3>
               <p className="text-sm md:text-base text-text-muted leading-relaxed mb-4">
-                Hi, I\'m a 3rd-year Computer Science Engineering student specializing in deep tech. Instead of building typical student todo-apps, I spend my time engineering custom cognitive AI frameworks, connecting programmatic SEO funnels, and automating lead routing scripts.
+                Hi, I'm a 3rd-year Computer Science Engineering student at Jaya Engineering College. I am deeply interested in Artificial Intelligence, Web Development, and Digital Marketing, focusing on building practical applications and continuously sharpening my technical toolkit.
               </p>
               <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6">
-                My career vision is to operate at the intersection of AI, Full-Stack engineering, and growth hacking. I believe software builders should not just write functions—they must build ecosystems that generate real business equity.
+                I spend my time exploring modern frameworks, building responsive web projects, and exploring digital marketing strategies like SEO and content marketing to create high-impact software experiences.
               </p>
 
               <div className="border-t border-white/8 pt-5">
@@ -113,7 +97,7 @@ export const About: React.FC = () => {
                   My Core Creed
                 </span>
                 <p className="text-sm italic text-white/90">
-                  "Build intelligent engines that replace manual keystrokes. Automate operations, scale distribution, and execute ruthlessly."
+                  "Build practical projects, continuously master new technologies, and explore the future of AI and web development."
                 </p>
               </div>
             </Card>

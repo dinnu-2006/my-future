@@ -8,7 +8,7 @@ import { Button } from '../ui/Button';
 import { Input, Textarea } from '../ui/Input';
 import { fadeUp } from '@/lib/animations';
 import { Mail, Cpu, Terminal, Loader2, CheckCircle2, AlertTriangle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
+// Contact form submissions are routed via secure backend api route handler (/api/contact)
 
 
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -60,33 +60,34 @@ export const Contact: React.FC = () => {
 
     if (serviceId && templateId && publicKey) {
       setSubmitStage(2);
-      setAgentText('Encrypting packets. Transmitting via EmailJS secure relay...');
+      setAgentText('Encrypting packets. Transmitting via secure relay server...');
 
       try {
-        const response = await emailjs.send(
-          serviceId,
-          templateId,
-          {
-            from_name: formData.name,
-            from_email: formData.email,
-            reply_to: formData.email,
-            subject: formData.subject || `Portfolio Contact from ${formData.name}`,
-            message: formData.message,
-            to_email: 'mrdineshcse@gmail.com',
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-          publicKey
-        );
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        });
 
-        if (response.status === 200) {
+        const data = await response.json();
+
+        if (response.ok) {
           setSubmitStage(3);
           setAgentText('Transmission accepted! Live email successfully dispatched to mrdineshcse@gmail.com.');
         } else {
-          throw new Error(`Unexpected status code: ${response.status}`);
+          throw new Error(data.error || `Server responded with status ${response.status}`);
         }
       } catch (error: any) {
-        console.error('EmailJS transmission error:', error);
+        console.error('Contact transmission error:', error);
         setSubmitStage(4);
-        setAgentText(`ERROR: Uplink failed. Code: ${error?.text || error?.message || 'UNKNOWN_ERR'}. Run diagnostic debugger.`);
+        setAgentText(`ERROR: Uplink failed. Code: ${error?.message || 'UNKNOWN_ERR'}. Run diagnostic debugger.`);
       }
     } else {
       // Sandbox fallback

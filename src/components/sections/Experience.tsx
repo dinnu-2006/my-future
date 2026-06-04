@@ -53,7 +53,7 @@ export const Experience: React.FC = () => {
               <ul className="flex flex-col gap-4 text-sm font-mono text-text-muted">
                 <li className="flex items-center justify-between border-b border-white/5 pb-2">
                   <span>Current Target:</span>
-                  <span className="text-white">Stealth AI Builder</span>
+                  <span className="text-white">AI & Web Developer</span>
                 </li>
                 <li className="flex items-center justify-between border-b border-white/5 pb-2">
                   <span>CSE Academic Cycle:</span>
@@ -79,15 +79,15 @@ export const Experience: React.FC = () => {
                 <div className="flex flex-col gap-2.5 text-xs text-text-muted">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-primary-accent flex-shrink-0" />
-                    <span>Bootstrapped Synapse Automation MVP</span>
+                    <span>Pursuing B.E. CSE at Jaya College</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-primary-accent flex-shrink-0" />
-                    <span>Deployed 15+ Client Automation Chains</span>
+                    <span>Red Hat Python Certified (AD141)</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-primary-accent flex-shrink-0" />
-                    <span>Lighthouse 100/100 SaaS Boilers Built</span>
+                    <span>Microsoft & TNSDC Certified</span>
                   </div>
                 </div>
               </div>
