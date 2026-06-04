@@ -51,58 +51,43 @@ export const Contact: React.FC = () => {
     setSubmitStage(1);
     setAgentText('Neural node parsing incoming payload headers...');
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
     // Small delay to simulate parsing handshake
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-    if (serviceId && templateId && publicKey) {
-      setSubmitStage(2);
-      setAgentText('Encrypting packets. Transmitting via secure relay server...');
+    setSubmitStage(2);
+    setAgentText('Encrypting packets. Transmitting via secure relay server...');
 
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-          }),
-        });
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok) {
-          setSubmitStage(3);
-          setAgentText('Transmission accepted! Live email successfully dispatched to mrdineshcse@gmail.com.');
+      if (response.ok) {
+        setSubmitStage(3);
+        setAgentText('Transmission accepted! Live email successfully dispatched.');
+      } else {
+        if (data.error && data.error.includes('misconfigured')) {
+          setSubmitStage(4);
+          setAgentText(`ERROR: Server relay misconfigured. Ensure Vercel Environment Variables are set.`);
         } else {
           throw new Error(data.error || `Server responded with status ${response.status}`);
         }
-      } catch (error: any) {
-        console.error('Contact transmission error:', error);
-        setSubmitStage(4);
-        setAgentText(`ERROR: Uplink failed. Code: ${error?.message || 'UNKNOWN_ERR'}. Run diagnostic debugger.`);
       }
-    } else {
-      // Sandbox fallback
-      setSubmitStage(2);
-      setAgentText('Dev-Sandbox: Simulating neural transmission (Credentials absent)...');
-
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      setSubmitStage(3);
-      setAgentText('Transmission simulated! Credentials missing in .env.local - logged to terminal console.');
-      console.log('Form data submitted (Simulated):', {
-        formData,
-        targetEmail: 'mrdineshcse@gmail.com',
-        info: 'To send live emails, set NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, and NEXT_PUBLIC_EMAILJS_PUBLIC_KEY in .env.local'
-      });
+    } catch (error: any) {
+      console.error('Contact transmission error:', error);
+      setSubmitStage(4);
+      setAgentText(`ERROR: Uplink failed. Code: ${error?.message || 'UNKNOWN_ERR'}. Run diagnostic debugger.`);
     }
   };
 

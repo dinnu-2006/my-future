@@ -13,15 +13,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    const serviceId = process.env.EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.EMAILJS_PUBLIC_KEY || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
     const privateKey = process.env.EMAILJS_PRIVATE_KEY; // Loaded securely on server
 
     if (!serviceId || !templateId || !publicKey) {
-      console.error('Contact API Error: EmailJS environment variables are missing.');
+      console.error('Contact API Error: EmailJS environment variables are missing.', {
+        hasServiceId: !!serviceId,
+        hasTemplateId: !!templateId,
+        hasPublicKey: !!publicKey
+      });
       return NextResponse.json(
-        { error: 'Email relay is currently misconfigured on the server.' },
+        { error: 'Email relay is currently misconfigured on the server (missing keys).' },
         { status: 500 }
       );
     }
