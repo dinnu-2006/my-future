@@ -79,17 +79,37 @@ export const Skills: React.FC = () => {
         </div>
 
         {/* Desktop Interactive Galaxy View (Visible only on LG desktops) */}
-        <div className="hidden lg:flex items-center justify-center min-h-[800px] w-full relative">
+        <div className="hidden lg:flex items-center justify-center min-h-[850px] w-full relative">
           
+          {/* Custom SVG filter for high-end neon glow */}
+          <svg className="absolute w-0 h-0">
+            <defs>
+              <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+          </svg>
+
           {/* Pulsing Galaxy Core Center */}
-          <div className="absolute z-30 w-36 h-36 rounded-full flex flex-col items-center justify-center bg-[#07131A] border-2 border-primary-accent/30 shadow-[0_0_40px_rgba(167,255,74,0.15)] select-none">
-            <div className="absolute inset-0 rounded-full bg-primary-accent/5 animate-ping" />
-            <Cpu className="w-8 h-8 text-primary-accent mb-1 animate-pulse" />
+          <div className="absolute z-30 w-44 h-44 rounded-full flex flex-col items-center justify-center bg-[#050b10] border border-primary-accent/30 shadow-[0_0_55px_rgba(167,255,74,0.18)] select-none">
+            {/* Spinning decorative rings inside core */}
+            <div className="absolute inset-2 rounded-full border border-dashed border-white/5 animate-spin" style={{ animationDuration: '30s' }} />
+            <div className="absolute inset-4 rounded-full border border-dashed border-primary-accent/15 animate-spin" style={{ animationDuration: '18s', animationDirection: 'reverse' }} />
+            <div className="absolute inset-0 rounded-full bg-primary-accent/[0.02] animate-ping" style={{ animationDuration: '3.5s' }} />
+            
+            <Cpu className="w-9 h-9 text-primary-accent mb-1 animate-pulse" />
             <span className="text-[10px] uppercase tracking-widest font-mono text-primary-accent font-semibold">
               AI & Dev
             </span>
-            <span className="text-[9px] uppercase tracking-widest text-text-muted mt-0.5">
+            <span className="text-[8px] uppercase tracking-widest text-text-muted mt-1 font-mono">
               Galaxy Core
+            </span>
+            <span className="text-[7px] text-[#00FFB2]/70 font-mono mt-0.5 animate-pulse">
+              SYS_ACTIVE // V4.02
             </span>
           </div>
 
@@ -108,21 +128,36 @@ export const Skills: React.FC = () => {
               >
                 {/* SVG Orbit Ring Line */}
                 <svg
-                  className="absolute"
+                  className="absolute pointer-events-none"
                   style={{
-                    width: cat.radius * 2,
-                    height: cat.radius * 2,
+                    width: cat.radius * 2 + 40,
+                    height: cat.radius * 2 + 40,
                     transition: 'all 0.5s ease',
                   }}
+                  viewBox={`0 0 ${cat.radius * 2 + 40} ${cat.radius * 2 + 40}`}
                 >
+                  {/* Volumetric glow ring on hover */}
+                  {isHovered && (
+                    <circle
+                      cx={cat.radius + 20}
+                      cy={cat.radius + 20}
+                      r={cat.radius}
+                      fill="none"
+                      stroke={cat.color}
+                      strokeWidth={5}
+                      opacity={0.12}
+                      filter="url(#neon-glow)"
+                    />
+                  )}
+                  {/* Core orbit ring line */}
                   <circle
-                    cx={cat.radius}
-                    cy={cat.radius}
-                    r={cat.radius - 1}
+                    cx={cat.radius + 20}
+                    cy={cat.radius + 20}
+                    r={cat.radius}
                     fill="none"
                     stroke={isHovered ? cat.color : 'rgba(255, 255, 255, 0.04)'}
                     strokeWidth={isHovered ? 1.5 : 1}
-                    strokeDasharray={isHovered ? '4, 4' : 'none'}
+                    strokeDasharray={isHovered ? '6, 8' : 'none'}
                     className="transition-all duration-300"
                   />
                 </svg>
@@ -136,6 +171,55 @@ export const Skills: React.FC = () => {
                     animation: `orbit ${cat.speed} linear infinite`,
                   }}
                 >
+                  {/* Gravity connector tethers from nodes to center core */}
+                  {isHovered && catSkills.map((skill, index) => {
+                    const angle = (index * 2 * Math.PI) / count;
+                    const x = cat.radius * Math.cos(angle);
+                    const y = cat.radius * Math.sin(angle);
+                    return (
+                      <svg
+                        key={`beam-${index}`}
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                        }}
+                        viewBox={`0 0 ${cat.radius * 2} ${cat.radius * 2}`}
+                      >
+                        <line
+                          x1={cat.radius}
+                          y1={cat.radius}
+                          x2={cat.radius + x}
+                          y2={cat.radius + y}
+                          stroke={cat.color}
+                          strokeWidth={0.65}
+                          opacity={0.14}
+                          strokeDasharray="4, 4"
+                        />
+                      </svg>
+                    );
+                  })}
+
+                  {/* Micro orbital particle stars traveling along the path */}
+                  {[0, 120, 240].map((offsetAngle, sIdx) => {
+                    const starRad = (offsetAngle * Math.PI) / 180;
+                    const starX = cat.radius * Math.cos(starRad);
+                    const starY = cat.radius * Math.sin(starRad);
+                    return (
+                      <div
+                        key={`star-${sIdx}`}
+                        className="absolute w-1.5 h-1.5 rounded-full animate-ping pointer-events-none"
+                        style={{
+                          transform: `translate(${starX}px, ${starY}px)`,
+                          backgroundColor: cat.color,
+                          boxShadow: `0 0 10px ${cat.color}`,
+                          opacity: isHovered ? 0.95 : 0.22,
+                          transition: 'opacity 0.3s ease',
+                        }}
+                      />
+                    );
+                  })}
+
                   {/* Skill Nodes distributed along the Orbit Ring */}
                   {catSkills.map((skill, index) => {
                     const angle = (index * 2 * Math.PI) / count;
@@ -150,23 +234,31 @@ export const Skills: React.FC = () => {
                           transform: `translate(${x}px, ${y}px)`,
                         }}
                       >
-                        {/* Opposite rotation to keep text vertical */}
+                        {/* Counter-rotation to keep titles upright */}
                         <div
                           style={{
                             animation: `orbit ${cat.speed} linear infinite reverse`,
                           }}
                         >
                           <div
-                            className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all duration-300 whitespace-nowrap shadow-md ${
+                            className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all duration-300 whitespace-nowrap shadow-md flex items-center gap-2 group/node ${
                               isHovered
-                                ? 'bg-[#07131A] text-white'
-                                : 'bg-[#030712]/80 text-text-muted border-white/6 hover:text-white'
+                                ? 'bg-[#07131a]/92 text-white backdrop-blur-md scale-105'
+                                : 'bg-[#030712]/80 text-text-muted border-white/6 hover:text-white hover:border-white/20'
                             }`}
                             style={{
                               borderColor: isHovered ? cat.color : 'rgba(255, 255, 255, 0.08)',
-                              boxShadow: isHovered ? `0 0 15px ${cat.color}20` : 'none',
+                              boxShadow: isHovered ? `0 0 20px ${cat.color}25` : 'none',
                             }}
                           >
+                            {/* Glowing LED dot next to the skill name */}
+                            <span
+                              className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-300"
+                              style={{
+                                backgroundColor: isHovered ? cat.color : 'rgba(255, 255, 255, 0.25)',
+                                boxShadow: isHovered ? `0 0 8px ${cat.color}` : 'none',
+                              }}
+                            />
                             {skill.name}
                           </div>
                         </div>
