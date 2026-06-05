@@ -32,6 +32,11 @@ export async function POST(request: Request) {
 
     // Build EmailJS REST API payload
     // Note: EmailJS REST API uses accessToken for the private key (to bypass Strict Mode requirement)
+    // To prevent EmailJS/SMTP relay errors when the sender email (from_email) is identical to the recipient email (to_email)
+    const receiverEmail = 'mrdineshcse@gmail.com';
+    const senderEmail = email.trim().toLowerCase();
+    const isSelfSend = senderEmail === receiverEmail.toLowerCase();
+
     const payload = {
       service_id: serviceId,
       template_id: templateId,
@@ -39,11 +44,13 @@ export async function POST(request: Request) {
       accessToken: privateKey || undefined,
       template_params: {
         from_name: name,
-        from_email: email,
+        from_email: isSelfSend ? `self-test@dinesh.ai` : email,
         reply_to: email,
         subject: subject || `Portfolio Contact from ${name}`,
-        message: message,
-        to_email: 'mrdineshcse@gmail.com',
+        message: isSelfSend 
+          ? `${message}\n\n--- [System Log: Sent from self-test address to prevent loop errors. Original email: ${email}]` 
+          : message,
+        to_email: receiverEmail,
       },
     };
 
