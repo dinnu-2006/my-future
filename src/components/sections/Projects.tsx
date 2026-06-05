@@ -408,10 +408,10 @@ export const Projects: React.FC = () => {
                     }}
                   >
                     <Card
-                      glowColor={isActive ? "rgba(216, 255, 62, 0.2)" : "rgba(255, 255, 255, 0.02)"}
-                      className={`p-6 md:p-8 bg-[#030712]/75 border rounded-2xl flex flex-col justify-between h-[450px] transition-all duration-300 relative overflow-hidden backdrop-blur-md text-left ${
+                      glowColor={isActive ? "rgba(216, 255, 62, 0.2)" : "rgba(255, 255, 255, 0.01)"}
+                      className={`p-6 md:p-8 bg-[#030712]/92 border rounded-2xl h-[450px] transition-all duration-300 relative overflow-hidden backdrop-blur-md text-left ${
                         isActive 
-                          ? 'border-[#D8FF3E]/30 shadow-[0_0_30px_rgba(216,255,62,0.1)]' 
+                          ? 'border-[#D8FF3E]/30 shadow-[0_0_30px_rgba(216,255,62,0.12)]' 
                           : 'border-white/5 shadow-md'
                       }`}
                       onMouseMove={isActive ? handleMouseMove : undefined}
@@ -419,100 +419,109 @@ export const Projects: React.FC = () => {
                       style={{
                         transform: isActive ? 'perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))' : undefined,
                         transition: 'transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s',
-                        // Elegant spotlight glow effect following the cursor
+                        // Spotlight hover glow
                         background: isActive 
-                          ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(216, 255, 62, 0.07) 0%, transparent 65%), rgba(3, 7, 18, 0.75)' 
+                          ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(216, 255, 62, 0.08) 0%, transparent 65%), rgba(3, 7, 18, 0.92)' 
                           : undefined,
                       }}
                     >
-                      <div>
-                        {/* Dossier Header */}
-                        <div className="flex justify-between items-start mb-4">
-                          <span className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-[#D8FF3E] px-2.5 py-0.5 rounded border border-[#D8FF3E]/20 bg-[#D8FF3E]/5">
-                            {project.category}
-                          </span>
-                          <span className="text-[10px] md:text-xs font-mono text-text-muted">
-                            {project.timeline}
-                          </span>
-                        </div>
-
-                        {/* Project Title */}
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 hover:text-[#D8FF3E] transition-colors duration-300 font-sans tracking-wide">
-                          {project.title}
-                        </h3>
-                        <p className="text-xs md:text-sm text-text-muted leading-relaxed mb-6 font-mono">
-                          {project.description}
-                        </p>
-
-                        {/* Performance Score Metric */}
-                        <div className="flex items-center gap-2 mb-6 bg-white/[0.015] border border-white/5 px-3 py-1.5 rounded-lg w-fit">
-                          <BarChart3 className="w-3.5 h-3.5 text-[#00FFB2]" />
-                          <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                            Engineered Performance:
-                          </span>
-                          <span className="text-xs font-mono font-bold text-white">
-                            {project.performance}%
-                          </span>
-                        </div>
-
-                        {/* Results Grid */}
-                        <div className="grid grid-cols-3 gap-3 mb-6 bg-[#07131A]/20 border border-white/5 p-3 rounded-lg font-mono">
-                          {project.metrics.map((metric, mIdx) => (
-                            <div key={mIdx} className="flex flex-col text-center">
-                              <span className="text-[9px] text-text-muted uppercase tracking-wider truncate">
-                                {metric.label}
-                              </span>
-                              <span className="text-xs md:text-sm font-bold text-white mt-1">
-                                {metric.value}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Tech Stack Tags */}
-                        <div className="flex flex-wrap gap-1.5 mb-6">
-                          {project.tags.map((tag, tIdx) => (
-                            <span
-                              key={tIdx}
-                              className="text-[9px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/6 text-white/70"
-                            >
-                              {tag}
+                      {/* Fade out card content for background slides to prevent text overlapping */}
+                      <div 
+                        className="flex flex-col justify-between h-full transition-opacity duration-300"
+                        style={{ 
+                          opacity: isActive ? 1 : 0,
+                          pointerEvents: isActive ? 'auto' : 'none'
+                        }}
+                      >
+                        <div>
+                          {/* Dossier Header */}
+                          <div className="flex justify-between items-start mb-4">
+                            <span className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-[#D8FF3E] px-2.5 py-0.5 rounded border border-[#D8FF3E]/20 bg-[#D8FF3E]/5">
+                              {project.category}
                             </span>
-                          ))}
+                            <span className="text-[10px] md:text-xs font-mono text-text-muted">
+                              {project.timeline}
+                            </span>
+                          </div>
+
+                          {/* Project Title */}
+                          <h3 className="text-xl md:text-2xl font-bold text-white mb-3 hover:text-[#D8FF3E] transition-colors duration-300 font-sans tracking-wide">
+                            {project.title}
+                          </h3>
+                          <p className="text-xs md:text-sm text-text-muted leading-relaxed mb-6 font-mono">
+                            {project.description}
+                          </p>
+
+                          {/* Performance Score Metric */}
+                          <div className="flex items-center gap-2 mb-6 bg-white/[0.015] border border-white/5 px-3 py-1.5 rounded-lg w-fit">
+                            <BarChart3 className="w-3.5 h-3.5 text-[#00FFB2]" />
+                            <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
+                              Engineered Performance:
+                            </span>
+                            <span className="text-xs font-mono font-bold text-white">
+                              {project.performance}%
+                            </span>
+                          </div>
+
+                          {/* Results Grid */}
+                          <div className="grid grid-cols-3 gap-3 mb-6 bg-[#07131A]/20 border border-white/5 p-3 rounded-lg font-mono">
+                            {project.metrics.map((metric, mIdx) => (
+                              <div key={mIdx} className="flex flex-col text-center">
+                                <span className="text-[9px] text-text-muted uppercase tracking-wider truncate">
+                                  {metric.label}
+                                </span>
+                                <span className="text-xs md:text-sm font-bold text-white mt-1">
+                                  {metric.value}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Tech Stack Tags */}
+                          <div className="flex flex-wrap gap-1.5 mb-6">
+                            {project.tags.map((tag, tIdx) => (
+                              <span
+                                key={tIdx}
+                                className="text-[9px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/6 text-white/70"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Action Triggers */}
-                      <div className="flex items-center justify-between border-t border-white/5 pt-4">
-                        <Button
-                          variant="glow"
-                          size="sm"
-                          onClick={() => setSelectedProject(project)}
-                          className="flex items-center gap-2 text-xs border-white/10 hover:border-[#D8FF3E]/30"
-                        >
-                          <BookOpen className="w-3.5 h-3.5" />
-                          Case Study
-                        </Button>
-
-                        <div className="flex items-center gap-2">
+                        {/* Action Triggers */}
+                        <div className="flex items-center justify-between border-t border-white/5 pt-4">
                           <Button
-                            variant="secondary"
+                            variant="glow"
                             size="sm"
-                            href={project.github}
-                            className="w-8 h-8 p-0 rounded-lg flex items-center justify-center border-white/10 hover:border-[#D8FF3E]/20"
+                            onClick={() => setSelectedProject(project)}
+                            className="flex items-center gap-2 text-xs border-white/10 hover:border-[#D8FF3E]/30"
                           >
-                            <svg className="w-4 h-4 text-white hover:text-[#D8FF3E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            <BookOpen className="w-3.5 h-3.5" />
+                            Case Study
                           </Button>
-                          {project.demo && (
+
+                          <div className="flex items-center gap-2">
                             <Button
                               variant="secondary"
                               size="sm"
-                              href={project.demo}
+                              href={project.github}
                               className="w-8 h-8 p-0 rounded-lg flex items-center justify-center border-white/10 hover:border-[#D8FF3E]/20"
                             >
-                              <ExternalLink className="w-4 h-4 text-[#D8FF3E]" />
+                              <svg className="w-4 h-4 text-white hover:text-[#D8FF3E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                             </Button>
-                          )}
+                            {project.demo && (
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                href={project.demo}
+                                className="w-8 h-8 p-0 rounded-lg flex items-center justify-center border-white/10 hover:border-[#D8FF3E]/20"
+                              >
+                                <ExternalLink className="w-4 h-4 text-[#D8FF3E]" />
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </Card>
