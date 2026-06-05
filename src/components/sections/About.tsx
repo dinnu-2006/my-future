@@ -85,12 +85,22 @@ export const About: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
                 
                 {/* Profile Photo Thumbnail with Cyber Border */}
-                <div className="relative w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-[#00FFB2] to-primary-accent shadow-[0_0_15px_rgba(167,255,74,0.15)] flex-shrink-0">
-                  <div className="w-full h-full rounded-full bg-[#030712] overflow-hidden relative">
+                <div 
+                  className="relative w-24 h-24 p-[1.5px] bg-gradient-to-tr from-[#00FFB2] to-primary-accent shadow-[0_0_15px_rgba(167,255,74,0.15)] flex-shrink-0"
+                  style={{
+                    clipPath: 'polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px)',
+                  }}
+                >
+                  <div 
+                    className="w-full h-full bg-[#030712] overflow-hidden relative"
+                    style={{
+                      clipPath: 'polygon(11px 0%, 100% 0%, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0% 100%, 0% 11px)',
+                    }}
+                  >
                     <img
                       src="/profile.jpg"
                       alt="Dinesh P"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                     <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary-accent to-transparent opacity-60 animate-scan pointer-events-none" />
                   </div>

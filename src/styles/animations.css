@@ -150,3 +150,56 @@
     transform: skew(0deg);
   }
 }
+
+@keyframes light-sweep {
+  0%, 100% {
+    opacity: 0.03;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.12;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes hud-glimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+@keyframes card-drift {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-5px) translateX(2px);
+  }
+}
+
+@keyframes scan-slow {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
+
+@keyframes edge-glow-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    border-color: rgba(216, 255, 62, 0.2);
+  }
+  50% {
+    opacity: 0.9;
+    border-color: rgba(216, 255, 62, 0.7);
+  }
+}
+

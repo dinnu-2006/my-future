@@ -69,11 +69,16 @@ export default function ResumePage() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-8 text-left">
             <div className="flex flex-col sm:flex-row gap-5 items-center">
               {/* Profile image for resume */}
-              <div className="w-20 h-20 rounded-full border border-white/10 overflow-hidden bg-white/5 flex-shrink-0">
+              <div 
+                className="w-20 h-20 border border-white/15 bg-white/5 flex-shrink-0 relative overflow-hidden"
+                style={{
+                  clipPath: 'polygon(10px 0%, 100% 0%, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0% 100%, 0% 10px)',
+                }}
+              >
                 <img
                   src="/profile.jpg"
                   alt="Dinesh P"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
               

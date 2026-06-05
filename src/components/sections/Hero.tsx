@@ -68,9 +68,13 @@ export const Hero: React.FC = () => {
           animate="visible"
           className="lg:col-span-5 w-full h-[320px] md:h-[450px] flex items-center justify-center relative select-none pointer-events-none"
         >
-          {/* Orbit rings background overlay */}
-          <div className="absolute w-[260px] md:w-[360px] h-[260px] md:h-[360px] rounded-full border border-primary-accent/5 pointer-events-none animate-pulse-glow" />
-          <div className="absolute w-[320px] md:w-[440px] h-[320px] md:h-[440px] rounded-full border border-emerald-500/5 pointer-events-none animate-pulse" style={{ animationDuration: '4s' }} />
+          {/* Asymmetrical HUD background outlines */}
+          <div 
+            className="absolute w-[280px] md:w-[350px] h-[350px] md:h-[440px] border border-[#D8FF3E]/5 pointer-events-none animate-pulse-glow"
+            style={{
+              clipPath: 'polygon(30px 0%, 100% 0%, 100% calc(100% - 50px), calc(100% - 50px) 100%, 18px 100%, 0% calc(100% - 18px), 0% 30px)'
+            }}
+          />
           <CanvasWrapper />
         </motion.div>
       </div>
