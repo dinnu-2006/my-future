@@ -37,32 +37,35 @@ export async function POST(request: Request) {
       );
     }
 
-    // Build EmailJS REST API payload
+    // Build EmailJS REST API payload for the primary notification email
     // Note: EmailJS REST API uses accessToken for the private key (to bypass Strict Mode requirement)
     // To prevent EmailJS/SMTP relay errors when the sender email (from_email) is identical to the recipient email (to_email)
     const receiverEmail = 'mrdineshcse@gmail.com';
     const senderEmail = email.trim().toLowerCase();
     const isSelfSend = senderEmail === receiverEmail.toLowerCase();
 
+    // 1. PRIMARY EMAIL PAYLOAD (Notification sent to portfolio owner)
+    // Destination: mrdineshcse@gmail.com (portfolio owner)
+    // Template Variables Expected: {{name}}, {{email}}, {{subject}}, {{message}}
     const payload = {
       service_id: serviceId,
       template_id: templateId,
       user_id: publicKey,
       accessToken: privateKey || undefined,
       template_params: {
-        // Core EmailJS Template Variables
-        name: name,
-        email: email,
-        subject: subject || `Portfolio Contact from ${name}`,
+        // Core variables matching the primary EmailJS template:
+        name: name,         // Maps to {{name}} in the email body
+        email: email,       // Maps to {{email}} in the email body
+        subject: subject || `Portfolio Contact from ${name}`, // Maps to {{subject}}
         message: isSelfSend 
           ? `${message}\n\n--- [System Log: Sent from self-test address to prevent loop errors. Original email: ${email}]` 
-          : message,
+          : message,       // Maps to {{message}}
         
-        // Metadata / Header Parameters (for compatibility with EmailJS dashboard settings)
-        from_name: name,
-        from_email: isSelfSend ? `self-test@dinesh.ai` : email,
-        reply_to: email,
-        to_email: receiverEmail,
+        // Metadata / Header Parameters (for compatibility with EmailJS dashboard settings):
+        from_name: name,    // Maps to {{from_name}} (used in "From Name" field in dashboard)
+        from_email: isSelfSend ? `self-test@dinesh.ai` : email, // Maps to {{from_email}} (used in "From Email" field in dashboard)
+        reply_to: email,    // Maps to {{reply_to}} (used in "Reply-To" field in dashboard)
+        to_email: receiverEmail, // Maps to {{to_email}} (used in "To Email" field in dashboard, set to Dinesh's email)
       },
     };
 
@@ -77,7 +80,9 @@ export async function POST(request: Request) {
     const responseText = await response.text();
 
     if (response.ok) {
-      // Send auto-reply to the visitor if configured
+      // 2. AUTO-REPLY EMAIL PAYLOAD (Confirmation sent to the visitor)
+      // Destination: visitor's email address (email)
+      // Template Variables Expected: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
       const isAutoReplyConfigured = autoReplyTemplateId &&
         autoReplyTemplateId !== 'your_autoreply_template_id_here' &&
         autoReplyTemplateId !== 'your_emailjs_autoreply_template_id' &&
@@ -91,22 +96,24 @@ export async function POST(request: Request) {
             user_id: publicKey,
             accessToken: privateKey || undefined,
             template_params: {
-              // Variables matching the auto-reply template variables requested
-              from_name: name,
-              from_email: email,
-              subject: subject || 'Portfolio Inquiry',
-              message: message,
+              // Core variables matching the requested auto-reply EmailJS template:
+              from_name: name,      // Maps to {{from_name}} in the email body ("Hi {{from_name}},")
+              from_email: email,     // Maps to {{from_email}} in the email body (visitor's email details)
+              subject: subject || 'Portfolio Inquiry', // Maps to {{subject}}
+              message: message,     // Maps to {{message}}
               
-              // Standard fallbacks for recipient fields in EmailJS template
+              // Standard fallbacks for the "To Email" field in the EmailJS dashboard template settings.
+              // By sending all variants (email, from_email, to_email), the auto-reply will successfully
+              // route to the visitor regardless of which variable name is used in the dashboard's "To Email" field.
               name: name,
               email: email,
               to_name: name,
-              to_email: email, // Set target recipient variable
+              to_email: email,      // Crucial: Set recipient variable to the visitor's email
               
-              // Helper / convenience parameters for dynamic binding
-              reply_to: receiverEmail, // Reply to auto-reply goes to Dinesh
-              portfolio_url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dinesh.dev',
-              dinesh_email: receiverEmail,
+              // Dynamic bindings for Dinesh (sender info)
+              reply_to: receiverEmail, // Crucial: Any replies to the auto-reply will go to Dinesh
+              portfolio_url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dinesh.dev', // Maps to {{portfolio_url}}
+              dinesh_email: receiverEmail, // Maps to {{dinesh_email}}
             },
           };
 
