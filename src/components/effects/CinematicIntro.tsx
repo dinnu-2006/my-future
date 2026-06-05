@@ -42,6 +42,13 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
     onCompleteRef.current = onComplete;
   }, [onComplete]);
 
+  // Immediate completion if prefers-reduced-motion is active
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      onCompleteRef.current();
+    }
+  }, []);
+
   // Handle Logo Scrambling / Decrypt animation
   useEffect(() => {
     if (!showLogo) return;

@@ -70,12 +70,14 @@ export const Hero: React.FC = () => {
         >
           {/* Asymmetrical HUD background outlines */}
           <div 
-            className="absolute w-[280px] md:w-[350px] h-[350px] md:h-[440px] border border-[#CF9D7B]/5 pointer-events-none animate-pulse-glow"
+            className="absolute w-[280px] md:w-[350px] h-[350px] md:h-[440px] border border-[#CF9D7B]/5 pointer-events-none animate-pulse-glow animate-float"
             style={{
               clipPath: 'polygon(30px 0%, 100% 0%, 100% calc(100% - 50px), calc(100% - 50px) 100%, 18px 100%, 0% calc(100% - 18px), 0% 30px)'
             }}
           />
-          <CanvasWrapper />
+          <div className="animate-float-reverse">
+            <CanvasWrapper />
+          </div>
         </motion.div>
       </div>
     </section>

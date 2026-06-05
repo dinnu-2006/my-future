@@ -30,6 +30,14 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(!hasPlayedIntro);
   const [consoleOpen, setConsoleOpen] = useState(false);
 
+  // Skip intro sequence if prefers-reduced-motion is enabled
+  useEffect(() => {
+    if (isLoading && typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsLoading(false);
+      hasPlayedIntro = true;
+    }
+  }, [isLoading]);
+
   // Hotkey handlers for Ctrl+K (command palette) and Ctrl+Shift+D (terminal mode)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

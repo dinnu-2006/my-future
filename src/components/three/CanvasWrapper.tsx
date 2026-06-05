@@ -10,7 +10,7 @@ export const CanvasWrapper: React.FC = () => {
   const mouseY = useMotionValue(0);
 
   // Smooth springs for tracking coordinates (reduces stutter and enables 60fps transitions)
-  const springConfig = { damping: 25, stiffness: 150, mass: 0.6 };
+  const springConfig = { damping: 35, stiffness: 90, mass: 1.0 };
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
@@ -32,22 +32,22 @@ export const CanvasWrapper: React.FC = () => {
 
   // Parallax layers transform values
   // Rotate the main card slightly based on mouse position
-  const rotateX = useTransform(smoothMouseY, [-1, 1], [8, -8]);
-  const rotateY = useTransform(smoothMouseX, [-1, 1], [-8, 8]);
+  const rotateX = useTransform(smoothMouseY, [-1, 1], [4, -4]);
+  const rotateY = useTransform(smoothMouseX, [-1, 1], [-4, 4]);
   
-  // Ambient backlight displacement
-  const lightX = useTransform(smoothMouseX, [-1, 1], [-20, 20]);
-  const lightY = useTransform(smoothMouseY, [-1, 1], [-20, 20]);
+  // Ambient backlight displacement (max 8px movement)
+  const lightX = useTransform(smoothMouseX, [-1, 1], [-8, 8]);
+  const lightY = useTransform(smoothMouseY, [-1, 1], [-8, 8]);
 
-  // Floating data card offsets
-  const card1X = useTransform(smoothMouseX, [-1, 1], [15, -15]);
-  const card1Y = useTransform(smoothMouseY, [-1, 1], [15, -15]);
+  // Floating data card offsets (max 6px / 5px / 4px movement)
+  const card1X = useTransform(smoothMouseX, [-1, 1], [6, -6]);
+  const card1Y = useTransform(smoothMouseY, [-1, 1], [6, -6]);
   
-  const card2X = useTransform(smoothMouseX, [-1, 1], [-12, 12]);
-  const card2Y = useTransform(smoothMouseY, [-1, 1], [-12, 12]);
+  const card2X = useTransform(smoothMouseX, [-1, 1], [-5, 5]);
+  const card2Y = useTransform(smoothMouseY, [-1, 1], [-5, 5]);
 
-  const card3X = useTransform(smoothMouseX, [-1, 1], [8, -8]);
-  const card3Y = useTransform(smoothMouseY, [-1, 1], [-8, 8]);
+  const card3X = useTransform(smoothMouseX, [-1, 1], [4, -4]);
+  const card3Y = useTransform(smoothMouseY, [-1, 1], [-4, 4]);
 
   // The custom asymmetrical shape polygon coordinates (used for clip-path)
   // Top-left beveled, sharp top-right, large bottom-right bevel, small bottom-left bevel
@@ -82,7 +82,7 @@ export const CanvasWrapper: React.FC = () => {
 
       {/* 3. Main Layered Card Structure (3D transform container) */}
       <motion.div
-        className="relative w-[240px] md:w-[290px] h-[320px] md:h-[390px] cursor-pointer z-10 select-none shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
+        className="relative w-[240px] md:w-[290px] h-[320px] md:h-[390px] cursor-pointer z-10 select-none shadow-[0_30px_60px_rgba(0,0,0,0.8)] will-change-transform"
         style={{
           rotateX,
           rotateY,
@@ -127,7 +127,7 @@ export const CanvasWrapper: React.FC = () => {
               />
               
               {/* Subtle Scanning Scanline */}
-              <div className="absolute left-0 w-full h-[1.5px] bg-[#CF9D7B]/40 shadow-[0_0_8px_#CF9D7B] opacity-60 animate-[scan-slow_6s_ease-in-out_infinite] pointer-events-none" />
+              <div className="absolute left-0 w-full h-[1.5px] bg-[#CF9D7B]/40 shadow-[0_0_8px_#CF9D7B] opacity-60 animate-[scan-slow_10s_ease-in-out_infinite] pointer-events-none" />
               
               {/* Radial gradient shadow around image edges for cinematic lighting */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(3,7,18,0.7)_100%)] pointer-events-none" />
@@ -180,9 +180,7 @@ export const CanvasWrapper: React.FC = () => {
                 repeat: Infinity,
                 ease: "linear"
               }}
-              style={{
-                filter: 'drop-shadow(0 0 3px rgba(207, 157, 123, 0.6))'
-              }}
+              className="drop-shadow-[0_0_3px_rgba(207,157,123,0.5)]"
             />
           </svg>
         </div>

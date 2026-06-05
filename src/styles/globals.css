@@ -23,8 +23,8 @@
   --font-mono: var(--font-geist-mono), "Fira Code", monospace;
 
   --animate-scan: scan 6s linear infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-float-reverse: float-reverse 6s ease-in-out infinite;
+  --animate-float: float 14s ease-in-out infinite;
+  --animate-float-reverse: float-reverse 16s ease-in-out infinite;
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
   --animate-orbit-slow: orbit 30s linear infinite;
   --animate-orbit-medium: orbit 20s linear infinite;
@@ -45,5 +45,22 @@
     font-family: var(--font-sans);
     overflow-x: hidden;
     scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  
+  .glass-card:hover,
+  .cyber-glow-card:hover {
+    transform: none !important;
   }
 }

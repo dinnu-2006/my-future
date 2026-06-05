@@ -59,8 +59,12 @@ export const NeuralNetwork: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isReduced = mediaQuery.matches;
+
     // Adapt particle count to viewport size
     const getParticleCount = () => {
+      if (isReduced) return 0;
       const area = window.innerWidth * window.innerHeight;
       return Math.min(100, Math.floor(area / 18000));
     };
@@ -81,14 +85,20 @@ export const NeuralNetwork: React.FC = () => {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
+          vx: (Math.random() - 0.5) * 0.15,
+          vy: (Math.random() - 0.5) * 0.15,
           radius: Math.random() * 1.5 + 0.8,
         });
       }
     };
 
     initParticles();
+
+    const handleReducedChange = (e: MediaQueryListEvent) => {
+      isReduced = e.matches;
+      initParticles();
+    };
+    mediaQuery.addEventListener('change', handleReducedChange);
 
     // Trigger re-init on resize
     const handleResizeParticles = () => {
@@ -161,6 +171,7 @@ export const NeuralNetwork: React.FC = () => {
       window.removeEventListener('theme-accent-change', handleThemeChange);
       window.removeEventListener('resize', handleResizeParticles);
       window.removeEventListener('resize', handleResize);
+      mediaQuery.removeEventListener('change', handleReducedChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

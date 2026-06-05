@@ -37,7 +37,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const { ref, x, y } = useMagnetic(magnetic ? magneticStrength : 0);
 
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
   
   const variants = {
     primary: 'bg-primary-accent text-primary-bg hover:bg-primary-accent/90 hover:shadow-[0_0_20px_rgba(207,157,123,0.3)] font-semibold border border-transparent',

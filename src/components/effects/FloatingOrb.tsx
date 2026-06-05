@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useMousePosition } from '@/hooks/useMousePosition';
 
@@ -8,6 +8,19 @@ export const FloatingOrb: React.FC = () => {
   const mouse = useMousePosition();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setReducedMotion(e.matches);
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   // Smooth springs for tracking coordinates
   const springConfig = { damping: 50, stiffness: 160, mass: 1 };
@@ -15,10 +28,17 @@ export const FloatingOrb: React.FC = () => {
   const springY = useSpring(y, springConfig);
 
   useEffect(() => {
+    if (reducedMotion) {
+      if (typeof window !== 'undefined') {
+        x.set(window.innerWidth / 2 - 200);
+        y.set(window.innerHeight / 2 - 200);
+      }
+      return;
+    }
     // Position orb center to match cursor (offset by radius)
     x.set(mouse.x - 200);
     y.set(mouse.y - 200);
-  }, [mouse, x, y]);
+  }, [mouse, x, y, reducedMotion]);
 
   return (
     <motion.div

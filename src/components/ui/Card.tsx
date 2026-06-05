@@ -69,10 +69,10 @@ export const Card: React.FC<CardProps> = ({
       )}
       style={{
         transform: tiltEffect
-          ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
-          : undefined,
+          ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)${isHovered ? ' translateY(-4px) scale(1.015)' : ''}`
+          : (isHovered ? 'translateY(-4px) scale(1.015)' : undefined),
         transformStyle: 'preserve-3d',
-        transition: 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
+        transition: 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
       }}
       {...props}
     >

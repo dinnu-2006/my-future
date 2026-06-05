@@ -34,6 +34,19 @@ export const AICursor: React.FC = () => {
   const mouseRef = useRef({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setReducedMotion(e.matches);
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   useEffect(() => {
     mouseRef.current = mouse;
@@ -44,6 +57,10 @@ export const AICursor: React.FC = () => {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (reducedMotion) {
+      document.body.classList.remove('custom-cursor-active');
+      return;
+    }
 
     // Add CSS class to body to hide default cursor
     document.body.classList.add('custom-cursor-active');
@@ -243,7 +260,9 @@ export const AICursor: React.FC = () => {
       document.body.classList.remove('custom-cursor-active');
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isVisible, isHovering]);
+  }, [isVisible, isHovering, reducedMotion]);
+
+  if (reducedMotion) return null;
 
   return (
     <canvas

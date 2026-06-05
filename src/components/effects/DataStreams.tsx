@@ -38,6 +38,17 @@ export const DataStreams: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isReduced = mediaQuery.matches;
+
+    const handleReducedChange = (e: MediaQueryListEvent) => {
+      isReduced = e.matches;
+      if (isReduced) {
+        ctx.clearRect(0, 0, width, height);
+      }
+    };
+    mediaQuery.addEventListener('change', handleReducedChange);
+
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
@@ -67,6 +78,11 @@ export const DataStreams: React.FC = () => {
     }
 
     const draw = () => {
+      if (isReduced) {
+        ctx.clearRect(0, 0, width, height);
+        animationFrameId = requestAnimationFrame(draw);
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
       ctx.font = `${fontSize}px var(--font-mono), Courier, monospace`;
 
@@ -92,6 +108,7 @@ export const DataStreams: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      mediaQuery.removeEventListener('change', handleReducedChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
