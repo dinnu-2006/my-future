@@ -37,6 +37,11 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
   const [scrambledTitle, setScrambledTitle] = useState("");
   const [scrambledSub, setScrambledSub] = useState("");
 
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
   // Handle Logo Scrambling / Decrypt animation
   useEffect(() => {
     if (!showLogo) return;
@@ -186,25 +191,26 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
     const startTime = Date.now();
     let shockwaveRadius = 0;
     let shockwaveAlpha = 0;
+    let zoomOutTriggered = false;
 
     const draw = () => {
       const elapsed = (Date.now() - startTime) / 1000; // in seconds
       ctx.clearRect(0, 0, width, height);
-
+      
       const centerX = width / 2;
       const centerY = height / 2;
-
+      
       // Phase definitions
       const isAttracting = elapsed >= 1.0 && elapsed < 1.75;
       const isCollapsing = elapsed >= 1.75 && elapsed < 2.05;
       const isExploded = elapsed >= 2.05;
-
+      
       // 1. Grid Background (with shockwave displacement ripple)
       ctx.save();
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.012)';
       ctx.lineWidth = 0.5;
       const gridSize = 45;
-
+      
       for (let x = 0; x < width; x += gridSize) {
         ctx.beginPath();
         for (let y = 0; y < height; y += 15) {
@@ -226,7 +232,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         }
         ctx.stroke();
       }
-
+      
       for (let y = 0; y < height; y += gridSize) {
         ctx.beginPath();
         for (let x = 0; x < width; x += 15) {
@@ -249,18 +255,18 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         ctx.stroke();
       }
       ctx.restore();
-
+      
       // 2. Spinning Calibration HUD Circles
       if (!isExploded) {
         const HUDAlpha = isCollapsing
           ? Math.max(0, 1 - (elapsed - 1.75) / 0.3)
           : Math.min(0.22, elapsed / 0.8);
-
+          
         ctx.save();
         ctx.strokeStyle = hexToRgba(primaryColorHex, HUDAlpha);
         ctx.lineWidth = 0.8;
         ctx.translate(centerX, centerY);
-
+        
         // Dashed Ring 1 (rotates clockwise)
         ctx.save();
         ctx.rotate(elapsed * 0.45);
@@ -269,7 +275,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         ctx.setLineDash([5, 12]);
         ctx.stroke();
         ctx.restore();
-
+        
         // Dashed Ring 2 (rotates counter-clockwise)
         ctx.save();
         ctx.rotate(-elapsed * 0.3);
@@ -278,7 +284,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         ctx.setLineDash([12, 18]);
         ctx.stroke();
         ctx.restore();
-
+        
         // Outer brackets (slow rotation)
         ctx.save();
         ctx.rotate(elapsed * 0.15);
@@ -289,10 +295,10 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         ctx.arc(0, 0, 125, Math.PI, Math.PI * 1.2);
         ctx.stroke();
         ctx.restore();
-
+        
         ctx.restore();
       }
-
+      
       // 3. Central Core Node
       if (elapsed < 1.0) {
         coreAlpha = elapsed / 1.0;
@@ -300,11 +306,11 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
       if (isCollapsing) {
         coreRadius = Math.max(0.1, 4 + (elapsed - 1.75) * 22); // Core swells right before collapse
       }
-
+      
       if (coreAlpha > 0 && !isExploded) {
         corePulse = Math.sin(Date.now() * 0.009) * 1.5;
         const currentCoreRadius = Math.max(0.1, coreRadius + corePulse);
-
+        
         // Inner core glow
         const gradient = ctx.createRadialGradient(
           centerX, centerY, 0,
@@ -312,19 +318,19 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         );
         gradient.addColorStop(0, hexToRgba(primaryColorHex, 0.45 * coreAlpha));
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
+        
         ctx.beginPath();
         ctx.arc(centerX, centerY, currentCoreRadius * 7, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
         ctx.fill();
-
+        
         // Solid core
         ctx.beginPath();
         ctx.arc(centerX, centerY, currentCoreRadius * 0.8, 0, Math.PI * 2);
         ctx.fillStyle = hexToRgba(primaryColorHex, coreAlpha);
         ctx.fill();
       }
-
+      
       // 4. Update and Draw Particles
       particles.forEach((p) => {
         if (isExploded) {
@@ -345,14 +351,14 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
             p.vy = Math.sin(angle) * force;
             p.isOrbiter = false; // convert to standard explosive particle
           }
-
+          
           // Apply kinetic energy movement
           p.x += p.vx;
           p.y += p.vy;
           p.vx *= 0.93;
           p.vy *= 0.93;
           p.alpha -= 0.015; // fade out quickly
-
+          
           // Draw spark trails
           if (p.alpha > 0) {
             ctx.beginPath();
@@ -368,12 +374,12 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           const dy = p.y - centerY;
           let dist = Math.sqrt(dx * dx + dy * dy);
           let pAngle = Math.atan2(dy, dx);
-
+          
           if (dist > 1) {
             // Spiral velocity
             dist -= dist * 0.18;
             pAngle += 0.12;
-
+            
             p.x = centerX + Math.cos(pAngle) * dist;
             p.y = centerY + Math.sin(pAngle) * dist;
             p.alpha = Math.min(1.0, p.alpha + 0.06);
@@ -384,14 +390,14 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           const dx = centerX - p.x;
           const dy = centerY - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
+          
           if (dist > 15) {
             const pull = 1.3 / (dist * 0.012);
             p.x += (dx / dist) * Math.min(4.0, pull);
             p.y += (dy / dist) * Math.min(4.0, pull);
             p.alpha = Math.min(0.85, p.alpha + 0.012);
           }
-
+          
           if (p.isOrbiter) {
             // Accelerate rotating particles on orbit
             p.angle += 0.035;
@@ -410,7 +416,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
             if (p.x < 0 || p.x > width) p.vx *= -1;
             if (p.y < 0 || p.y > height) p.vy *= -1;
           }
-
+          
           // Cursor interactive pull
           const dx = cursorX - p.x;
           const dy = cursorY - p.y;
@@ -422,7 +428,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
             p.alpha = Math.min(0.9, p.alpha + 0.02);
           }
         }
-
+        
         // Draw particle dot (only if not drawing spark trails in explosion phase)
         if (!isExploded && p.alpha > 0) {
           ctx.beginPath();
@@ -431,23 +437,23 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           ctx.fill();
         }
       });
-
+      
       // 5. Drawing Neural Network String Connections
       if (!isExploded && !isCollapsing) {
         const maxDist = 92;
         const networkAlphaMultiplier = isAttracting
           ? 1.0
           : 0.45 + Math.sin(Date.now() * 0.003) * 0.15;
-
+          
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
             const p1 = particles[i];
             const p2 = particles[j];
-
+            
             const dx = p1.x - p2.x;
             const dy = p1.y - p2.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-
+            
             if (dist < maxDist) {
               const alpha = (1 - dist / maxDist) * 0.16 * Math.min(p1.alpha, p2.alpha) * networkAlphaMultiplier;
               ctx.beginPath();
@@ -460,28 +466,28 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           }
         }
       }
-
+      
       // 6. Draw Diagnostic logs overlay in the Canvas (Bottom Left)
       ctx.save();
       ctx.font = '9px "Courier New", Courier, monospace';
       ctx.textBaseline = 'top';
-
+      
       const activeLogs = DIAGNOSTIC_LOGS.filter(log => elapsed >= log.time);
       const boxWidth = 320;
       const boxHeight = 145;
       const startX = 35;
       const startY = height - boxHeight - 35;
-
+      
       if (!isExploded) {
         const diagnosticsAlpha = Math.min(0.7, elapsed / 0.4);
-
+        
         // Border and Brackets
         ctx.strokeStyle = hexToRgba(primaryColorHex, 0.12 * diagnosticsAlpha);
         ctx.strokeRect(startX, startY, boxWidth, boxHeight);
-
+        
         ctx.fillStyle = hexToRgba(primaryColorHex, 0.45 * diagnosticsAlpha);
         ctx.fillText("SYSTEM CORE DIAGNOSTICS //", startX + 12, startY - 14);
-
+        
         activeLogs.forEach((log, index) => {
           const lineY = startY + 12 + index * 12;
           let text = `> ${log.text}`;
@@ -495,7 +501,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         });
       }
       ctx.restore();
-
+      
       // 7. Shockwave detonation ring & secondary echo rings
       if (isExploded) {
         if (shockwaveRadius === 0) {
@@ -503,10 +509,10 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           shockwaveAlpha = 0.85;
           setShowLogo(true);
         }
-
+        
         shockwaveRadius += (width * 0.9 - shockwaveRadius) * 0.06;
         shockwaveAlpha -= 0.018;
-
+        
         if (shockwaveAlpha > 0) {
           // Neon shockwave
           ctx.save();
@@ -518,7 +524,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           ctx.shadowBlur = 15;
           ctx.stroke();
           ctx.restore();
-
+          
           // Secondary echo wave (slightly smaller and cyan)
           ctx.save();
           ctx.beginPath();
@@ -529,29 +535,30 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           ctx.restore();
         }
       }
-
+      
       // 8. Timed Transitions to zoom-out and wrap-up
-      if (elapsed >= 3.0 && !zoomOut) {
+      if (elapsed >= 3.0 && !zoomOutTriggered) {
+        zoomOutTriggered = true;
         setZoomOut(true);
       }
-
+      
       if (elapsed >= 3.8) {
-        onComplete();
+        onCompleteRef.current();
         return; // Break animation loop
       }
-
+      
       animationFrameId = requestAnimationFrame(draw);
     };
-
+    
     // Initialize animation loop
     draw();
-
+    
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [onComplete, zoomOut]);
+  }, []);
 
   return (
     <div
