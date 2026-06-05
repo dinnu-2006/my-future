@@ -22,8 +22,12 @@ import DataStreams from '@/components/effects/DataStreams';
 import DeveloperConsole from '@/components/ui/DeveloperConsole';
 import CinematicIntro from '@/components/effects/CinematicIntro';
 
+// Module-level flag to track if the cinematic intro has already played in this session.
+// This prevents the intro from playing again during client-side page transitions.
+let hasPlayedIntro = false;
+
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!hasPlayedIntro);
   const [consoleOpen, setConsoleOpen] = useState(false);
 
   // Hotkey handlers for Ctrl+K (command palette) and Ctrl+Shift+D (terminal mode)
@@ -48,7 +52,13 @@ export default function Home() {
     <>
       <FramerAnimatePresence mode="wait">
         {isLoading ? (
-          <CinematicIntro key="loader" onComplete={() => setIsLoading(false)} />
+          <CinematicIntro
+            key="loader"
+            onComplete={() => {
+              hasPlayedIntro = true;
+              setIsLoading(false);
+            }}
+          />
         ) : (
           <framerMotion.div
             key="content"
