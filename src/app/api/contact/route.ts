@@ -16,7 +16,13 @@ export async function POST(request: Request) {
     const serviceId = process.env.EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
     const templateId = process.env.EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.EMAILJS_PUBLIC_KEY || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-    const privateKey = process.env.EMAILJS_PRIVATE_KEY; // Loaded securely on server
+    
+    const rawPrivateKey = process.env.EMAILJS_PRIVATE_KEY;
+    const privateKey = (rawPrivateKey && 
+      rawPrivateKey !== 'your_private_key_here' && 
+      rawPrivateKey !== 'your_emailjs_private_key' && 
+      rawPrivateKey.trim() !== '') ? rawPrivateKey : undefined;
+
     const autoReplyTemplateId = process.env.EMAILJS_AUTOREPLY_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID;
 
     if (!serviceId || !templateId || !publicKey) {
@@ -88,9 +94,14 @@ export async function POST(request: Request) {
               // Variables matching the auto-reply template variables requested
               from_name: name,
               from_email: email,
-              to_email: email, // Set target recipient variable
               subject: subject || 'Portfolio Inquiry',
               message: message,
+              
+              // Standard fallbacks for recipient fields in EmailJS template
+              name: name,
+              email: email,
+              to_name: name,
+              to_email: email, // Set target recipient variable
               
               // Helper / convenience parameters for dynamic binding
               reply_to: receiverEmail, // Reply to auto-reply goes to Dinesh

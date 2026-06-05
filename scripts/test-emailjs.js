@@ -31,6 +31,11 @@ async function testEmail() {
   const templateId = env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
   const autoReplyTemplateId = env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID;
   const publicKey = env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+  const rawPrivateKey = env.EMAILJS_PRIVATE_KEY || process.env.EMAILJS_PRIVATE_KEY;
+  const privateKey = (rawPrivateKey && 
+    rawPrivateKey !== 'your_private_key_here' && 
+    rawPrivateKey !== 'your_emailjs_private_key' && 
+    rawPrivateKey.trim() !== '') ? rawPrivateKey : undefined;
   const recipient = env.NEXT_PUBLIC_EMAIL || 'mrdineshcse@gmail.com';
 
   console.log(`Checking configuration keys...`);
@@ -38,6 +43,7 @@ async function testEmail() {
   console.log(`- Primary Template ID:    ${templateId ? '✅ Detected (' + templateId.slice(0, 4) + '...)' : '❌ MISSING'}`);
   console.log(`- Auto-Reply Template ID: ${autoReplyTemplateId && autoReplyTemplateId !== 'your_autoreply_template_id_here' ? '✅ Detected (' + autoReplyTemplateId.slice(0, 4) + '...)' : 'ℹ️ NOT SET (Auto-reply skipped in test)'}`);
   console.log(`- Public Key:             ${publicKey ? '✅ Detected (' + publicKey.slice(0, 4) + '...)' : '❌ MISSING'}`);
+  console.log(`- Private Key (Token):    ${privateKey ? '✅ Detected (' + privateKey.slice(0, 4) + '...)' : 'ℹ️ NOT CONFIGURED (Optional if Strict Mode is off)'}`);
   console.log(`- Target Email:           ${recipient}\n`);
 
   if (!serviceId || !templateId || !publicKey) {
@@ -53,6 +59,7 @@ async function testEmail() {
       service_id: serviceId,
       template_id: templateId,
       user_id: publicKey,
+      accessToken: privateKey,
       template_params: {
         name: 'Synapse Core Verifier',
         email: 'verifier@synapse-core.dev',
@@ -96,12 +103,20 @@ async function testEmail() {
         service_id: serviceId,
         template_id: autoReplyTemplateId,
         user_id: publicKey,
+        accessToken: privateKey,
         template_params: {
           from_name: 'Dinesh (Verifier)',
           from_email: recipient,
-          to_email: recipient,
           subject: 'EmailJS Auto-Reply Verification',
           message: 'Congratulations! Your portfolio auto-reply confirmation email integration is working successfully.',
+          
+          // Fallbacks for recipient fields
+          name: 'Dinesh (Verifier)',
+          email: recipient,
+          to_name: 'Dinesh (Verifier)',
+          to_email: recipient,
+
+          // Helper / convenience parameters for dynamic binding
           reply_to: recipient,
           portfolio_url: env.NEXT_PUBLIC_SITE_URL || 'https://dinesh.dev',
           dinesh_email: recipient,
