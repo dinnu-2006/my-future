@@ -69,7 +69,7 @@ export const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="py-24 relative overflow-hidden bg-[#07131A]/35">
+    <section id="testimonials" className="py-24 relative overflow-hidden bg-[#162127]/35">
       {/* Background glowing details */}
       <div className="absolute top-1/4 right-1/2 w-[300px] h-[300px] rounded-full bg-primary-accent/[0.01] blur-[120px] pointer-events-none" />
 
@@ -141,10 +141,10 @@ export const Testimonials: React.FC = () => {
                   }}
                 >
                   <Card
-                    glowColor={isActive ? "rgba(216, 255, 62, 0.25)" : "rgba(255, 255, 255, 0.01)"}
-                    className={`p-6 md:p-8 bg-[#030712]/92 border rounded-2xl flex flex-col justify-between h-[250px] relative transition-all duration-300 ${
+                    glowColor={isActive ? "rgba(207, 157, 123, 0.25)" : "rgba(255, 255, 255, 0.01)"}
+                    className={`p-6 md:p-8 bg-[#0C1519]/92 border rounded-2xl flex flex-col justify-between h-[250px] relative transition-all duration-300 ${
                       isActive 
-                        ? 'border-[#D8FF3E]/30 shadow-[0_0_30px_rgba(216,255,62,0.12)]' 
+                        ? 'border-[#CF9D7B]/30 shadow-[0_0_30px_rgba(207, 157, 123,0.12)]' 
                         : 'border-white/5 shadow-md'
                     }`}
                     onMouseMove={isActive ? handleMouseMove : undefined}
@@ -153,7 +153,7 @@ export const Testimonials: React.FC = () => {
                       transform: isActive ? 'perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))' : undefined,
                       transition: 'transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s',
                       background: isActive 
-                        ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(216, 255, 62, 0.08) 0%, transparent 65%), rgba(3, 7, 18, 0.92)' 
+                        ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(207, 157, 123, 0.08) 0%, transparent 65%), rgba(3, 7, 18, 0.92)' 
                         : undefined,
                     }}
                   >
@@ -191,7 +191,7 @@ export const Testimonials: React.FC = () => {
                             </span>
                           </div>
                         </div>
-                        <MessageSquare className="w-5 h-5 text-[#D8FF3E] opacity-50" />
+                        <MessageSquare className="w-5 h-5 text-[#CF9D7B] opacity-50" />
                       </div>
                     </div>
                   </Card>
@@ -209,7 +209,7 @@ export const Testimonials: React.FC = () => {
                 return (
                   <div
                     key={i}
-                    className="w-[3px] bg-gradient-to-t from-[#00FFB2] to-primary-accent rounded-full origin-bottom"
+                    className="w-[3px] bg-gradient-to-t from-[#CF9D7B] to-primary-accent rounded-full origin-bottom"
                     style={{
                       height: `${Math.sin((i / 22) * Math.PI) * 70 + 30}%`,
                       animation: `voice-wave 1s ease-in-out infinite`,

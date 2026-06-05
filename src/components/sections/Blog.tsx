@@ -25,7 +25,7 @@ export const Blog: React.FC = () => {
   };
 
   return (
-    <section id="blog" className="py-24 relative overflow-hidden bg-[#030712]">
+    <section id="blog" className="py-24 relative overflow-hidden bg-[#0C1519]">
       {/* Background decoration */}
       <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] rounded-full bg-emerald-500/[0.01] blur-[120px] pointer-events-none" />
 
@@ -71,8 +71,8 @@ export const Blog: React.FC = () => {
               className="lg:col-span-12"
             >
               <Card
-                glowColor="rgba(167, 255, 74, 0.12)"
-                className="p-6 md:p-8 bg-[#07131A]/20 border border-white/8 flex flex-col lg:flex-row gap-8 items-center justify-between group cursor-pointer"
+                glowColor="rgba(207, 157, 123, 0.12)"
+                className="p-6 md:p-8 bg-[#162127]/20 border border-white/8 flex flex-col lg:flex-row gap-8 items-center justify-between group cursor-pointer"
               >
                 <div className="flex flex-col items-start gap-4 text-left lg:max-w-2xl">
                   <div className="flex items-center gap-3">
@@ -127,12 +127,12 @@ export const Blog: React.FC = () => {
               className="h-full"
             >
               <Card
-                glowColor="rgba(0, 255, 178, 0.1)"
-                className="p-6 bg-[#07131A]/10 border border-white/6 flex flex-col justify-between h-full group cursor-pointer"
+                glowColor="rgba(207, 157, 123, 0.1)"
+                className="p-6 bg-[#162127]/10 border border-white/6 flex flex-col justify-between h-full group cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#00FFB2]">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#CF9D7B]">
                       {post.category}
                     </span>
                     <div className="flex items-center gap-3 text-[10px] font-mono text-text-muted">
@@ -175,7 +175,7 @@ export const Blog: React.FC = () => {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto"
         >
-          <Card glowColor="rgba(167, 255, 74, 0.15)" className="p-8 bg-[#07131A]/35 border border-white/6 text-center flex flex-col items-center gap-6">
+          <Card glowColor="rgba(207, 157, 123, 0.15)" className="p-8 bg-[#162127]/35 border border-white/6 text-center flex flex-col items-center gap-6">
             <div className="flex flex-col gap-2">
               <h3 className="text-xl font-bold uppercase tracking-wider text-white">
                 Join the Pipeline
@@ -192,7 +192,7 @@ export const Blog: React.FC = () => {
                 placeholder="Enter neural email address..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-[#030712]/60 border-white/10"
+                className="bg-[#0C1519]/60 border-white/10"
                 disabled={subscribed}
               />
               <Button

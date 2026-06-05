@@ -53,7 +53,7 @@ export default function BlogPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#030712]">
+    <div className="relative min-h-screen bg-[#0C1519]">
       {/* Background visual components */}
       <NeuralNetwork />
       <DataStreams />
@@ -82,8 +82,8 @@ export default function BlogPage() {
           {blogPosts.map((post) => (
             <Card
               key={post.slug}
-              glowColor="rgba(167, 255, 74, 0.12)"
-              className="p-6 md:p-8 bg-[#07131A]/20 border border-white/6 cursor-pointer group flex flex-col justify-between"
+              glowColor="rgba(207, 157, 123, 0.12)"
+              className="p-6 md:p-8 bg-[#162127]/20 border border-white/6 cursor-pointer group flex flex-col justify-between"
               onClick={() => {
                 setSelectedPost(post);
                 window.location.hash = post.slug;
@@ -91,7 +91,7 @@ export default function BlogPage() {
             >
               <div className="flex flex-col items-start gap-4 text-left">
                 <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#00FFB2]">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#CF9D7B]">
                     {post.category}
                   </span>
                   <div className="flex items-center gap-3 text-xs font-mono text-text-muted">

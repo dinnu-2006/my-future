@@ -166,10 +166,10 @@ export const DeveloperConsole: React.FC<DeveloperConsoleProps> = ({ isOpen, onCl
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: 'spring', damping: 25 }}
-            className="relative z-10 w-full max-w-3xl h-[450px] rounded-xl border border-primary-accent/25 bg-[#030712]/95 shadow-[0_0_30px_rgba(167,255,74,0.15)] flex flex-col overflow-hidden font-mono text-xs md:text-sm text-white"
+            className="relative z-10 w-full max-w-3xl h-[450px] rounded-xl border border-primary-accent/25 bg-[#0C1519]/95 shadow-[0_0_30px_rgba(207, 157, 123,0.15)] flex flex-col overflow-hidden font-mono text-xs md:text-sm text-white"
           >
             {/* Header bar */}
-            <div className="flex items-center justify-between border-b border-primary-accent/20 bg-[#07131A] px-4 py-3 select-none">
+            <div className="flex items-center justify-between border-b border-primary-accent/20 bg-[#162127] px-4 py-3 select-none">
               <div className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-primary-accent" />
                 <span className="text-[10px] tracking-wider uppercase font-semibold text-primary-accent">
@@ -203,7 +203,7 @@ export const DeveloperConsole: React.FC<DeveloperConsoleProps> = ({ isOpen, onCl
             </div>
 
             {/* Prompt input line */}
-            <div className="flex items-center gap-1.5 border-t border-primary-accent/10 bg-[#030712]/80 px-4 py-3">
+            <div className="flex items-center gap-1.5 border-t border-primary-accent/10 bg-[#0C1519]/80 px-4 py-3">
               <span className="text-primary-accent font-semibold flex-shrink-0 select-none">
                 synapse-core@agent:~$
               </span>

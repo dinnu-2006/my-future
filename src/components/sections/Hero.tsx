@@ -13,7 +13,7 @@ export const Hero: React.FC = () => {
       <div className="absolute inset-0 grid-bg opacity-[0.35] pointer-events-none z-0" />
       
       {/* Radial Gradient Backlight */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(7,19,26,0.85)_0%,#030712_100%)] pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(7,19,26,0.85)_0%,#0C1519_100%)] pointer-events-none z-0" />
 
       {/* Futuristic scanning scanlines */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-white/[0.01] to-transparent bg-[size:100%_4px] z-0" />
@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
           className="lg:col-span-7 flex flex-col items-start gap-6 text-left"
         >
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-accent/8 border border-primary-accent/20 text-xs md:text-sm font-semibold tracking-wider text-primary-accent uppercase shadow-[0_0_12px_rgba(167,255,74,0.12)]">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-accent/8 border border-primary-accent/20 text-xs md:text-sm font-semibold tracking-wider text-primary-accent uppercase shadow-[0_0_12px_rgba(207, 157, 123,0.12)]">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-accent animate-pulse" />
             AI & Web Developer
           </div>
@@ -35,7 +35,7 @@ export const Hero: React.FC = () => {
           {/* Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display">
             Building AI-Powered <br />
-            <span className="bg-gradient-to-r from-[#00FFB2] via-primary-accent to-[#B7FF62] bg-clip-text text-transparent neon-text">
+            <span className="bg-gradient-to-r from-[#CF9D7B] via-primary-accent to-[#724B39] bg-clip-text text-transparent neon-text">
               Digital Experiences
             </span>
           </h1>
@@ -70,7 +70,7 @@ export const Hero: React.FC = () => {
         >
           {/* Asymmetrical HUD background outlines */}
           <div 
-            className="absolute w-[280px] md:w-[350px] h-[350px] md:h-[440px] border border-[#D8FF3E]/5 pointer-events-none animate-pulse-glow"
+            className="absolute w-[280px] md:w-[350px] h-[350px] md:h-[440px] border border-[#CF9D7B]/5 pointer-events-none animate-pulse-glow"
             style={{
               clipPath: 'polygon(30px 0%, 100% 0%, 100% calc(100% - 50px), calc(100% - 50px) 100%, 18px 100%, 0% calc(100% - 18px), 0% 30px)'
             }}

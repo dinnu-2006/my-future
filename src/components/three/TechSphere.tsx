@@ -19,11 +19,11 @@ interface WordProps {
 
 const Word: React.FC<WordProps> = ({ children, position }) => {
   const color = useMemo(() => {
-    // Randomly assign primary accent (neon green) or secondary accent (teal) or white
+    // Randomly assign primary accent (Antique Brass) or secondary accent (Coffee) or Warm Ivory
     const rand = Math.random();
-    if (rand < 0.4) return '#A7FF4A'; // Neon Green
-    if (rand < 0.7) return '#00FFB2'; // Teal
-    return '#FFFFFF';
+    if (rand < 0.45) return '#CF9D7B'; // Antique Brass
+    if (rand < 0.75) return '#724B39'; // Coffee
+    return '#F5EDE8'; // Warm Ivory
   }, []);
 
   const textRef = useRef<THREE.Mesh>(null);
@@ -95,7 +95,7 @@ export const TechSphere: React.FC<{ mousePos: { x: number; y: number } }> = ({ m
       <mesh>
         <sphereGeometry args={[4.8, 16, 16]} />
         <meshBasicMaterial
-          color="#A7FF4A"
+          color="#CF9D7B"
           wireframe={true}
           transparent={true}
           opacity={0.03}

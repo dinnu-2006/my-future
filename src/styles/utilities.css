@@ -23,7 +23,7 @@
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
-    rgba(167, 255, 74, 0.04) 50%,
+    rgba(207, 157, 123, 0.04) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   transform: skewX(-25deg);
@@ -38,12 +38,12 @@
 
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(167, 255, 74, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(167, 255, 74, 0.05);
+  border-color: rgba(207, 157, 123, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(207, 157, 123, 0.05);
 }
 
 .glass-navbar {
-  background: rgba(3, 7, 18, 0.65);
+  background: rgba(12, 21, 25, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -60,13 +60,13 @@
 .glass-input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.04);
-  border-color: #A7FF4A;
-  box-shadow: 0 0 10px rgba(167, 255, 74, 0.15);
+  border-color: #CF9D7B;
+  box-shadow: 0 0 10px rgba(207, 157, 123, 0.15);
 }
 
 /* Neon & Gradients */
 .neon-text {
-  text-shadow: 0 0 8px rgba(167, 255, 74, 0.6), 0 0 20px rgba(0, 255, 178, 0.2);
+  text-shadow: 0 0 8px rgba(207, 157, 123, 0.4), 0 0 20px rgba(114, 75, 57, 0.15);
 }
 
 .neon-border {
@@ -79,7 +79,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, #00FFB2, #A7FF4A);
+  background: linear-gradient(135deg, #724B39, #CF9D7B);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -114,7 +114,7 @@
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(to bottom, rgba(167, 255, 74, 0) 0%, rgba(167, 255, 74, 0.4) 50%, rgba(167, 255, 74, 0) 100%);
+  background: linear-gradient(to bottom, rgba(207, 157, 123, 0) 0%, rgba(207, 157, 123, 0.4) 50%, rgba(207, 157, 123, 0) 100%);
   animation: scan 6s linear infinite;
   pointer-events: none;
   z-index: 10;
@@ -135,16 +135,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #0C1519;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: #724B39;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(167, 255, 74, 0.4);
+  background: #CF9D7B;
 }
 
 /* Cyber Spinning Glow Card */
@@ -152,7 +152,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  background: #030712;
+  background: #162127;
 }
 
 .cyber-glow-card::before {
@@ -165,8 +165,8 @@
   background: conic-gradient(
     from 0deg,
     transparent 20%,
-    #A7FF4A 40%,
-    #00FFB2 60%,
+    #CF9D7B 40%,
+    #724B39 60%,
     transparent 80%
   );
   animation: border-glow-spin 8s linear infinite;
@@ -184,7 +184,7 @@
   position: relative;
   margin: 1px;
   height: calc(100% - 2px);
-  background: #030712;
+  background: #162127;
   border-radius: 11px;
   z-index: 1;
 }
@@ -202,23 +202,23 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #030712;
+  background: #0C1519;
   opacity: 0;
   pointer-events: none;
 }
 
 .hover-glitch:hover::before {
   opacity: 0.8;
-  color: #A7FF4A;
+  color: #CF9D7B;
   animation: glitch-slice-1 1s linear infinite alternate-reverse;
-  text-shadow: -2px 0 rgba(255, 0, 0, 0.5);
+  text-shadow: -2px 0 rgba(114, 75, 57, 0.5);
   z-index: -1;
 }
 
 .hover-glitch:hover::after {
   opacity: 0.8;
-  color: #00FFB2;
+  color: #724B39;
   animation: glitch-slice-2 1s linear infinite alternate;
-  text-shadow: 2px 0 rgba(0, 0, 255, 0.5);
+  text-shadow: 2px 0 rgba(207, 157, 123, 0.5);
   z-index: -1;
 }

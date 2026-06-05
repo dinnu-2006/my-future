@@ -27,7 +27,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -15 }}
           transition={{ duration: 0.25, ease: 'easeInOut' }}
-          className="fixed inset-x-0 top-[60px] bottom-0 z-30 bg-[#030712]/98 backdrop-blur-xl border-t border-white/6 p-6 flex flex-col justify-between lg:hidden"
+          className="fixed inset-x-0 top-[60px] bottom-0 z-30 bg-[#0C1519]/98 backdrop-blur-xl border-t border-white/6 p-6 flex flex-col justify-between lg:hidden"
         >
           {/* Navigation Links */}
           <nav className="flex flex-col gap-5 text-left">

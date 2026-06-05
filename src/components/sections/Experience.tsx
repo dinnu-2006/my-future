@@ -10,7 +10,7 @@ import { Calendar, Briefcase, GraduationCap, Box, CheckCircle } from 'lucide-rea
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-24 relative overflow-hidden bg-[#030712]">
+    <section id="experience" className="py-24 relative overflow-hidden bg-[#0C1519]">
       {/* Background grids and details */}
       <div className="absolute inset-0 grid-bg opacity-[0.2] pointer-events-none z-0" />
       <div className="absolute top-1/2 left-0 w-[250px] h-[250px] rounded-full bg-primary-accent/[0.01] blur-[120px] pointer-events-none" />
@@ -44,7 +44,7 @@ export const Experience: React.FC = () => {
             viewport={{ once: true, margin: '-100px' }}
             className="lg:col-span-4 flex flex-col gap-6"
           >
-            <Card glowColor="rgba(0, 255, 178, 0.1)" className="p-6 bg-[#07131A]/35 border border-white/6 sticky top-28">
+            <Card glowColor="rgba(207, 157, 123, 0.1)" className="p-6 bg-[#162127]/35 border border-white/6 sticky top-28">
               <h3 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                 <Box className="w-5 h-5 text-primary-accent animate-pulse" />
                 Operational Status
@@ -65,8 +65,8 @@ export const Experience: React.FC = () => {
                 </li>
                 <li className="flex items-center justify-between">
                   <span>System Health:</span>
-                  <span className="text-[#00FFB2] flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00FFB2] animate-ping" />
+                  <span className="text-[#CF9D7B] flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#CF9D7B] animate-ping" />
                     Online
                   </span>
                 </li>
@@ -109,11 +109,11 @@ export const Experience: React.FC = () => {
                   className="relative group"
                 >
                   {/* Glowing vertical node anchor */}
-                  <div className="absolute -left-[35px] md:-left-[43px] top-1.5 w-6 h-6 rounded-full bg-[#030712] border border-white/10 flex items-center justify-center text-text-muted group-hover:text-primary-accent group-hover:border-primary-accent transition-all duration-300 shadow-md">
+                  <div className="absolute -left-[35px] md:-left-[43px] top-1.5 w-6 h-6 rounded-full bg-[#0C1519] border border-white/10 flex items-center justify-center text-text-muted group-hover:text-primary-accent group-hover:border-primary-accent transition-all duration-300 shadow-md">
                     <IconComponent className="w-3.5 h-3.5" />
                   </div>
 
-                  <Card glowColor="rgba(167, 255, 74, 0.1)" className="p-6 md:p-8 bg-[#07131A]/15 border border-white/6 hover:border-white/12 transition-all">
+                  <Card glowColor="rgba(207, 157, 123, 0.1)" className="p-6 md:p-8 bg-[#162127]/15 border border-white/6 hover:border-white/12 transition-all">
                     {/* Header */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
                       <div>

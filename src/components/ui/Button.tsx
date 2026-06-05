@@ -40,10 +40,10 @@ export const Button: React.FC<ButtonProps> = ({
   const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
   
   const variants = {
-    primary: 'bg-primary-accent text-primary-bg hover:bg-accent-glow hover:shadow-[0_0_20px_rgba(167,255,74,0.45)] font-semibold border border-transparent',
-    secondary: 'bg-white/5 border border-white/8 text-white hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.05)]',
-    outline: 'border border-primary-accent/30 text-primary-accent hover:bg-primary-accent/8 hover:border-primary-accent/70 hover:shadow-[0_0_15px_rgba(167,255,74,0.1)]',
-    glow: 'bg-transparent text-white border border-border-custom hover:border-primary-accent/40 hover:shadow-[0_0_15px_rgba(167,255,74,0.15)]'
+    primary: 'bg-primary-accent text-primary-bg hover:bg-primary-accent/90 hover:shadow-[0_0_20px_rgba(207,157,123,0.3)] font-semibold border border-transparent',
+    secondary: 'border border-[#724B39] bg-transparent text-white hover:bg-primary-accent hover:text-primary-bg hover:border-primary-accent hover:shadow-[0_0_15px_rgba(207,157,123,0.15)]',
+    outline: 'border border-[#724B39] bg-transparent text-white hover:bg-primary-accent hover:text-primary-bg hover:border-primary-accent hover:shadow-[0_0_15px_rgba(207,157,123,0.15)]',
+    glow: 'bg-transparent text-white border border-border-custom hover:border-primary-accent/40 hover:shadow-[0_0_15px_rgba(207,157,123,0.15)]'
   };
 
   const sizes = {

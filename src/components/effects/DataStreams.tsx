@@ -71,7 +71,7 @@ export const DataStreams: React.FC = () => {
       ctx.font = `${fontSize}px var(--font-mono), Courier, monospace`;
 
       columns.forEach((col) => {
-        ctx.fillStyle = `rgba(167, 255, 74, ${col.opacity})`;
+        ctx.fillStyle = `rgba(207, 157, 123, ${col.opacity})`;
         ctx.fillText(col.text, col.x, col.y);
 
         col.y += col.speed;

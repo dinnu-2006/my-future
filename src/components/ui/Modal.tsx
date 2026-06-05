@@ -45,7 +45,7 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#030712]/90 backdrop-blur-md"
+            className="fixed inset-0 bg-[#0C1519]/90 backdrop-blur-md"
           />
 
           {/* Modal Container */}
@@ -55,7 +55,7 @@ export const Modal: React.FC<ModalProps> = ({
             exit={{ opacity: 0, scale: 0.93, y: 15 }}
             transition={{ type: 'spring', damping: 22, stiffness: 280 }}
             className={cn(
-              'relative z-10 w-full max-w-4xl max-h-[85vh] overflow-y-auto glass-card p-6 md:p-8 flex flex-col gap-6 bg-[#07131A]/90 border border-white/8 shadow-[0_0_50px_rgba(167,255,74,0.08)]',
+              'relative z-10 w-full max-w-4xl max-h-[85vh] overflow-y-auto glass-card p-6 md:p-8 flex flex-col gap-6 bg-[#162127]/90 border border-white/8 shadow-[0_0_50px_rgba(207, 157, 123,0.08)]',
               className
             )}
           >

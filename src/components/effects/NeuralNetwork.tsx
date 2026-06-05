@@ -31,8 +31,8 @@ export const NeuralNetwork: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    let primaryColorHex = '#A7FF4A';
-    let secondaryColorHex = '#00FFB2';
+    let primaryColorHex = '#CF9D7B';
+    let secondaryColorHex = '#724B39';
 
     // Get current root variable values if available in document
     if (typeof window !== 'undefined') {

@@ -107,7 +107,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-[#07131A]/20">
+    <section id="contact" className="py-24 relative overflow-hidden bg-[#162127]/20">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-primary-accent/[0.015] blur-[150px] pointer-events-none" />
 
@@ -140,7 +140,7 @@ export const Contact: React.FC = () => {
             viewport={{ once: true }}
             className="lg:col-span-5 flex flex-col gap-6"
           >
-            <Card glowColor="rgba(0, 255, 178, 0.12)" className="p-6 md:p-8 bg-[#030712]/50 border border-white/6 flex flex-col justify-between h-full text-left">
+            <Card glowColor="rgba(207, 157, 123, 0.12)" className="p-6 md:p-8 bg-[#0C1519]/50 border border-white/6 flex flex-col justify-between h-full text-left">
               
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-widest text-primary-accent mb-4 block">
@@ -148,13 +148,13 @@ export const Contact: React.FC = () => {
                 </span>
                 
                 {/* Glowing pulsing Avatar Circle */}
-                <div className="relative w-28 h-28 rounded-full border border-primary-accent/30 flex items-center justify-center mx-auto my-6 bg-[#07131A] shadow-[0_0_25px_rgba(167,255,74,0.12)]">
+                <div className="relative w-28 h-28 rounded-full border border-primary-accent/30 flex items-center justify-center mx-auto my-6 bg-[#162127] shadow-[0_0_25px_rgba(207, 157, 123,0.12)]">
                   <div className="absolute inset-0 rounded-full border border-teal-400/20 animate-ping" />
                   <div className="absolute inset-2 rounded-full border border-white/5 animate-pulse" />
                   <Cpu className="w-10 h-10 text-primary-accent" />
                   
                   {/* Floating surrounding stats */}
-                  <span className="absolute -top-1.5 -right-1.5 w-3 h-3 rounded-full bg-[#00FFB2] border border-[#030712] animate-pulse" />
+                  <span className="absolute -top-1.5 -right-1.5 w-3 h-3 rounded-full bg-[#CF9D7B] border border-[#0C1519] animate-pulse" />
                 </div>
 
                 <div className="text-center mb-6">
@@ -213,7 +213,7 @@ export const Contact: React.FC = () => {
             viewport={{ once: true }}
             className="lg:col-span-7"
           >
-            <Card glowColor="rgba(167, 255, 74, 0.15)" className="p-6 md:p-8 bg-[#030712]/50 border border-white/6 h-full flex flex-col justify-center">
+            <Card glowColor="rgba(207, 157, 123, 0.15)" className="p-6 md:p-8 bg-[#0C1519]/50 border border-white/6 h-full flex flex-col justify-center">
               
               <AnimatePresence mode="wait">
                 {submitStage === 0 ? (
@@ -287,8 +287,8 @@ export const Contact: React.FC = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <Loader2 className="w-12 h-12 text-[#00FFB2] animate-spin" />
-                    <h3 className="text-xl font-bold uppercase tracking-wider text-[#00FFB2]">
+                    <Loader2 className="w-12 h-12 text-[#CF9D7B] animate-spin" />
+                    <h3 className="text-xl font-bold uppercase tracking-wider text-[#CF9D7B]">
                       Sending Through Neural Network...
                     </h3>
                     <p className="text-xs font-mono text-text-muted">

@@ -15,7 +15,7 @@ export const Card: React.FC<CardProps> = ({
   children,
   glowHover = true,
   tiltEffect = true,
-  glowColor = 'rgba(167, 255, 74, 0.12)',
+  glowColor = 'rgba(207, 157, 123, 0.12)',
   ...props
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);

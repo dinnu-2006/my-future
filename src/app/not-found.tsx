@@ -46,7 +46,7 @@ export default function NotFound() {
         distance: Math.random() * 300 + 40,
         speed: Math.random() * 0.02 + 0.005,
         size: Math.random() * 1.5 + 0.5,
-        color: Math.random() > 0.4 ? '#A7FF4A' : '#00FFB2', // Green/Teal
+        color: Math.random() > 0.4 ? '#CF9D7B' : '#CF9D7B', // Green/Teal
       });
     }
 
@@ -59,8 +59,8 @@ export default function NotFound() {
       // Draw blackhole core
       ctx.beginPath();
       ctx.arc(width / 2, height / 2, 35, 0, Math.PI * 2);
-      ctx.fillStyle = '#030712';
-      ctx.shadowColor = '#A7FF4A';
+      ctx.fillStyle = '#0C1519';
+      ctx.shadowColor = '#CF9D7B';
       ctx.shadowBlur = 20;
       ctx.fill();
       ctx.shadowBlur = 0; // Reset
@@ -100,12 +100,12 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full bg-[#030712] overflow-hidden flex items-center justify-center font-mono select-none">
+    <div className="relative min-h-screen w-full bg-[#0C1519] overflow-hidden flex items-center justify-center font-mono select-none">
       {/* Particle Blackhole Canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0" />
 
       {/* Main Warning Interface */}
-      <div className="relative z-10 p-6 md:p-10 glass-card bg-[#07131A]/70 border-red-500/20 max-w-md w-full text-center flex flex-col items-center gap-6 shadow-[0_0_50px_rgba(239,68,68,0.06)]">
+      <div className="relative z-10 p-6 md:p-10 glass-card bg-[#162127]/70 border-red-500/20 max-w-md w-full text-center flex flex-col items-center gap-6 shadow-[0_0_50px_rgba(239,68,68,0.06)]">
         
         <div className="p-3 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 animate-pulse">
           <ShieldAlert className="w-8 h-8" />

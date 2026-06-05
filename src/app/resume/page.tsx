@@ -38,7 +38,7 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#030712] text-white">
+    <div className="relative min-h-screen bg-[#0C1519] text-white">
       {/* Background canvases (hidden in print via css) */}
       <div className="no-print">
         <NeuralNetwork />
@@ -63,7 +63,7 @@ export default function ResumePage() {
         </div>
 
         {/* Printable CV Container */}
-        <div className="print-container max-w-4xl mx-auto glass-card bg-[#07131A]/10 border border-white/6 p-6 md:p-10 shadow-2xl flex flex-col gap-10">
+        <div className="print-container max-w-4xl mx-auto glass-card bg-[#162127]/10 border border-white/6 p-6 md:p-10 shadow-2xl flex flex-col gap-10">
           
           {/* Header Info */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-8 text-left">

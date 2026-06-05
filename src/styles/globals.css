@@ -3,21 +3,21 @@
 @import "./utilities.css";
 
 :root {
-  --primary-accent: #A7FF4A;
-  --accent-glow: #B7FF62;
-  --background: #030712;
-  --foreground: #ffffff;
+  --primary-accent: #CF9D7B;
+  --accent-glow: #724B39;
+  --background: #0C1519;
+  --foreground: #F5EDE8;
 }
 
 @theme {
-  --color-primary-bg: #030712;
-  --color-secondary-bg: #07131A;
+  --color-primary-bg: #0C1519;
+  --color-secondary-bg: #162127;
   --color-primary-accent: var(--primary-accent);
   --color-accent-glow: var(--accent-glow);
-  --color-text-main: #FFFFFF;
-  --color-text-muted: #AAB2C0;
-  --color-card-bg: rgba(255, 255, 255, 0.04);
-  --color-border-custom: rgba(255, 255, 255, 0.08);
+  --color-text-main: #F5EDE8;
+  --color-text-muted: #B9ACA3;
+  --color-card-bg: #162127;
+  --color-border-custom: rgba(207, 157, 123, 0.12);
 
   --font-sans: var(--font-geist-sans), "Inter", system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Fira Code", monospace;
@@ -40,8 +40,8 @@
   
   html, body {
     max-width: 100vw;
-    background-color: #030712;
-    color: #ffffff;
+    background-color: #0C1519;
+    color: #F5EDE8;
     font-family: var(--font-sans);
     overflow-x: hidden;
     scroll-behavior: smooth;

@@ -65,7 +65,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative min-h-screen bg-[#030712]"
+            className="relative min-h-screen bg-[#0C1519]"
           >
             {/* Visual Canvas Effects */}
             <NeuralNetwork />

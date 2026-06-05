@@ -19,7 +19,7 @@ const vaultCardVariants: Variants = {
     opacity: 1,
     scale: 1,
     filter: 'grayscale(0%)',
-    borderColor: 'rgba(167, 255, 74, 0.25)',
+    borderColor: 'rgba(207, 157, 123, 0.25)',
     backgroundColor: 'rgba(7, 19, 26, 0.45)',
     transition: {
       type: 'spring' as const,
@@ -31,7 +31,7 @@ const vaultCardVariants: Variants = {
 
 export const Achievements: React.FC = () => {
   return (
-    <section id="achievements" className="py-24 relative overflow-hidden bg-[#030712]">
+    <section id="achievements" className="py-24 relative overflow-hidden bg-[#0C1519]">
       {/* Background radial glow */}
       <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-primary-accent/[0.015] blur-[150px] pointer-events-none" />
 
@@ -85,7 +85,7 @@ export const Achievements: React.FC = () => {
 
                 <div>
                   {/* Category */}
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#00FFB2] mb-4 block">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#CF9D7B] mb-4 block">
                     {item.category}
                   </span>
 

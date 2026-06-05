@@ -17,10 +17,10 @@ export const Badge: React.FC<BadgeProps> = ({
   const baseStyles = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-medium select-none border tracking-wider transition-all duration-300';
   
   const variants = {
-    primary: 'bg-primary-accent/8 border-primary-accent/25 text-primary-accent shadow-[0_0_10px_rgba(167,255,74,0.08)]',
+    primary: 'bg-primary-accent/8 border-primary-accent/25 text-primary-accent shadow-[0_0_10px_rgba(207, 157, 123,0.08)]',
     secondary: 'bg-white/5 border-white/8 text-white/90',
-    gradient: 'bg-gradient-to-r from-primary-accent/15 to-emerald-500/15 border-primary-accent/25 text-white shadow-[0_0_15px_rgba(0,255,178,0.08)]',
-    glow: 'bg-primary-accent text-primary-bg border-transparent font-semibold shadow-[0_0_12px_rgba(167,255,74,0.35)]'
+    gradient: 'bg-gradient-to-r from-primary-accent/15 to-[#724B39]/15 border-primary-accent/25 text-white shadow-[0_0_15px_rgba(207, 157, 123,0.08)]',
+    glow: 'bg-primary-accent text-primary-bg border-transparent font-semibold shadow-[0_0_12px_rgba(207, 157, 123,0.35)]'
   };
 
   return (

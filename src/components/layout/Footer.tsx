@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative bg-[#030712] border-t border-white/6 pt-16 pb-8 overflow-hidden">
+    <footer className="relative bg-[#0C1519] border-t border-white/6 pt-16 pb-8 overflow-hidden">
       {/* Background Starfield */}
       <canvas
         ref={canvasRef}

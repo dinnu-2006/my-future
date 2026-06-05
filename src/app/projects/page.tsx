@@ -30,7 +30,7 @@ export default function ProjectsPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#030712]">
+    <div className="relative min-h-screen bg-[#0C1519]">
       {/* Background canvas visuals */}
       <NeuralNetwork />
       <DataStreams />

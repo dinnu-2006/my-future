@@ -109,8 +109,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
     let height = (canvas.height = window.innerHeight);
 
     // Get active theme colors
-    let primaryColorHex = '#A7FF4A';
-    let secondaryColorHex = '#00FFB2';
+    let primaryColorHex = '#CF9D7B';
+    let secondaryColorHex = '#724B39';
 
     if (typeof window !== 'undefined') {
       const style = getComputedStyle(document.documentElement);
@@ -563,7 +563,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[99999] bg-[#020409] overflow-hidden flex items-center justify-center pointer-events-none select-none"
+      className="fixed inset-0 z-[99999] bg-[#0C1519] overflow-hidden flex items-center justify-center pointer-events-none select-none"
     >
       {/* Sci-Fi Canvas Scene */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
@@ -595,7 +595,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
               <div className="h-full w-[1px] bg-white/[0.03] absolute" />
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold uppercase tracking-[0.32em] font-sans text-white select-none drop-shadow-[0_0_24px_rgba(167,255,74,0.18)]">
+            <h1 className="text-3xl md:text-5xl font-extrabold uppercase tracking-[0.32em] font-sans text-white select-none drop-shadow-[0_0_24px_rgba(207,157,123,0.18)]">
               {scrambledTitle}
             </h1>
 

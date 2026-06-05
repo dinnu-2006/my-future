@@ -47,7 +47,7 @@ export const About: React.FC = () => {
   const [activeStep, setActiveStep] = useState('student');
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-[#07131A]/30">
+    <section id="about" className="py-24 relative overflow-hidden bg-[#162127]/30">
       {/* Background decoration blur */}
       <div className="absolute top-1/4 right-0 w-[300px] h-[300px] rounded-full bg-primary-accent/3 blur-[120px] pointer-events-none" />
 
@@ -81,18 +81,18 @@ export const About: React.FC = () => {
             className="lg:col-span-6 flex flex-col gap-8"
           >
             {/* Story Card */}
-            <Card glowColor="rgba(0, 255, 178, 0.12)" className="p-6 md:p-8 bg-[#030712]/40">
+            <Card glowColor="rgba(207, 157, 123, 0.12)" className="p-6 md:p-8 bg-[#162127]/40">
               <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
                 
                 {/* Profile Photo Thumbnail with Cyber Border */}
                 <div 
-                  className="relative w-24 h-24 p-[1.5px] bg-gradient-to-tr from-[#00FFB2] to-primary-accent shadow-[0_0_15px_rgba(167,255,74,0.15)] flex-shrink-0"
+                  className="relative w-24 h-24 p-[1.5px] bg-gradient-to-tr from-[#724B39] to-primary-accent shadow-[0_0_15px_rgba(207,157,123,0.15)] flex-shrink-0"
                   style={{
                     clipPath: 'polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px)',
                   }}
                 >
                   <div 
-                    className="w-full h-full bg-[#030712] overflow-hidden relative"
+                    className="w-full h-full bg-[#0C1519] overflow-hidden relative"
                     style={{
                       clipPath: 'polygon(11px 0%, 100% 0%, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0% 100%, 0% 11px)',
                     }}
@@ -132,8 +132,8 @@ export const About: React.FC = () => {
             {/* Grid of Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {STATS.map((stat, idx) => (
-                <div key={idx} className="glass-card bg-[#030712]/30 border border-white/6 p-4 rounded-xl flex flex-col items-center justify-center text-center">
-                  <span className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-primary-accent to-[#00FFB2] bg-clip-text text-transparent mb-1">
+                <div key={idx} className="glass-card bg-[#162127]/30 border border-white/6 p-4 rounded-xl flex flex-col items-center justify-center text-center">
+                  <span className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-primary-accent to-[#724B39] bg-clip-text text-transparent mb-1">
                     {stat.value}
                   </span>
                   <span className="text-[10px] md:text-xs text-text-muted uppercase tracking-wider font-mono">
@@ -152,7 +152,7 @@ export const About: React.FC = () => {
             viewport={{ once: true, margin: '-100px' }}
             className="lg:col-span-6 flex flex-col gap-6"
           >
-            <Card glowColor="rgba(167, 255, 74, 0.12)" className="p-6 md:p-8 bg-[#030712]/40">
+            <Card glowColor="rgba(207, 157, 123, 0.12)" className="p-6 md:p-8 bg-[#162127]/40">
               <h3 className="text-xl md:text-2xl font-semibold mb-6 text-white text-center md:text-left">
                 The Founder Journey
               </h3>
@@ -170,7 +170,7 @@ export const About: React.FC = () => {
                     >
                       <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${
                         isActive 
-                          ? 'border-primary-accent bg-primary-accent/15 text-primary-accent shadow-[0_0_12px_rgba(167,255,74,0.3)]' 
+                          ? 'border-primary-accent bg-primary-accent/15 text-primary-accent shadow-[0_0_12px_rgba(207, 157, 123,0.3)]' 
                           : 'border-white/10 bg-white/2 text-white/50 group-hover:border-white/30 group-hover:text-white'
                       }`}>
                         <Icon className="w-4 h-4" />

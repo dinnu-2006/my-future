@@ -18,9 +18,9 @@ const ICON_MAP: Record<string, React.ComponentType<any>> = {
 
 export const Services: React.FC = () => {
   return (
-    <section id="services" className="py-24 relative overflow-hidden bg-[#07131A]/30">
+    <section id="services" className="py-24 relative overflow-hidden bg-[#162127]/30">
       {/* Background visual detail */}
-      <div className="absolute top-1/2 right-1/4 w-[300px] h-[300px] rounded-full bg-[#00FFB2]/[0.01] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 w-[300px] h-[300px] rounded-full bg-[#CF9D7B]/[0.01] blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         
@@ -55,8 +55,8 @@ export const Services: React.FC = () => {
                 className="h-full"
               >
                 <Card
-                  glowColor="rgba(0, 255, 178, 0.12)"
-                  className="p-6 md:p-8 bg-[#030712]/50 border border-white/6 flex flex-col justify-between h-full group"
+                  glowColor="rgba(207, 157, 123, 0.12)"
+                  className="p-6 md:p-8 bg-[#0C1519]/50 border border-white/6 flex flex-col justify-between h-full group"
                 >
                   <div>
                     {/* Header */}
@@ -64,7 +64,7 @@ export const Services: React.FC = () => {
                       <div className="p-3 rounded-lg bg-primary-accent/5 border border-primary-accent/20 text-primary-accent group-hover:bg-primary-accent group-hover:text-primary-bg transition-all duration-300">
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="text-sm font-mono text-[#00FFB2] font-semibold">
+                      <span className="text-sm font-mono text-[#CF9D7B] font-semibold">
                         {service.price}
                       </span>
                     </div>

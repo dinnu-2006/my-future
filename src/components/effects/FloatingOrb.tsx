@@ -31,7 +31,7 @@ export const FloatingOrb: React.FC = () => {
       }}
     >
       {/* Outer Glow Orb */}
-      <div className="w-full h-full rounded-full bg-gradient-to-tr from-primary-accent via-emerald-500 to-[#00FFB2] opacity-[0.09] blur-[80px]" />
+      <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#724B39] via-[#8c6d1f]/30 to-[#CF9D7B] opacity-[0.06] blur-[100px]" />
     </motion.div>
   );
 };

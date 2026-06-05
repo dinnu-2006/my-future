@@ -135,8 +135,8 @@ export const Projects: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        // Soft neon green (#D8FF3E) particles
-        ctx.fillStyle = `rgba(216, 255, 62, ${p.alpha})`;
+        // Soft Antique Brass (#CF9D7B) particles
+        ctx.fillStyle = `rgba(207, 157, 123, ${p.alpha})`;
         ctx.fill();
       });
 
@@ -284,7 +284,7 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden bg-[#07131A]/10 min-h-[900px] flex flex-col justify-between">
+    <section id="projects" className="py-24 relative overflow-hidden bg-[#162127]/10 min-h-[900px] flex flex-col justify-between">
       {/* Background Ambient dust particles */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
       
@@ -301,13 +301,13 @@ export const Projects: React.FC = () => {
           viewport={{ once: true, margin: '-100px' }}
           className="text-center max-w-2xl mx-auto mb-12"
         >
-          <Badge variant="primary" className="mb-3 border-[#D8FF3E]/30 text-[#D8FF3E] bg-[#D8FF3E]/5">
+          <Badge variant="primary" className="mb-3 border-[#CF9D7B]/30 text-[#CF9D7B] bg-[#CF9D7B]/5">
             Startup Portfolio
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wider text-white hover-glitch inline-block" data-text="Project Command Panel">
             Project Command Panel
           </h2>
-          <div className="h-[2px] w-24 bg-gradient-to-r from-transparent via-[#D8FF3E] to-transparent mx-auto mt-4" />
+          <div className="h-[2px] w-24 bg-gradient-to-r from-transparent via-[#CF9D7B] to-transparent mx-auto mt-4" />
         </motion.div>
 
         {/* Filter Navigation */}
@@ -319,7 +319,7 @@ export const Projects: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 text-xs md:text-sm font-mono uppercase tracking-wider rounded-lg border transition-all duration-300 cursor-pointer ${
                   activeTab === tab.id
-                    ? 'border-[#D8FF3E] bg-[#D8FF3E]/10 text-[#D8FF3E] shadow-[0_0_12px_rgba(216,255,62,0.15)]'
+                    ? 'border-[#CF9D7B] bg-[#CF9D7B]/10 text-[#CF9D7B] shadow-[0_0_12px_rgba(207,157,123,0.15)]'
                     : 'border-white/8 bg-white/[0.02] text-text-muted hover:text-white hover:border-white/20'
                 }`}
               >
@@ -335,7 +335,7 @@ export const Projects: React.FC = () => {
               placeholder="Search stack or title..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-2 border-white/6 focus:border-[#D8FF3E]/50"
+              className="pl-10 pr-4 py-2 border-white/6 focus:border-[#CF9D7B]/50"
             />
           </div>
         </div>
@@ -357,14 +357,14 @@ export const Projects: React.FC = () => {
               <>
                 <button 
                   onClick={handlePrev}
-                  className="absolute left-2 md:left-4 z-50 w-10 h-10 rounded-full border border-white/10 bg-[#030712]/50 flex items-center justify-center text-text-muted hover:text-[#D8FF3E] hover:border-[#D8FF3E]/30 transition-all cursor-pointer backdrop-blur-sm"
+                  className="absolute left-2 md:left-4 z-50 w-10 h-10 rounded-full border border-white/10 bg-[#0C1519]/50 flex items-center justify-center text-text-muted hover:text-[#CF9D7B] hover:border-[#CF9D7B]/30 transition-all cursor-pointer backdrop-blur-sm"
                   aria-label="Previous Project"
                 >
                   <ChevronUp className="w-5 h-5" />
                 </button>
                 <button 
                   onClick={handleNext}
-                  className="absolute right-2 md:right-4 z-50 w-10 h-10 rounded-full border border-white/10 bg-[#030712]/50 flex items-center justify-center text-text-muted hover:text-[#D8FF3E] hover:border-[#D8FF3E]/30 transition-all cursor-pointer backdrop-blur-sm"
+                  className="absolute right-2 md:right-4 z-50 w-10 h-10 rounded-full border border-white/10 bg-[#0C1519]/50 flex items-center justify-center text-text-muted hover:text-[#CF9D7B] hover:border-[#CF9D7B]/30 transition-all cursor-pointer backdrop-blur-sm"
                   aria-label="Next Project"
                 >
                   <ChevronDown className="w-5 h-5" />
@@ -408,10 +408,10 @@ export const Projects: React.FC = () => {
                     }}
                   >
                     <Card
-                      glowColor={isActive ? "rgba(216, 255, 62, 0.2)" : "rgba(255, 255, 255, 0.01)"}
-                      className={`p-6 md:p-8 bg-[#030712]/92 border rounded-2xl h-[450px] transition-all duration-300 relative overflow-hidden backdrop-blur-md text-left ${
+                      glowColor={isActive ? "rgba(207, 157, 123, 0.2)" : "rgba(255, 255, 255, 0.01)"}
+                      className={`p-6 md:p-8 bg-[#162127]/92 border rounded-2xl h-[450px] transition-all duration-300 relative overflow-hidden backdrop-blur-md text-left ${
                         isActive 
-                          ? 'border-[#D8FF3E]/30 shadow-[0_0_30px_rgba(216,255,62,0.12)]' 
+                          ? 'border-[#CF9D7B]/30 shadow-[0_0_30px_rgba(207,157,123,0.15)]' 
                           : 'border-white/5 shadow-md'
                       }`}
                       onMouseMove={isActive ? handleMouseMove : undefined}
@@ -421,7 +421,7 @@ export const Projects: React.FC = () => {
                         transition: 'transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s',
                         // Spotlight hover glow
                         background: isActive 
-                          ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(216, 255, 62, 0.08) 0%, transparent 65%), rgba(3, 7, 18, 0.92)' 
+                          ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(207, 157, 123, 0.08) 0%, transparent 65%), rgba(22, 33, 39, 0.92)' 
                           : undefined,
                       }}
                     >
@@ -436,7 +436,7 @@ export const Projects: React.FC = () => {
                         <div>
                           {/* Dossier Header */}
                           <div className="flex justify-between items-start mb-4">
-                            <span className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-[#D8FF3E] px-2.5 py-0.5 rounded border border-[#D8FF3E]/20 bg-[#D8FF3E]/5">
+                            <span className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-[#CF9D7B] px-2.5 py-0.5 rounded border border-[#CF9D7B]/20 bg-[#CF9D7B]/5">
                               {project.category}
                             </span>
                             <span className="text-[10px] md:text-xs font-mono text-text-muted">
@@ -445,7 +445,7 @@ export const Projects: React.FC = () => {
                           </div>
 
                           {/* Project Title */}
-                          <h3 className="text-xl md:text-2xl font-bold text-white mb-3 hover:text-[#D8FF3E] transition-colors duration-300 font-sans tracking-wide">
+                          <h3 className="text-xl md:text-2xl font-bold text-white mb-3 hover:text-[#CF9D7B] transition-colors duration-300 font-sans tracking-wide">
                             {project.title}
                           </h3>
                           <p className="text-xs md:text-sm text-text-muted leading-relaxed mb-6 font-mono">
@@ -454,7 +454,7 @@ export const Projects: React.FC = () => {
 
                           {/* Performance Score Metric */}
                           <div className="flex items-center gap-2 mb-6 bg-white/[0.015] border border-white/5 px-3 py-1.5 rounded-lg w-fit">
-                            <BarChart3 className="w-3.5 h-3.5 text-[#00FFB2]" />
+                            <BarChart3 className="w-3.5 h-3.5 text-[#CF9D7B]" />
                             <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
                               Engineered Performance:
                             </span>
@@ -464,7 +464,7 @@ export const Projects: React.FC = () => {
                           </div>
 
                           {/* Results Grid */}
-                          <div className="grid grid-cols-3 gap-3 mb-6 bg-[#07131A]/20 border border-white/5 p-3 rounded-lg font-mono">
+                          <div className="grid grid-cols-3 gap-3 mb-6 bg-[#0C1519]/20 border border-white/5 p-3 rounded-lg font-mono">
                             {project.metrics.map((metric, mIdx) => (
                               <div key={mIdx} className="flex flex-col text-center">
                                 <span className="text-[9px] text-text-muted uppercase tracking-wider truncate">
@@ -496,7 +496,7 @@ export const Projects: React.FC = () => {
                             variant="glow"
                             size="sm"
                             onClick={() => setSelectedProject(project)}
-                            className="flex items-center gap-2 text-xs border-white/10 hover:border-[#D8FF3E]/30"
+                            className="flex items-center gap-2 text-xs border-white/10 hover:border-[#CF9D7B]/30"
                           >
                             <BookOpen className="w-3.5 h-3.5" />
                             Case Study
@@ -507,18 +507,18 @@ export const Projects: React.FC = () => {
                               variant="secondary"
                               size="sm"
                               href={project.github}
-                              className="w-8 h-8 p-0 rounded-lg flex items-center justify-center border-white/10 hover:border-[#D8FF3E]/20"
+                              className="w-8 h-8 p-0 rounded-lg flex items-center justify-center border-white/10 hover:border-[#CF9D7B]/20"
                             >
-                              <svg className="w-4 h-4 text-white hover:text-[#D8FF3E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                              <svg className="w-4 h-4 text-white hover:text-[#CF9D7B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                             </Button>
                             {project.demo && (
                               <Button
                                 variant="secondary"
                                 size="sm"
                                 href={project.demo}
-                                className="w-8 h-8 p-0 rounded-lg flex items-center justify-center border-white/10 hover:border-[#D8FF3E]/20"
+                                className="w-8 h-8 p-0 rounded-lg flex items-center justify-center border-white/10 hover:border-[#CF9D7B]/20"
                               >
-                                <ExternalLink className="w-4 h-4 text-[#D8FF3E]" />
+                                <ExternalLink className="w-4 h-4 text-[#CF9D7B]" />
                               </Button>
                             )}
                           </div>
@@ -546,7 +546,7 @@ export const Projects: React.FC = () => {
                 onClick={() => setTargetIndex(dotIdx)}
                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   dotIdx === activeIndex 
-                    ? 'w-6 bg-[#D8FF3E]' 
+                    ? 'w-6 bg-[#CF9D7B]' 
                     : 'w-1.5 bg-white/20 hover:bg-white/40'
                 }`}
                 aria-label={`Go to project ${dotIdx + 1}`}
@@ -566,7 +566,7 @@ export const Projects: React.FC = () => {
         {selectedProject?.caseStudy && (
           <div className="flex flex-col gap-6 text-left">
             <div>
-              <h4 className="text-xs uppercase font-mono tracking-widest text-[#D8FF3E] font-semibold mb-2">
+              <h4 className="text-xs uppercase font-mono tracking-widest text-[#CF9D7B] font-semibold mb-2">
                 Problem Statement
               </h4>
               <p className="text-sm md:text-base text-text-muted leading-relaxed font-mono">
@@ -575,7 +575,7 @@ export const Projects: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="text-xs uppercase font-mono tracking-widest text-[#00FFB2] font-semibold mb-2">
+              <h4 className="text-xs uppercase font-mono tracking-widest text-[#724B39] font-semibold mb-2">
                 Engineered Solution
               </h4>
               <p className="text-sm md:text-base text-text-muted leading-relaxed font-mono">
@@ -590,7 +590,7 @@ export const Projects: React.FC = () => {
               <ul className="flex flex-col gap-2 font-mono">
                 {selectedProject.caseStudy.results.map((res, rIdx) => (
                   <li key={rIdx} className="flex items-start gap-2.5 text-xs md:text-sm text-text-muted leading-relaxed">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#D8FF3E] mt-2 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#CF9D7B] mt-2 flex-shrink-0" />
                     <span>{res}</span>
                   </li>
                 ))}
@@ -598,12 +598,12 @@ export const Projects: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-3 border-t border-white/8 pt-6">
-              <Button variant="primary" href={selectedProject.github} size="sm" className="flex items-center gap-2 border-[#D8FF3E]/30 bg-[#D8FF3E] text-black hover:bg-[#c4eb30]">
+              <Button variant="primary" href={selectedProject.github} size="sm" className="flex items-center gap-2 border-[#CF9D7B]/30 bg-[#CF9D7B] text-[#0C1519] hover:bg-[#CF9D7B]/90">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                 Inspect Repository
               </Button>
               {selectedProject.demo && (
-                <Button variant="outline" href={selectedProject.demo} size="sm" className="flex items-center gap-2 border-white/10 hover:border-[#D8FF3E]/30">
+                <Button variant="outline" href={selectedProject.demo} size="sm" className="flex items-center gap-2 border-white/10 hover:border-[#CF9D7B]/30">
                   <ExternalLink className="w-4 h-4" />
                   Visit Platform
                 </Button>

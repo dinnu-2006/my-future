@@ -9,10 +9,10 @@ import { skills } from '@/data/skills';
 import { Cpu, Layout, Server, TrendingUp } from 'lucide-react';
 
 const CATEGORIES = [
-  { id: 'ai', label: 'AI Engineering', icon: Cpu, color: '#A7FF4A', radius: 130, speed: '40s' },
-  { id: 'frontend', label: 'Frontend UI', icon: Layout, color: '#00FFB2', radius: 195, speed: '55s' },
-  { id: 'backend', label: 'Backend Core', icon: Server, color: '#38BDF8', radius: 260, speed: '70s' },
-  { id: 'marketing', label: 'Growth/SEO', icon: TrendingUp, color: '#F472B6', radius: 325, speed: '85s' }
+  { id: 'ai', label: 'AI Engineering', icon: Cpu, color: '#CF9D7B', radius: 130, speed: '40s' },
+  { id: 'frontend', label: 'Frontend UI', icon: Layout, color: '#A88E80', radius: 195, speed: '55s' },
+  { id: 'backend', label: 'Backend Core', icon: Server, color: '#724B39', radius: 260, speed: '70s' },
+  { id: 'marketing', label: 'Growth/SEO', icon: TrendingUp, color: '#F5EDE8', radius: 325, speed: '85s' }
 ];
 
 export const Skills: React.FC = () => {
@@ -22,7 +22,7 @@ export const Skills: React.FC = () => {
   const getSkillsByCategory = (cat: string) => skills.filter(s => s.category === cat);
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-[#030712]">
+    <section id="skills" className="py-24 relative overflow-hidden bg-[#0C1519]">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary-accent/[0.02] blur-[150px] pointer-events-none" />
 
@@ -52,7 +52,7 @@ export const Skills: React.FC = () => {
               const Icon = cat.icon;
               const catSkills = getSkillsByCategory(cat.id);
               return (
-                <Card key={cat.id} glowColor={`${cat.color}20`} className="p-6 bg-[#07131A]/35">
+                <Card key={cat.id} glowColor={`${cat.color}20`} className="p-6 bg-[#162127]/35">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2.5 rounded-lg border flex items-center justify-center" style={{ borderColor: `${cat.color}30`, backgroundColor: `${cat.color}08`, color: cat.color }}>
                       <Icon className="w-5 h-5" />
@@ -95,7 +95,7 @@ export const Skills: React.FC = () => {
           </svg>
 
           {/* Pulsing Galaxy Core Center */}
-          <div className="absolute z-30 w-44 h-44 rounded-full flex flex-col items-center justify-center bg-[#050b10] border border-primary-accent/30 shadow-[0_0_55px_rgba(167,255,74,0.18)] select-none">
+          <div className="absolute z-30 w-44 h-44 rounded-full flex flex-col items-center justify-center bg-[#0C1519] border border-primary-accent/30 shadow-[0_0_55px_rgba(207,157,123,0.18)] select-none">
             {/* Spinning decorative rings inside core */}
             <div className="absolute inset-2 rounded-full border border-dashed border-white/5 animate-spin" style={{ animationDuration: '30s' }} />
             <div className="absolute inset-4 rounded-full border border-dashed border-primary-accent/15 animate-spin" style={{ animationDuration: '18s', animationDirection: 'reverse' }} />
@@ -108,7 +108,7 @@ export const Skills: React.FC = () => {
             <span className="text-[8px] uppercase tracking-widest text-text-muted mt-1 font-mono">
               Galaxy Core
             </span>
-            <span className="text-[7px] text-[#00FFB2]/70 font-mono mt-0.5 animate-pulse">
+            <span className="text-[7px] text-[#CF9D7B]/70 font-mono mt-0.5 animate-pulse">
               SYS_ACTIVE // V4.02
             </span>
           </div>
@@ -243,8 +243,8 @@ export const Skills: React.FC = () => {
                           <div
                             className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all duration-300 whitespace-nowrap shadow-md flex items-center gap-2 group/node ${
                               isHovered
-                                ? 'bg-[#07131a]/92 text-white backdrop-blur-md scale-105'
-                                : 'bg-[#030712]/80 text-text-muted border-white/6 hover:text-white hover:border-white/20'
+                                ? 'bg-[#162127]/92 text-white backdrop-blur-md scale-105'
+                                : 'bg-[#0C1519]/80 text-text-muted border-white/6 hover:text-white hover:border-white/20'
                             }`}
                             style={{
                               borderColor: isHovered ? cat.color : 'rgba(255, 255, 255, 0.08)',
