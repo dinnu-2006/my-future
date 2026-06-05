@@ -42,6 +42,32 @@ export const Testimonials: React.FC = () => {
     setIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+
+    const rotateX = ((yc - y) / yc) * 5; // Max 5deg tilt
+    const rotateY = ((x - xc) / xc) * 5;
+
+    card.style.setProperty('--rx', `${rotateX}deg`);
+    card.style.setProperty('--ry', `${rotateY}deg`);
+    card.style.setProperty('--mx', `${(x / rect.width) * 100}%`);
+    card.style.setProperty('--my', `${(y / rect.height) * 100}%`);
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
+    card.style.setProperty('--mx', '50%');
+    card.style.setProperty('--my', '50%');
+  };
+
   return (
     <section id="testimonials" className="py-24 relative overflow-hidden bg-[#07131A]/35">
       {/* Background glowing details */}
@@ -70,7 +96,13 @@ export const Testimonials: React.FC = () => {
         <div className="flex flex-col items-center justify-center min-h-[400px] relative w-full max-w-4xl mx-auto py-8">
           
           {/* Card Stack Deck Container */}
-          <div className="relative w-full h-[280px] md:h-[240px] flex items-center justify-center select-none">
+          <div 
+            className="relative w-full h-[300px] md:h-[260px] flex items-center justify-center select-none"
+            style={{
+              perspective: '1000px',
+              transformStyle: 'preserve-3d',
+            }}
+          >
             {TESTIMONIALS.map((item, i) => {
               // Calculate offset relative to active card index
               let offset = i - index;
@@ -81,6 +113,15 @@ export const Testimonials: React.FC = () => {
               const isPrev = offset === -1;
               const isNext = offset === 1;
 
+              // 3D cover-flow positioning parameters
+              const tx = isActive ? 0 : isPrev ? -22 : 22; // translation X in %
+              const tz = isActive ? 0 : -130;              // translation Z in px
+              const scale = isActive ? 1 : 0.88;
+              const ry = isActive ? 0 : isPrev ? 20 : -20; // Y rotation facing center
+              const zIndex = isActive ? 20 : 10;
+              const opacity = isActive ? 1 : 0.35;
+              const blur = isActive ? 'blur(0px)' : 'blur(2.5px)';
+
               return (
                 <div
                   key={item.id}
@@ -88,45 +129,70 @@ export const Testimonials: React.FC = () => {
                     if (isPrev) handlePrev();
                     if (isNext) handleNext();
                   }}
-                  className={`absolute w-full max-w-2xl transition-all duration-500 transform cursor-pointer ${
-                    isActive
-                      ? 'z-20 scale-100 opacity-100 translate-x-0 pointer-events-auto'
-                      : isPrev
-                      ? 'z-10 scale-90 opacity-35 -translate-x-[15%] md:-translate-x-[25%] pointer-events-none md:pointer-events-auto'
-                      : 'z-10 scale-90 opacity-35 translate-x-[15%] md:translate-x-[25%] pointer-events-none md:pointer-events-auto'
-                  }`}
+                  className="absolute w-full max-w-2xl transform cursor-pointer will-change-transform"
+                  style={{
+                    transform: `translate3d(${tx}%, 0, ${tz}px) scale(${scale}) rotateY(${ry}deg)`,
+                    opacity,
+                    zIndex,
+                    filter: blur,
+                    transformStyle: 'preserve-3d',
+                    pointerEvents: isActive || isPrev || isNext ? 'auto' : 'none',
+                    transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
                 >
                   <Card
-                    glowColor="rgba(167, 255, 74, 0.15)"
-                    className="p-6 md:p-8 bg-[#030712]/90 border border-white/6 shadow-xl flex flex-col justify-between h-full relative"
+                    glowColor={isActive ? "rgba(216, 255, 62, 0.25)" : "rgba(255, 255, 255, 0.01)"}
+                    className={`p-6 md:p-8 bg-[#030712]/92 border rounded-2xl flex flex-col justify-between h-[250px] relative transition-all duration-300 ${
+                      isActive 
+                        ? 'border-[#D8FF3E]/30 shadow-[0_0_30px_rgba(216,255,62,0.12)]' 
+                        : 'border-white/5 shadow-md'
+                    }`}
+                    onMouseMove={isActive ? handleMouseMove : undefined}
+                    onMouseLeave={isActive ? handleMouseLeave : undefined}
+                    style={{
+                      transform: isActive ? 'perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))' : undefined,
+                      transition: 'transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s',
+                      background: isActive 
+                        ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(216, 255, 62, 0.08) 0%, transparent 65%), rgba(3, 7, 18, 0.92)' 
+                        : undefined,
+                    }}
                   >
                     <Quote className="absolute top-6 right-6 w-10 h-10 text-white/5 pointer-events-none" />
 
-                    <div>
-                      {/* Quote Body */}
-                      <p className="text-sm md:text-base text-text-muted leading-relaxed italic mb-6">
-                        "{item.quote}"
-                      </p>
-                    </div>
-
-                    {/* Footer Info */}
-                    <div className="flex items-center justify-between border-t border-white/5 pt-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-10 h-10 rounded-full border border-white/10 object-cover"
-                        />
-                        <div className="text-left">
-                          <h4 className="text-sm font-bold text-white tracking-wide">
-                            {item.name}
-                          </h4>
-                          <span className="text-xs text-text-muted font-mono">
-                            {item.role}
-                          </span>
-                        </div>
+                    {/* Fade out card content for background slides to prevent text overlapping */}
+                    <div 
+                      className="flex flex-col justify-between h-full transition-opacity duration-300"
+                      style={{ 
+                        opacity: isActive ? 1 : 0,
+                        pointerEvents: isActive ? 'auto' : 'none'
+                      }}
+                    >
+                      <div>
+                        {/* Quote Body */}
+                        <p className="text-sm md:text-base text-text-muted leading-relaxed italic mb-6">
+                          "{item.quote}"
+                        </p>
                       </div>
-                      <MessageSquare className="w-5 h-5 text-primary-accent opacity-40" />
+
+                      {/* Footer Info */}
+                      <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-10 h-10 rounded-full border border-white/10 object-cover"
+                          />
+                          <div className="text-left">
+                            <h4 className="text-sm font-bold text-white tracking-wide">
+                              {item.name}
+                            </h4>
+                            <span className="text-xs text-text-muted font-mono">
+                              {item.role}
+                            </span>
+                          </div>
+                        </div>
+                        <MessageSquare className="w-5 h-5 text-[#D8FF3E] opacity-50" />
+                      </div>
                     </div>
                   </Card>
                 </div>
