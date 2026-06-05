@@ -1,13 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Cpu, Activity } from 'lucide-react';
 
 export const CanvasWrapper: React.FC = () => {
   // Mouse tracking for 3D parallax effect
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Smooth springs for tracking coordinates (reduces stutter and enables 60fps transitions)
+  const springConfig = { damping: 25, stiffness: 150, mass: 0.6 };
+  const smoothMouseX = useSpring(mouseX, springConfig);
+  const smoothMouseY = useSpring(mouseY, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -27,22 +32,22 @@ export const CanvasWrapper: React.FC = () => {
 
   // Parallax layers transform values
   // Rotate the main card slightly based on mouse position
-  const rotateX = useTransform(mouseY, [-1, 1], [8, -8]);
-  const rotateY = useTransform(mouseX, [-1, 1], [-8, 8]);
+  const rotateX = useTransform(smoothMouseY, [-1, 1], [8, -8]);
+  const rotateY = useTransform(smoothMouseX, [-1, 1], [-8, 8]);
   
   // Ambient backlight displacement
-  const lightX = useTransform(mouseX, [-1, 1], [-20, 20]);
-  const lightY = useTransform(mouseY, [-1, 1], [-20, 20]);
+  const lightX = useTransform(smoothMouseX, [-1, 1], [-20, 20]);
+  const lightY = useTransform(smoothMouseY, [-1, 1], [-20, 20]);
 
   // Floating data card offsets
-  const card1X = useTransform(mouseX, [-1, 1], [15, -15]);
-  const card1Y = useTransform(mouseY, [-1, 1], [15, -15]);
+  const card1X = useTransform(smoothMouseX, [-1, 1], [15, -15]);
+  const card1Y = useTransform(smoothMouseY, [-1, 1], [15, -15]);
   
-  const card2X = useTransform(mouseX, [-1, 1], [-12, 12]);
-  const card2Y = useTransform(mouseY, [-1, 1], [-12, 12]);
+  const card2X = useTransform(smoothMouseX, [-1, 1], [-12, 12]);
+  const card2Y = useTransform(smoothMouseY, [-1, 1], [-12, 12]);
 
-  const card3X = useTransform(mouseX, [-1, 1], [8, -8]);
-  const card3Y = useTransform(mouseY, [-1, 1], [-8, 8]);
+  const card3X = useTransform(smoothMouseX, [-1, 1], [8, -8]);
+  const card3Y = useTransform(smoothMouseY, [-1, 1], [-8, 8]);
 
   // The custom asymmetrical shape polygon coordinates (used for clip-path)
   // Top-left beveled, sharp top-right, large bottom-right bevel, small bottom-left bevel
@@ -52,7 +57,7 @@ export const CanvasWrapper: React.FC = () => {
 
   return (
     <div 
-      className="relative w-[300px] md:w-[360px] h-[360px] md:h-[440px] flex items-center justify-center pointer-events-auto"
+      className="group relative w-[300px] md:w-[360px] h-[360px] md:h-[440px] flex items-center justify-center pointer-events-auto"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: 1000 }}
