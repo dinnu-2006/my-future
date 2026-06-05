@@ -17,6 +17,7 @@ export async function POST(request: Request) {
     const templateId = process.env.EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.EMAILJS_PUBLIC_KEY || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
     const privateKey = process.env.EMAILJS_PRIVATE_KEY; // Loaded securely on server
+    const autoReplyTemplateId = process.env.EMAILJS_AUTOREPLY_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID;
 
     if (!serviceId || !templateId || !publicKey) {
       console.error('Contact API Error: EmailJS environment variables are missing.', {
@@ -70,6 +71,53 @@ export async function POST(request: Request) {
     const responseText = await response.text();
 
     if (response.ok) {
+      // Send auto-reply to the visitor if configured
+      const isAutoReplyConfigured = autoReplyTemplateId &&
+        autoReplyTemplateId !== 'your_autoreply_template_id_here' &&
+        autoReplyTemplateId !== 'your_emailjs_autoreply_template_id' &&
+        autoReplyTemplateId.trim() !== '';
+
+      if (isAutoReplyConfigured) {
+        try {
+          const autoReplyPayload = {
+            service_id: serviceId,
+            template_id: autoReplyTemplateId,
+            user_id: publicKey,
+            accessToken: privateKey || undefined,
+            template_params: {
+              // Variables matching the auto-reply template variables requested
+              from_name: name,
+              from_email: email,
+              to_email: email, // Set target recipient variable
+              subject: subject || 'Portfolio Inquiry',
+              message: message,
+              
+              // Helper / convenience parameters for dynamic binding
+              reply_to: receiverEmail, // Reply to auto-reply goes to Dinesh
+              portfolio_url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dinesh.dev',
+              dinesh_email: receiverEmail,
+            },
+          };
+
+          const autoReplyResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(autoReplyPayload),
+          });
+
+          if (!autoReplyResponse.ok) {
+            const autoReplyText = await autoReplyResponse.text();
+            console.warn(`EmailJS Auto-Reply Warning: Failed to send confirmation email to ${email}. Status: ${autoReplyResponse.status} - ${autoReplyText}`);
+          } else {
+            console.log(`EmailJS Auto-Reply Success: Confirmation email sent to ${email}`);
+          }
+        } catch (autoReplyError) {
+          console.error('EmailJS Auto-Reply Exception during fetch:', autoReplyError);
+        }
+      }
+
       return NextResponse.json({ success: true, message: 'Message sent successfully.' });
     } else {
       console.error(`EmailJS API Error: Status ${response.status} - ${responseText}`);

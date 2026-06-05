@@ -29,14 +29,16 @@ async function testEmail() {
 
   const serviceId = env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
   const templateId = env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+  const autoReplyTemplateId = env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID;
   const publicKey = env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
   const recipient = env.NEXT_PUBLIC_EMAIL || 'mrdineshcse@gmail.com';
 
   console.log(`Checking configuration keys...`);
-  console.log(`- Service ID:   ${serviceId ? '✅ Detected (' + serviceId.slice(0, 4) + '...)' : '❌ MISSING'}`);
-  console.log(`- Template ID:  ${templateId ? '✅ Detected (' + templateId.slice(0, 4) + '...)' : '❌ MISSING'}`);
-  console.log(`- Public Key:   ${publicKey ? '✅ Detected (' + publicKey.slice(0, 4) + '...)' : '❌ MISSING'}`);
-  console.log(`- Target Email: ${recipient}\n`);
+  console.log(`- Service ID:             ${serviceId ? '✅ Detected (' + serviceId.slice(0, 4) + '...)' : '❌ MISSING'}`);
+  console.log(`- Primary Template ID:    ${templateId ? '✅ Detected (' + templateId.slice(0, 4) + '...)' : '❌ MISSING'}`);
+  console.log(`- Auto-Reply Template ID: ${autoReplyTemplateId && autoReplyTemplateId !== 'your_autoreply_template_id_here' ? '✅ Detected (' + autoReplyTemplateId.slice(0, 4) + '...)' : 'ℹ️ NOT SET (Auto-reply skipped in test)'}`);
+  console.log(`- Public Key:             ${publicKey ? '✅ Detected (' + publicKey.slice(0, 4) + '...)' : '❌ MISSING'}`);
+  console.log(`- Target Email:           ${recipient}\n`);
 
   if (!serviceId || !templateId || !publicKey) {
     console.error('ERROR: Missing required EmailJS parameters in .env.local.');
@@ -44,7 +46,7 @@ async function testEmail() {
     process.exit(1);
   }
 
-  console.log('Sending verification dummy payload to EmailJS API...');
+  console.log('Sending verification dummy payload to EmailJS API (Primary)...');
 
   try {
     const payload = {
@@ -74,12 +76,56 @@ async function testEmail() {
     const responseText = await response.text();
 
     if (response.ok) {
-      console.log('✅ SUCCESS! EmailJS accepted the transmission request.');
+      console.log('✅ SUCCESS! EmailJS accepted the primary transmission request.');
       console.log(`Response: ${responseText || 'OK'}`);
-      console.log(`A verification email should arrive at ${recipient} shortly.`);
+      console.log(`A verification email should arrive at ${recipient} shortly.\n`);
     } else {
       console.error(`❌ FAILED! EmailJS returned status ${response.status}:`);
       console.error(responseText);
+      return;
+    }
+
+    // Auto-Reply Verification
+    const isAutoReplyConfigured = autoReplyTemplateId && 
+      autoReplyTemplateId !== 'your_autoreply_template_id_here' && 
+      autoReplyTemplateId.trim() !== '';
+
+    if (isAutoReplyConfigured) {
+      console.log('Sending verification dummy payload to EmailJS API (Auto-Reply)...');
+      const autoReplyPayload = {
+        service_id: serviceId,
+        template_id: autoReplyTemplateId,
+        user_id: publicKey,
+        template_params: {
+          from_name: 'Dinesh (Verifier)',
+          from_email: recipient,
+          to_email: recipient,
+          subject: 'EmailJS Auto-Reply Verification',
+          message: 'Congratulations! Your portfolio auto-reply confirmation email integration is working successfully.',
+          reply_to: recipient,
+          portfolio_url: env.NEXT_PUBLIC_SITE_URL || 'https://dinesh.dev',
+          dinesh_email: recipient,
+        }
+      };
+
+      const arResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(autoReplyPayload),
+      });
+
+      const arResponseText = await arResponse.text();
+
+      if (arResponse.ok) {
+        console.log('✅ SUCCESS! EmailJS accepted the Auto-Reply transmission request.');
+        console.log(`Response: ${arResponseText || 'OK'}`);
+        console.log(`A confirmation auto-reply email should arrive at ${recipient} shortly.`);
+      } else {
+        console.error(`❌ FAILED! EmailJS Auto-Reply returned status ${arResponse.status}:`);
+        console.error(arResponseText);
+      }
     }
   } catch (error) {
     console.error('❌ EXCEPTION! An error occurred during transmission:', error.message);
