@@ -37,13 +37,13 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const { ref, x, y } = useMagnetic(magnetic ? magneticStrength : 0);
 
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
+  const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] hover:scale-[1.03] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
   
   const variants = {
-    primary: 'bg-primary-accent text-primary-bg hover:bg-primary-accent/90 hover:shadow-[0_0_20px_rgba(207,157,123,0.3)] font-semibold border border-transparent',
-    secondary: 'border border-[#724B39] bg-transparent text-white hover:bg-primary-accent hover:text-primary-bg hover:border-primary-accent hover:shadow-[0_0_15px_rgba(207,157,123,0.15)]',
-    outline: 'border border-[#724B39] bg-transparent text-white hover:bg-primary-accent hover:text-primary-bg hover:border-primary-accent hover:shadow-[0_0_15px_rgba(207,157,123,0.15)]',
-    glow: 'bg-transparent text-white border border-border-custom hover:border-primary-accent/40 hover:shadow-[0_0_15px_rgba(207,157,123,0.15)]'
+    primary: 'bg-[#CF9D7B] text-[#0C1519] border border-[#CF9D7B]/20 hover:border-[#CF9D7B]/40 hover:shadow-[0_8px_25px_rgba(207,157,123,0.25)] font-semibold',
+    secondary: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_8px_20px_rgba(207,157,123,0.15)]',
+    outline: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_8px_20px_rgba(207,157,123,0.15)]',
+    glow: 'bg-transparent text-white border border-[#3A3534] hover:border-[#CF9D7B]/40 hover:shadow-[0_8px_20px_rgba(207,157,123,0.15)]'
   };
 
   const sizes = {
@@ -54,6 +54,10 @@ export const Button: React.FC<ButtonProps> = ({
 
   const combinedClassName = cn(baseStyles, variants[variant], sizes[size], className);
   const transformStyle = magnetic ? { transform: `translate3d(${x}px, ${y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' } : undefined;
+
+  const shineSweep = (
+    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent translate-x-[-150%] translate-y-[-150%] rotate-45 pointer-events-none group-hover:animate-[hud-glimmer_1.1s_ease-out]" />
+  );
 
   if (href) {
     if (href.startsWith('http') || href.startsWith('mailto:') || href.endsWith('.pdf')) {
@@ -68,7 +72,8 @@ export const Button: React.FC<ButtonProps> = ({
           rel="noopener noreferrer"
           title={title}
         >
-          {children}
+          {shineSweep}
+          <span className="relative z-10 flex items-center justify-center gap-1.5">{children}</span>
         </a>
       );
     }
@@ -81,7 +86,8 @@ export const Button: React.FC<ButtonProps> = ({
         ref={ref as React.RefObject<HTMLAnchorElement>}
         title={title}
       >
-        {children}
+        {shineSweep}
+        <span className="relative z-10 flex items-center justify-center gap-1.5">{children}</span>
       </Link>
     );
   }
@@ -97,7 +103,8 @@ export const Button: React.FC<ButtonProps> = ({
       title={title}
       {...props}
     >
-      {children}
+      {shineSweep}
+      <span className="relative z-10 flex items-center justify-center gap-1.5">{children}</span>
     </button>
   );
 };

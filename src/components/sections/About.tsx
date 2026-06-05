@@ -11,26 +11,26 @@ const TIMELINE_STEPS = [
   {
     id: 'student',
     icon: BookOpen,
-    label: 'Student',
+    label: 'Academic',
     period: '2024 - 2028 (Expected)',
-    title: 'CSE Undergraduate',
-    details: 'Pursuing Bachelor of Engineering in Computer Science Engineering at Jaya Engineering College. Enthusiastic about Artificial Intelligence, Web Development, and Software Engineering.',
+    title: 'Computer Science Engineering',
+    details: 'Pursuing Bachelor of Engineering in Computer Science & Engineering at Jaya Engineering College. Focus on algorithms, artificial intelligence integration, and systems architecture.',
   },
   {
     id: 'developer',
     icon: Code,
-    label: 'Developer',
+    label: 'Systems',
     period: '2024 - Present',
-    title: 'Web & AI Builder',
-    details: 'Developing responsive web applications and exploring AI concepts and machine learning fundamentals through personal projects.',
+    title: 'Full Stack & AI Engineer',
+    details: 'Developing production-ready web apps, deploying autonomous agents, and orchestrating serverless APIs through high-performance software environments.',
   },
   {
     id: 'marketer',
     icon: Rocket,
-    label: 'Marketer',
+    label: 'Strategist',
     period: '2025 - Present',
-    title: 'Digital Marketing',
-    details: 'Understanding SEO, content marketing, and online brand growth fundamentals. Applying marketing concepts to personal portfolio projects.',
+    title: 'Growth Engineering',
+    details: 'Structuring data-driven organic marketing funnels, search engine optimization (SEO), and programmatically engineered content delivery systems.',
   }
 ];
 
@@ -111,10 +111,10 @@ export const About: React.FC = () => {
                     Who Is Dinesh P?
                   </h3>
                   <p className="text-sm md:text-base text-text-muted leading-relaxed mb-4">
-                    Hi, I'm a 3rd-year Computer Science Engineering student at Jaya Engineering College. I am deeply interested in Artificial Intelligence, Web Development, and Digital Marketing, focusing on building practical applications and continuously sharpening my technical toolkit.
+                    I am an AI developer and full-stack software engineer pursuing my Computer Science Engineering degree. Specializing in autonomous multi-agent networks, cloud infrastructure, and intelligent software systems, I build end-to-end applications designed for scale, efficiency, and real-world utility.
                   </p>
                   <p className="text-sm md:text-base text-text-muted leading-relaxed mb-6">
-                    I spend my time exploring modern frameworks, building responsive web projects, and exploring digital marketing strategies like SEO and content marketing to create high-impact software experiences.
+                    My work converges at the intersection of modern front-end design, secure serverless architectures, and advanced data-driven marketing systems—ensuring every product delivers maximum technical efficiency and business growth.
                   </p>
                 </div>
               </div>
@@ -124,7 +124,7 @@ export const About: React.FC = () => {
                   My Core Creed
                 </span>
                 <p className="text-sm italic text-white/90">
-                  "Build practical projects, continuously master new technologies, and explore the future of AI and web development."
+                  "Bridge the gap between artificial intelligence and beautiful, high-performance web systems to architect the digital future."
                 </p>
               </div>
             </Card>

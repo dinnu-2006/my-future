@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/Button';
 import { Menu, X, Terminal as TerminalIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
 import MobileMenu from './MobileMenu';
 
 const NAV_ITEMS = [
@@ -74,8 +75,8 @@ export const Navbar: React.FC<{ onTerminalToggle: () => void }> = ({ onTerminalT
         <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
           
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group focus:outline-none">
-            <div className="w-8 h-8 rounded-lg bg-primary-accent/10 border border-primary-accent/30 flex items-center justify-center text-primary-accent group-hover:bg-primary-accent group-hover:text-primary-bg transition-all duration-300">
+          <Link href="/" className="flex items-center gap-2 group focus:outline-none select-none active:scale-95 transition-transform duration-200">
+            <div className="w-8 h-8 rounded-lg bg-primary-accent/10 border border-primary-accent/30 flex items-center justify-center text-primary-accent group-hover:bg-primary-accent group-hover:text-primary-bg group-hover:scale-105 transition-all duration-300">
               <TerminalIcon className="w-4.5 h-4.5" />
             </div>
             <span className="text-sm font-extrabold uppercase tracking-widest text-white group-hover:text-primary-accent transition-colors">
@@ -84,7 +85,7 @@ export const Navbar: React.FC<{ onTerminalToggle: () => void }> = ({ onTerminalT
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-1.5">
             {NAV_ITEMS.map((item) => {
               const isSectionActive = pathname === '/' && activeSection === item.id;
               const isBlogActive = item.href === '/blog' && pathname.startsWith('/blog');
@@ -95,13 +96,17 @@ export const Navbar: React.FC<{ onTerminalToggle: () => void }> = ({ onTerminalT
                   key={item.id}
                   href={item.href}
                   className={cn(
-                    'text-xs uppercase tracking-wider font-mono transition-colors focus:outline-none py-1.5 relative',
-                    active ? 'text-primary-accent' : 'text-text-muted hover:text-white'
+                    'text-xs uppercase tracking-wider font-mono transition-all duration-300 focus:outline-none py-1.5 px-3.5 rounded-md relative hover:bg-white/[0.03] active:scale-95',
+                    active ? 'text-primary-accent font-semibold' : 'text-text-muted hover:text-white'
                   )}
                 >
-                  {item.label}
+                  <span className="relative z-10">{item.label}</span>
                   {active && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary-accent" />
+                    <motion.span 
+                      layoutId="activeNavUnderline"
+                      className="absolute bottom-0 left-2 right-2 h-[2px] bg-primary-accent" 
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
                   )}
                 </Link>
               );

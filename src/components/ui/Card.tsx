@@ -21,6 +21,7 @@ export const Card: React.FC<CardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [glowStyle, setGlowStyle] = useState<React.CSSProperties>({});
   const [isHovered, setIsHovered] = useState(false);
 
@@ -31,12 +32,12 @@ export const Card: React.FC<CardProps> = ({
     const { left, top, width, height } = card.getBoundingClientRect();
     const x = e.clientX - left;
     const y = e.clientY - top;
+    setMousePos({ x, y });
 
     if (tiltEffect) {
       const centerX = width / 2;
       const centerY = height / 2;
-      // Soft tilt limits: max 5 degrees
-      const maxTilt = 6;
+      const maxTilt = 4; // Soft tilt limits: 3-5 degrees
       const rotateXVal = -((y - centerY) / centerY) * maxTilt;
       const rotateYVal = ((x - centerX) / centerX) * maxTilt;
       setRotateX(rotateXVal);
@@ -58,35 +59,44 @@ export const Card: React.FC<CardProps> = ({
     setIsHovered(false);
   };
 
+  const borderBackground = isHovered && glowHover
+    ? `radial-gradient(circle 220px at ${mousePos.x}px ${mousePos.y}px, rgba(207, 157, 123, 0.28), rgba(255, 255, 255, 0.05))`
+    : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)';
+
   return (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'glass-card relative overflow-hidden',
+        'relative rounded-xl p-[1.2px] overflow-hidden transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
         className
       )}
       style={{
         transform: tiltEffect
-          ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)${isHovered ? ' translateY(-4px) scale(1.015)' : ''}`
-          : (isHovered ? 'translateY(-4px) scale(1.015)' : undefined),
+          ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)${isHovered ? ' translateY(-5px) scale(1.015)' : ''}`
+          : (isHovered ? 'translateY(-5px) scale(1.015)' : undefined),
         transformStyle: 'preserve-3d',
-        transition: 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
+        background: borderBackground,
+        boxShadow: isHovered
+          ? '0 12px 40px rgba(207, 157, 123, 0.06)'
+          : '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
       }}
       {...props}
     >
-      {/* Gradient Glow Layer */}
-      {glowHover && (
-        <div
-          className="pointer-events-none absolute inset-0 transition-opacity duration-500 mix-blend-screen z-0"
-          style={{
-            ...glowStyle,
-            opacity: isHovered ? 1 : 0,
-          }}
-        />
-      )}
-      <div className="relative z-10 w-full h-full">{children}</div>
+      <div className="w-full h-full rounded-[11px] bg-[#162127]/98 backdrop-blur-2xl relative overflow-hidden flex flex-col justify-between">
+        {/* Gradient Glow Layer */}
+        {glowHover && (
+          <div
+            className="pointer-events-none absolute inset-0 transition-opacity duration-500 mix-blend-screen z-0"
+            style={{
+              ...glowStyle,
+              opacity: isHovered ? 1 : 0,
+            }}
+          />
+        )}
+        <div className="relative z-10 w-full h-full">{children}</div>
+      </div>
     </div>
   );
 };

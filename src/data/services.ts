@@ -10,53 +10,53 @@ export interface ServiceItem {
 export const services: ServiceItem[] = [
   {
     id: 'ai-dev',
-    title: 'AI Development & Chatbots',
-    description: 'Custom cognitive agents, LLM integrations, retrieval-augmented generation (RAG) pipelines, and intelligent customer support chatbots.',
+    title: 'Intelligent AI Agent Architectures',
+    description: 'Deploying autonomous multi-agent networks, high-fidelity retrieval-augmented generation (RAG) databases, and structured semantic memory engines.',
     price: 'Coming in Future',
     features: [
-      'Semantic Search & Vector DB Setup',
-      'OpenAI / Anthropic API Integration',
-      'Context Retention / Memory Engine',
-      'Deploy to Web, Slack, or Discord'
+      'Vector Embeddings & Semantic DB Architecting',
+      'Multi-LLM Integration (GPT-4o, Claude, Gemini)',
+      'Stateful Session & Context Retention Networks',
+      'Omnichannel Web & Workspace Deployment'
     ],
     icon: 'Cpu'
   },
   {
     id: 'fullstack',
-    title: 'Full Stack SaaS Development',
-    description: 'Beautiful, high-conversion web applications built from scratch using Next.js 15, React, and serverless architectures.',
+    title: 'Full-Stack Cloud & SaaS Architectures',
+    description: 'Engineering responsive, high-throughput cloud portals, secure multi-tenant interfaces, and serverless API backends.',
     price: '50-5000$',
     features: [
-      'Next.js SSR & Server Components',
-      'Tailwind CSS Responsive Design',
-      'Database Modeling & PostgreSQL',
-      'Stripe Payments & Auth Integration'
+      'Next.js App Router & React Server Components',
+      'High-Fidelity Responsive Fluid Layouts',
+      'PostgreSQL, Prisma, & Database Cluster Tuning',
+      'Stripe Billing Tunnels & Unified Auth Protocols'
     ],
     icon: 'Globe'
   },
   {
     id: 'automation',
-    title: 'AI Workflow Automation',
-    description: 'Replacing manual data tasks with visual workflow builders, lead qualifiers, scheduling processes, and email sequences.',
+    title: 'Autonomous Workflow Pipelines',
+    description: 'Eliminating repetitive operations by building robust visual scripts, self-correcting data pipelines, and database sync workers.',
     price: 'Coming in Future',
     features: [
-      'n8n & Zapier Custom Pipelines',
-      'Automated Lead Qualification',
-      'Holographic Email Sequencing',
-      'API Webhooks Syncing'
+      'n8n & Enterprise Automation Pipelines',
+      'Intelligent Machine-Guided Lead Scoring',
+      'Context-Aware Programmatic Email Funnels',
+      'High-Reliability Webhook & API Synchronization'
     ],
     icon: 'GitFork'
   },
   {
     id: 'marketing-seo',
-    title: 'Growth Marketing & SEO',
-    description: 'Aggressive organic keyword targeting, domain authority indexing, technical site audits, and conversion rate optimization (CRO).',
+    title: 'SEO Engineering & Growth Mechanics',
+    description: 'Deploying organic crawler optimization blueprints, programmatic keyword ranking models, and page-speed latency reductions.',
     price: 'Coming in Future',
     features: [
-      'On-Page & Technical SEO Audits',
-      'High-Intent Keyword Research',
-      'Google GSC Analytics Setup',
-      'Conversion Funnel Optimization'
+      'Technical Search Indexing & Crawler Audits',
+      'Data-Driven High-Intent Keyword Audits',
+      'Unified Search Console & Analytics Portals',
+      'Conversion Rate Optimization & Funnel Tuning'
     ],
     icon: 'TrendingUp'
   }

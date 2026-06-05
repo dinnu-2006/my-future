@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-accent/8 border border-primary-accent/20 text-xs md:text-sm font-semibold tracking-wider text-primary-accent uppercase shadow-[0_0_12px_rgba(207, 157, 123,0.12)]">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-accent animate-pulse" />
-            AI & Web Developer
+            AI Integration & Full-Stack Engineer
           </div>
 
           {/* Headline */}
@@ -42,8 +42,8 @@ export const Hero: React.FC = () => {
 
           {/* Subheadline */}
           <p className="text-sm md:text-lg text-text-muted leading-relaxed max-w-xl font-sans">
-            CSE Student | AI Developer | Full Stack Developer | Digital Marketer. <br />
-            Constructing multi-agent networks, serverless SaaS portals, automated pipelines, and algorithmic growth channels.
+            Engineering next-generation AI agents, serverless full-stack systems, and automated growth channels. <br />
+            Specializing in multi-agent orchestration, cloud architectures, and intelligent digital systems.
           </p>
 
           {/* Buttons */}
