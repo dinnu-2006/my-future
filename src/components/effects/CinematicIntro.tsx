@@ -44,10 +44,10 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
     const finalTitle = "DINESH P.core";
     const finalSub = "SYSTEM INITIALIZED // WEB & AI DEVELOPER";
     const chars = "X01@#%&+?[]{}<>";
-    
+
     let frame = 0;
     const maxFrames = 30;
-    
+
     const interval = setInterval(() => {
       // Scramble Title
       let newTitle = "";
@@ -64,7 +64,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         }
       }
       setScrambledTitle(newTitle);
-      
+
       // Scramble Subtitle
       let newSub = "";
       for (let i = 0; i < finalSub.length; i++) {
@@ -80,7 +80,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         }
       }
       setScrambledSub(newSub);
-      
+
       frame++;
       if (frame >= maxFrames) {
         setScrambledTitle(finalTitle);
@@ -88,7 +88,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         clearInterval(interval);
       }
     }, 30);
-    
+
     return () => clearInterval(interval);
   }, [showLogo]);
 
@@ -474,11 +474,11 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
 
       if (!isExploded) {
         const diagnosticsAlpha = Math.min(0.7, elapsed / 0.4);
-        
+
         // Border and Brackets
         ctx.strokeStyle = hexToRgba(primaryColorHex, 0.12 * diagnosticsAlpha);
         ctx.strokeRect(startX, startY, boxWidth, boxHeight);
-        
+
         ctx.fillStyle = hexToRgba(primaryColorHex, 0.45 * diagnosticsAlpha);
         ctx.fillText("SYSTEM CORE DIAGNOSTICS //", startX + 12, startY - 14);
 
@@ -488,8 +488,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
           if (index === activeLogs.length - 1 && Math.floor(Date.now() / 150) % 2 === 0) {
             text += " █";
           }
-          ctx.fillStyle = index === activeLogs.length - 1 
-            ? hexToRgba(primaryColorHex, 0.9 * diagnosticsAlpha) 
+          ctx.fillStyle = index === activeLogs.length - 1
+            ? hexToRgba(primaryColorHex, 0.9 * diagnosticsAlpha)
             : hexToRgba(primaryColorHex, 0.5 * diagnosticsAlpha);
           ctx.fillText(text, startX + 12, lineY);
         });

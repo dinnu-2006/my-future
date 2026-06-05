@@ -43,13 +43,18 @@ export async function POST(request: Request) {
       user_id: publicKey,
       accessToken: privateKey || undefined,
       template_params: {
-        from_name: name,
-        from_email: isSelfSend ? `self-test@dinesh.ai` : email,
-        reply_to: email,
+        // Core EmailJS Template Variables
+        name: name,
+        email: email,
         subject: subject || `Portfolio Contact from ${name}`,
         message: isSelfSend 
           ? `${message}\n\n--- [System Log: Sent from self-test address to prevent loop errors. Original email: ${email}]` 
           : message,
+        
+        // Metadata / Header Parameters (for compatibility with EmailJS dashboard settings)
+        from_name: name,
+        from_email: isSelfSend ? `self-test@dinesh.ai` : email,
+        reply_to: email,
         to_email: receiverEmail,
       },
     };

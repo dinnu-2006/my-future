@@ -52,10 +52,13 @@ async function testEmail() {
       template_id: templateId,
       user_id: publicKey,
       template_params: {
-        from_name: 'Synapse Core Verifier',
-        from_email: 'verifier@synapse-core.dev',
+        name: 'Synapse Core Verifier',
+        email: 'verifier@synapse-core.dev',
         subject: 'EmailJS Configuration Verification',
         message: 'Congratulations! Your portfolio contact form integration is working successfully.',
+        from_name: 'Synapse Core Verifier',
+        from_email: 'verifier@synapse-core.dev',
+        reply_to: 'verifier@synapse-core.dev',
         to_email: recipient,
       }
     };
