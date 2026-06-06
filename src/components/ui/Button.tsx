@@ -50,7 +50,7 @@ export const Button: React.FC<ButtonProps> = ({
     if (onClick) onClick(e as any);
   };
 
-  const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-[transform,border-color,background-color,color] duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-[4px] hover:scale-[1.04] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.94] active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none';
+  const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-[transform,border-color,background-color,color] duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-[4px] hover:scale-[1.04] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.97] active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none';
   
   const variants = {
     primary: 'bg-[#CF9D7B] text-[#0C1519] border border-[#CF9D7B]/20 hover:border-[#CF9D7B]/50 font-semibold',
@@ -75,7 +75,7 @@ export const Button: React.FC<ButtonProps> = ({
   const rippleElements = ripples.map((ripple) => (
     <span
       key={ripple.id}
-      className="absolute bg-white/20 rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 animate-[ripple-effect_0.6s_ease-out]"
+      className="absolute bg-white/25 rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 animate-[ripple-effect_0.5s_cubic-bezier(0.1,0.8,0.3,1)] will-change-transform"
       style={{
         left: ripple.x,
         top: ripple.y,

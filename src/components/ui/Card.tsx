@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,12 +26,19 @@ export const Card: React.FC<CardProps> = ({
   const [glowStyle, setGlowStyle] = useState<React.CSSProperties>({});
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [floatDelay, setFloatDelay] = useState(0);
+  const [floatDuration, setFloatDuration] = useState(6);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
+    
+    // Asynchronous float offsets
+    setFloatDelay(Math.random() * 4);
+    setFloatDuration(5 + Math.random() * 3);
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -73,39 +81,68 @@ export const Card: React.FC<CardProps> = ({
     ? `radial-gradient(circle 220px at ${mousePos.x}px ${mousePos.y}px, rgba(207, 157, 123, 0.28), rgba(255, 255, 255, 0.05))`
     : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)';
 
+  // Float animation calculations
+  const floatAnimate = isHovered || isMobile
+    ? { y: -5 }
+    : { y: [0, -4, 0] };
+  
+  const floatTransition = isHovered || isMobile
+    ? { duration: 0.35, ease: 'easeOut' as const }
+    : { duration: floatDuration, repeat: Infinity, ease: 'easeInOut' as const, delay: floatDelay };
+
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={cn(
-        'relative rounded-xl p-[1.2px] overflow-hidden transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
-        className
-      )}
-      style={{
-        transform: !isMobile && tiltEffect
-          ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)${isHovered ? ' translateY(-5px) scale(1.015)' : ''}`
-          : (isHovered ? 'translateY(-5px) scale(1.015)' : undefined),
-        transformStyle: 'preserve-3d',
-        background: borderBackground,
-        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-      }}
-      {...props}
+    <motion.div
+      animate={floatAnimate}
+      transition={floatTransition}
+      className="h-full w-full"
     >
-      <div className="w-full h-full rounded-[11px] bg-[#162127]/98 backdrop-blur-2xl relative overflow-hidden flex flex-col justify-between">
-        {/* Gradient Glow Layer */}
-        {glowHover && (
-          <div
-            className="pointer-events-none absolute inset-0 transition-opacity duration-500 mix-blend-screen z-0"
-            style={{
-              ...glowStyle,
-              opacity: isHovered ? 1 : 0,
-            }}
-          />
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className={cn(
+          'relative rounded-xl p-[1.2px] overflow-hidden transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform h-full w-full',
+          className
         )}
-        <div className="relative z-10 w-full h-full">{children}</div>
+        style={{
+          transform: !isMobile && tiltEffect && isHovered
+            ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+            : undefined,
+          transformStyle: 'preserve-3d',
+          background: borderBackground,
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        }}
+        {...props}
+      >
+        <div className="w-full h-full rounded-[11px] bg-[#162127]/98 backdrop-blur-2xl relative overflow-hidden flex flex-col justify-between">
+          {/* Gradient Glow Layer */}
+          {glowHover && (
+            <div
+              className="pointer-events-none absolute inset-0 transition-opacity duration-500 mix-blend-screen z-0"
+              style={{
+                ...glowStyle,
+                opacity: isHovered ? 1 : 0,
+              }}
+            />
+          )}
+          
+          {/* Periodic Glass Reflection Sweep */}
+          {!isMobile && (
+            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent -skew-x-20 -translate-x-[150%]"
+                style={{
+                  animation: 'light-sweep-occasional 16s ease-in-out infinite',
+                  animationDelay: `${floatDelay * 3.2}s`
+                }}
+              />
+            </div>
+          )}
+
+          <div className="relative z-10 w-full h-full">{children}</div>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

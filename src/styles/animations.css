@@ -248,4 +248,34 @@
   }
 }
 
+@keyframes hud-corner-flicker {
+  0%, 90%, 93%, 98%, 100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  91%, 92%, 94%, 97% {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: drop-shadow(0 0 3px #CF9D7B);
+  }
+}
+
+@keyframes light-sweep-occasional {
+  0%, 82% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  90%, 100% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+}
+
+@keyframes float-hologram {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0) rotate(180deg) scale(1.03);
+  }
+}
+
 

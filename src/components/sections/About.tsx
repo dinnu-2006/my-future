@@ -67,74 +67,116 @@ const AIPortrait: React.FC = () => {
   };
 
   return (
-    <motion.div
-      animate={{
-        y: [0, -6, 0],
-      }}
-      transition={{
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={() => setIsHovered(true)}
-      className="relative w-28 h-28 md:w-32 md:h-32 flex-shrink-0 cursor-pointer will-change-transform select-none mb-6 sm:mb-0"
-      style={{
-        transform: `perspective(800px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale(${isHovered ? 1.04 : 1})`,
-        transition: isHovered ? 'transform 0.08s ease-out' : 'transform 0.4s ease',
-        transformStyle: 'preserve-3d'
-      }}
-    >
-      {/* Outer pulsing glow */}
+    <div className="relative p-4 md:p-6 mb-6 sm:mb-0 flex-shrink-0 flex items-center justify-center">
+      {/* 3D Skewed Holographic Rings (Layered behind and around) */}
       <div 
-        className="absolute inset-[-6px] rounded-xl bg-[#CF9D7B]/10 opacity-0 transition-opacity duration-300 blur-md pointer-events-none"
-        style={{ opacity: isHovered ? 0.75 : 0.2 }}
-      />
-
-      {/* Holographic corners */}
-      <div className="holographic-corner holographic-corner-tl" />
-      <div className="holographic-corner holographic-corner-tr" />
-      <div className="holographic-corner holographic-corner-bl" />
-      <div className="holographic-corner holographic-corner-br" />
-
-      {/* Main image container */}
-      <div 
-        className="w-full h-full bg-[#0C1519] border border-[#CF9D7B]/20 overflow-hidden relative rounded-lg flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.4)]"
-        style={{ transform: 'translateZ(10px)' }}
+        className="absolute pointer-events-none z-0 flex items-center justify-center opacity-40 select-none"
+        style={{
+          transform: 'rotateX(72deg) rotateY(12deg) translateZ(-15px) translateY(-5px)',
+          transformStyle: 'preserve-3d',
+          width: 180,
+          height: 180,
+        }}
       >
-        <img
-          src="/profile.jpg"
-          alt="Dinesh P"
-          className="w-full h-full object-cover object-center filter saturate-[0.85] contrast-[1.05]"
+        <div 
+          className="absolute w-[170px] h-[170px] rounded-full border border-dashed border-[#CF9D7B]/25 animate-[orbit_30s_linear_infinite]"
+        />
+        <div 
+          className="absolute w-[150px] h-[150px] rounded-full border border-double border-[#724B39]/30 animate-[orbit_18s_linear_infinite_reverse]"
+        />
+      </div>
+
+      {/* Concentric Rotating HUD Circles (Directly behind the portrait card) */}
+      <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center select-none scale-[1.2] md:scale-[1.35]">
+        <div 
+          className="absolute w-[100px] h-[100px] rounded-full border border-dotted border-primary-accent/15 animate-spin"
+          style={{ animationDuration: '20s' }}
+        />
+        <div 
+          className="absolute w-[110px] h-[110px] rounded-full border border-dashed border-[#CF9D7B]/10 animate-[spin_35s_linear_infinite_reverse]"
+        />
+        <div 
+          className="absolute w-[122px] h-[122px] rounded-full border border-primary-accent/5 animate-pulse"
+          style={{ animationDuration: '3s' }}
+        />
+      </div>
+
+      <motion.div
+        animate={{
+          y: [0, -5, 0],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        className="relative w-28 h-28 md:w-32 md:h-32 flex-shrink-0 cursor-pointer will-change-transform select-none z-10"
+        style={{
+          transform: `perspective(800px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale(${isHovered ? 1.05 : 1})`,
+          transition: isHovered ? 'transform 0.08s ease-out' : 'transform 0.45s ease',
+          transformStyle: 'preserve-3d'
+        }}
+      >
+        {/* Outer pulsing glow */}
+        <div 
+          className="absolute inset-[-8px] rounded-xl bg-gradient-to-r from-primary-accent/15 to-[#724B39]/15 opacity-0 transition-opacity duration-500 blur-lg pointer-events-none"
+          style={{ opacity: isHovered ? 0.9 : 0.25 }}
         />
 
-        {/* Code Streams Overlay */}
-        <div className="absolute inset-0 bg-[#0C1519]/30 pointer-events-none z-10" />
-        <div className="code-stream-panel z-10 opacity-15">
-          <div className="animate-[matrix-fade_8s_linear_infinite]" style={{ whiteSpace: 'pre-wrap' }}>
-            {"01011\nCORE\nSYS_\nNET_"}
+        {/* Holographic corners */}
+        <div className="holographic-corner holographic-corner-tl" />
+        <div className="holographic-corner holographic-corner-tr" />
+        <div className="holographic-corner holographic-corner-bl" />
+        <div className="holographic-corner holographic-corner-br" />
+
+        {/* Main image container */}
+        <div 
+          className="w-full h-full bg-[#0C1519] border border-[#CF9D7B]/20 overflow-hidden relative rounded-lg flex items-center justify-center shadow-[0_0_25px_rgba(0,0,0,0.5)]"
+          style={{ transform: 'translateZ(12px)' }}
+        >
+          <img
+            src="/profile.jpg"
+            alt="Dinesh P"
+            className="w-full h-full object-cover object-center filter saturate-[0.8] contrast-[1.08] transition-all duration-300 group-hover:scale-105"
+          />
+
+          {/* Energy Particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+            <div className="absolute w-1 h-1 rounded-full bg-primary-accent animate-[pulse-glow_3s_infinite]" style={{ top: '15%', left: '25%' }} />
+            <div className="absolute w-1.5 h-1.5 rounded-full bg-[#CF9D7B] animate-pulse" style={{ top: '75%', left: '80%', animationDuration: '2.5s' }} />
+            <div className="absolute w-1 h-1 rounded-full bg-white opacity-40" style={{ top: '65%', left: '20%' }} />
           </div>
+
+          {/* Code Streams Overlay */}
+          <div className="absolute inset-0 bg-[#0C1519]/35 pointer-events-none z-10" />
+          <div className="code-stream-panel z-10 opacity-20">
+            <div className="animate-[matrix-fade_10s_linear_infinite]" style={{ whiteSpace: 'pre-wrap' }}>
+              {"01011\nCORE\nSYS_\nNET_"}
+            </div>
+          </div>
+
+          {/* Scan line */}
+          <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#CF9D7B] to-transparent opacity-90 animate-scan pointer-events-none z-10" />
         </div>
 
-        {/* Scan line */}
-        <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#CF9D7B] to-transparent opacity-80 animate-scan pointer-events-none z-10" />
-      </div>
-
-      {/* Floating UI micro-panels */}
-      <div 
-        className="absolute -top-2 -left-2 px-1.5 py-0.5 bg-[#162127]/90 border border-white/10 text-[7px] font-mono text-primary-accent rounded pointer-events-none z-20 transition-all duration-300 shadow-lg"
-        style={{ transform: 'translateZ(20px)', opacity: isHovered ? 1 : 0.7 }}
-      >
-        SYS_ONLINE
-      </div>
-      <div 
-        className="absolute -bottom-2 -right-2 px-1.5 py-0.5 bg-[#162127]/90 border border-white/10 text-[7px] font-mono text-[#B9ACA3] rounded pointer-events-none z-20 transition-all duration-300 shadow-lg"
-        style={{ transform: 'translateZ(20px)', opacity: isHovered ? 1 : 0.7 }}
-      >
-        V4.0 // CORE
-      </div>
-    </motion.div>
+        {/* Floating UI micro-panels */}
+        <div 
+          className="absolute -top-2 -left-2 px-1.5 py-0.5 bg-[#162127]/90 border border-white/10 text-[7px] font-mono text-primary-accent rounded pointer-events-none z-20 transition-all duration-300 shadow-lg"
+          style={{ transform: 'translateZ(24px)', opacity: isHovered ? 1 : 0.8 }}
+        >
+          SYS_ONLINE
+        </div>
+        <div 
+          className="absolute -bottom-2 -right-2 px-1.5 py-0.5 bg-[#162127]/90 border border-white/10 text-[7px] font-mono text-[#B9ACA3] rounded pointer-events-none z-20 transition-all duration-300 shadow-lg"
+          style={{ transform: 'translateZ(24px)', opacity: isHovered ? 1 : 0.8 }}
+        >
+          V4.0 // CORE
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
