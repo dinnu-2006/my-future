@@ -63,7 +63,7 @@ export const Achievements: React.FC = () => {
               whileInView="unlocked"
               viewport={{ once: true, margin: '-80px' }}
               variants={vaultCardVariants}
-              className="h-full rounded-xl overflow-hidden border pointer-events-auto transition-all duration-300 hover:border-[#CF9D7B]/30 hover:shadow-[0_0_20px_rgba(207,157,123,0.1)]"
+              className="h-full rounded-xl overflow-hidden border pointer-events-auto transition-[border-color,transform] duration-300 hover:border-[#CF9D7B]/30"
             >
               {/* Inner wrapper simulating card layout with state shifts */}
               <div className="p-6 flex flex-col justify-between h-full relative group overflow-hidden">

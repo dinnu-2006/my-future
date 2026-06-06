@@ -41,10 +41,10 @@ export const Contact: React.FC = () => {
   const [submitStage, setSubmitStage] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [agentText, setAgentText] = useState('Connection initialized. Awaiting user transmission log...');
 
-  const nameMag = useMagnetic(0.12);
-  const emailMag = useMagnetic(0.12);
-  const subjectMag = useMagnetic(0.12);
-  const messageMag = useMagnetic(0.08);
+  const nameMag = useMagnetic(0.06);
+  const emailMag = useMagnetic(0.06);
+  const subjectMag = useMagnetic(0.06);
+  const messageMag = useMagnetic(0.04);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

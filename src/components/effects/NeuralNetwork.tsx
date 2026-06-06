@@ -64,9 +64,8 @@ export const NeuralNetwork: React.FC = () => {
 
     // Adapt particle count to viewport size
     const getParticleCount = () => {
-      if (isReduced) return 0;
-      const area = window.innerWidth * window.innerHeight;
-      return Math.min(100, Math.floor(area / 18000));
+      if (isReduced || window.innerWidth < 768) return 0;
+      return 25;
     };
 
     let particleCount = getParticleCount();
@@ -108,6 +107,11 @@ export const NeuralNetwork: React.FC = () => {
     window.addEventListener('resize', handleResizeParticles);
 
     const draw = () => {
+      if (particles.length === 0) {
+        ctx.clearRect(0, 0, width, height);
+        animationFrameId = requestAnimationFrame(draw);
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
 
       const mX = mouseRef.current.x;

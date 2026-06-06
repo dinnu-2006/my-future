@@ -152,7 +152,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
     window.addEventListener('mousemove', handleMouseMove);
 
     // Particles creation
-    const particleCount = 180;
+    const particleCount = 25;
     const particles: Array<{
       x: number;
       y: number;

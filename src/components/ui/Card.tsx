@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -24,10 +24,20 @@ export const Card: React.FC<CardProps> = ({
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [glowStyle, setGlowStyle] = useState<React.CSSProperties>({});
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
     if (!card) return;
+    if (isMobile) return;
 
     const { left, top, width, height } = card.getBoundingClientRect();
     const x = e.clientX - left;
@@ -73,14 +83,12 @@ export const Card: React.FC<CardProps> = ({
         className
       )}
       style={{
-        transform: tiltEffect
+        transform: !isMobile && tiltEffect
           ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)${isHovered ? ' translateY(-5px) scale(1.015)' : ''}`
           : (isHovered ? 'translateY(-5px) scale(1.015)' : undefined),
         transformStyle: 'preserve-3d',
         background: borderBackground,
-        boxShadow: isHovered
-          ? '0 12px 40px rgba(207, 157, 123, 0.06)'
-          : '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
       }}
       {...props}
     >

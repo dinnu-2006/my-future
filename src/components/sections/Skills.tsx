@@ -73,11 +73,12 @@ export const Skills: React.FC = () => {
                         </div>
                         <div className="w-full h-1.5 rounded bg-white/5 overflow-hidden relative border border-white/5">
                           <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="h-full bg-gradient-to-r from-[#724B39] to-primary-accent"
+                            className="h-full bg-gradient-to-r from-[#724B39] to-primary-accent origin-left"
+                            style={{ width: `${skill.level}%` }}
                           />
                         </div>
                       </div>
@@ -282,13 +283,11 @@ export const Skills: React.FC = () => {
                           {/* Progress Bar Container */}
                           <div className="w-full h-2 rounded bg-[#0C1519] overflow-hidden border border-white/5 relative">
                             <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${skill.level}%` }}
-                              transition={{ duration: 1.0, ease: [0.25, 1, 0.5, 1], delay: idx * 0.08 }}
-                              className="h-full bg-gradient-to-r from-[#724B39] to-[#CF9D7B]"
-                              style={{
-                                boxShadow: '0 0 10px rgba(207, 157, 123, 0.5)'
-                              }}
+                              initial={{ scaleX: 0 }}
+                              animate={{ scaleX: 1 }}
+                              transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1], delay: idx * 0.08 }}
+                              className="h-full bg-gradient-to-r from-[#724B39] to-[#CF9D7B] origin-left"
+                              style={{ width: `${skill.level}%` }}
                             />
                           </div>
                         </div>

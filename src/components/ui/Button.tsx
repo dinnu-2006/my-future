@@ -50,13 +50,13 @@ export const Button: React.FC<ButtonProps> = ({
     if (onClick) onClick(e as any);
   };
 
-  const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-[4px] hover:scale-[1.04] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.94] active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none';
+  const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-[transform,border-color,background-color,color] duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-[4px] hover:scale-[1.04] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.94] active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none';
   
   const variants = {
-    primary: 'bg-[#CF9D7B] text-[#0C1519] border border-[#CF9D7B]/20 hover:border-[#CF9D7B]/50 hover:shadow-[0_0_25px_rgba(207,157,123,0.45)] font-semibold',
-    secondary: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_0_20px_rgba(207,157,123,0.3)]',
-    outline: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_0_20px_rgba(207,157,123,0.3)]',
-    glow: 'bg-transparent text-white border border-[#3A3534] hover:border-[#CF9D7B]/50 hover:bg-[#CF9D7B]/5 hover:shadow-[0_0_20px_rgba(207,157,123,0.25)]'
+    primary: 'bg-[#CF9D7B] text-[#0C1519] border border-[#CF9D7B]/20 hover:border-[#CF9D7B]/50 font-semibold',
+    secondary: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B]',
+    outline: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B]',
+    glow: 'bg-transparent text-white border border-[#3A3534] hover:border-[#CF9D7B]/50 hover:bg-[#CF9D7B]/5'
   };
 
   const sizes = {

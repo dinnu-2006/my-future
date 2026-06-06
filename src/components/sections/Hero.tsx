@@ -10,14 +10,34 @@ export const Hero: React.FC = () => {
   
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (window.innerWidth < 768) return; // Disable parallax on mobile viewports
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let animFrameId: number;
+
     const handleMouseMove = (e: MouseEvent) => {
-      // Calculate relative coordinate offset from center of viewport
-      const x = (e.clientX - window.innerWidth / 2) * 0.06;
-      const y = (e.clientY - window.innerHeight / 2) * 0.06;
-      setCoords({ x, y });
+      targetX = (e.clientX - window.innerWidth / 2) * 0.05;
+      targetY = (e.clientY - window.innerHeight / 2) * 0.05;
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+
+    const updateParallax = () => {
+      const lerpFactor = 0.08; // Smooth dampening multiplier
+      currentX += (targetX - currentX) * lerpFactor;
+      currentY += (targetY - currentY) * lerpFactor;
+      setCoords({ x: currentX, y: currentY });
+      animFrameId = requestAnimationFrame(updateParallax);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    animFrameId = requestAnimationFrame(updateParallax);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animFrameId);
+    };
   }, []);
 
   // Framer Motion staggered child animations with blur + fade + slide reveal

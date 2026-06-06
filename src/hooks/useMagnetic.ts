@@ -9,6 +9,10 @@ export const useMagnetic = (strength = 0.35) => {
     if (!element) return;
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+        setPosition({ x: 0, y: 0 });
+        return;
+      }
       const { clientX, clientY } = e;
       const { left, top, width, height } = element.getBoundingClientRect();
       const centerX = left + width / 2;

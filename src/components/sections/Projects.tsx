@@ -71,6 +71,7 @@ export const Projects: React.FC = () => {
 
   // Ambient Particles Canvas Background (60 FPS GPU Assisted)
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -78,7 +79,7 @@ export const Projects: React.FC = () => {
 
     let animFrameId: number;
     let particles: Particle[] = [];
-    const count = 35;
+    const count = 20;
 
     const resize = () => {
       if (canvas && canvas.parentElement) {
@@ -258,6 +259,7 @@ export const Projects: React.FC = () => {
 
   // 3D Parallax Tilt Effect for active card
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;

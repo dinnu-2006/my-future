@@ -32,9 +32,20 @@ export const AICursor: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse = useMousePosition();
   const mouseRef = useRef({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -57,7 +68,7 @@ export const AICursor: React.FC = () => {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if (reducedMotion) {
+    if (reducedMotion || isMobile) {
       document.body.classList.remove('custom-cursor-active');
       return;
     }
@@ -116,21 +127,21 @@ export const AICursor: React.FC = () => {
         x: e.clientX,
         y: e.clientY,
         radius: 2,
-        maxRadius: 40,
-        alpha: 0.9,
+        maxRadius: 32,
+        alpha: 0.85,
       });
 
       // Spawn click sparks
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < 8; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4.5 + 2.5;
+        const speed = Math.random() * 3.5 + 2.0;
         particles.push({
           x: e.clientX,
           y: e.clientY,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
           alpha: 1.0,
-          size: Math.random() * 2.5 + 2.0,
+          size: Math.random() * 2.0 + 1.5,
         });
       }
     };
@@ -177,17 +188,22 @@ export const AICursor: React.FC = () => {
 
       // Spawn particles when cursor moves significantly
       const distMoved = Math.sqrt(Math.pow(currentX - lastSpawnX, 2) + Math.pow(currentY - lastSpawnY, 2));
-      if (distMoved > 4) {
+      if (distMoved > 8) {
         particles.push({
           x: currentX,
           y: currentY,
-          vx: (Math.random() - 0.5) * 0.8,
-          vy: (Math.random() - 0.5) * 0.8,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
           alpha: 0.8,
-          size: Math.random() * 2 + 1.5,
+          size: Math.random() * 1.5 + 1.0,
         });
         lastSpawnX = currentX;
         lastSpawnY = currentY;
+      }
+
+      // Limit particle count
+      if (particles.length > 20) {
+        particles.splice(0, particles.length - 20);
       }
 
       // Update and Draw Particles (Green Glow Dust)
@@ -319,9 +335,9 @@ export const AICursor: React.FC = () => {
       document.body.classList.remove('custom-cursor-active');
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isVisible, isHovering, reducedMotion]);
+  }, [isVisible, isHovering, reducedMotion, isMobile]);
 
-  if (reducedMotion) return null;
+  if (reducedMotion || isMobile) return null;
 
   return (
     <canvas
