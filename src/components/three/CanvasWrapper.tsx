@@ -126,9 +126,6 @@ export const CanvasWrapper: React.FC = () => {
                 }}
               />
               
-              {/* Subtle Scanning Scanline */}
-              <div className="absolute left-0 w-full h-[1.5px] bg-[#CF9D7B]/40 shadow-[0_0_8px_#CF9D7B] opacity-60 animate-[scan-slow_10s_ease-in-out_infinite] pointer-events-none" />
-              
               {/* Radial gradient shadow around image edges for cinematic lighting */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(3,7,18,0.7)_100%)] pointer-events-none" />
             </div>
@@ -149,7 +146,12 @@ export const CanvasWrapper: React.FC = () => {
           className="absolute inset-0 w-full h-full pointer-events-none z-20"
           style={{ transform: 'translateZ(15px)' }}
         >
-          <svg className="w-full h-full" viewBox="0 0 290 390" preserveAspectRatio="none">
+          <svg 
+            className="w-full h-full" 
+            viewBox="0 0 290 390" 
+            preserveAspectRatio="none"
+            style={{ transform: 'translate3d(0, 0, 0)', willChange: 'transform' }}
+          >
             <defs>
               <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#CF9D7B" stopOpacity="0.8" />
@@ -166,21 +168,12 @@ export const CanvasWrapper: React.FC = () => {
               className="opacity-20"
             />
             {/* Active pulsing energy stroke */}
-            <motion.polygon 
+            <polygon 
               points="30,1 289,1 289,339 239,389 18,389 1,371 1,30" 
               fill="none" 
               stroke="#CF9D7B" 
               strokeWidth="1.5"
-              strokeDasharray="80 380"
-              animate={{
-                strokeDashoffset: [460, 0]
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              className="drop-shadow-[0_0_3px_rgba(207,157,123,0.5)]"
+              className="frame-glow-flow-line drop-shadow-[0_0_3px_rgba(207,157,123,0.5)]"
             />
           </svg>
         </div>
@@ -225,7 +218,7 @@ export const CanvasWrapper: React.FC = () => {
             {[0.4, 0.8, 0.3, 0.9, 0.5, 0.7, 0.2, 0.6, 0.4].map((h, i) => (
               <div 
                 key={i} 
-                className="w-[3px] bg-[#CF9D7B]/80 rounded-full"
+                className="w-[3px] bg-[#CF9D7B]/80 rounded-full origin-bottom will-change-transform"
                 style={{ 
                   height: `${h * 100}%`,
                   animation: 'voice-wave 1.2s ease-in-out infinite',
@@ -249,11 +242,11 @@ export const CanvasWrapper: React.FC = () => {
             <Activity className="w-2.5 h-2.5 text-[#CF9D7B]" />
             NEURAL_STREAM
           </div>
-          <div className="w-full bg-white/5 h-[1.5px] mb-2 rounded-full overflow-hidden">
+          <div className="w-full bg-white/5 h-[1.5px] mb-2 rounded-full overflow-hidden relative">
             <motion.div 
-              className="bg-[#CF9D7B] h-full"
-              initial={{ width: "20%" }}
-              animate={{ width: ["20%", "85%", "45%", "90%", "20%"] }}
+              className="bg-[#CF9D7B] h-full w-full origin-left"
+              style={{ scaleX: 0.2 }}
+              animate={{ scaleX: [0.2, 0.85, 0.45, 0.9, 0.2] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             />
           </div>
@@ -288,13 +281,13 @@ export const CanvasWrapper: React.FC = () => {
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full bg-[#CF9D7B]/40"
+            className="absolute rounded-full bg-[#CF9D7B]/50"
             style={{
-              width: `${Math.random() * 3 + 1.5}px`,
-              height: `${Math.random() * 3 + 1.5}px`,
+              width: `${Math.random() * 2.5 + 1.5}px`,
+              height: `${Math.random() * 2.5 + 1.5}px`,
               left: `${15 + Math.random() * 70}%`,
               top: `${20 + Math.random() * 60}%`,
-              filter: 'blur(0.5px) drop-shadow(0 0 2px #CF9D7B)',
+              boxShadow: '0 0 4px rgba(207, 157, 123, 0.4)',
               animation: 'star-flicker 4s ease-in-out infinite',
               animationDelay: `${i * 0.7}s`
             }}

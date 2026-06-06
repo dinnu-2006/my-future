@@ -11,19 +11,19 @@
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-4px);
+    transform: translate3d(0, -4px, 0);
   }
 }
 
 @keyframes float-reverse {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(4px);
+    transform: translate3d(0, 4px, 0);
   }
 }
 
@@ -276,6 +276,21 @@
   50% {
     transform: translate3d(0, -6px, 0) rotate(180deg) scale(1.03);
   }
+}
+
+@keyframes frame-glow-flow {
+  0% {
+    stroke-dashoffset: 460;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.frame-glow-flow-line {
+  stroke-dasharray: 80 380;
+  animation: frame-glow-flow 6s linear infinite;
+  will-change: stroke-dashoffset;
 }
 
 
