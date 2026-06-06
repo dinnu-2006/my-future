@@ -16,16 +16,11 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 const DIAGNOSTIC_LOGS = [
-  { time: 0.15, text: "INITIALIZING MAINFRAME RECTIFIER V4.02..." },
-  { time: 0.35, text: "ESTABLISHING SECURE CONNECTION TO DINESH_P.CORE..." },
-  { time: 0.55, text: "LOAD_MODULE: NEURAL_NETWORKS & EMBEDDINGS... [OK]" },
-  { time: 0.75, text: "LOAD_MODULE: FULLSTACK_ROUTERS_V2... [OK]" },
-  { time: 0.95, text: "EXTRACTING CORE TOOLKIT DATABASES..." },
-  { time: 1.15, text: "CHECKING SYSTEM INTEGRITY... ALL SERVICES ONLINE" },
-  { time: 1.40, text: "COMPILING WEB APP INTERFACES... [OK]" },
-  { time: 1.65, text: "WARNING: SYNERGETIC FLOW OVERLOAD DETECTED" },
-  { time: 1.85, text: "CRITICAL: COLLAPSING PARTICLES INTO SINGULARITY..." },
-  { time: 2.05, text: "DETONATION INITIATED // PORTAL ACCESS GRANTED" }
+  { time: 0.15, text: "SYNAPSE.CORE INITIALIZING... [OK]" },
+  { time: 0.50, text: "LOADING NEURAL NETWORKS... [OK]" },
+  { time: 0.90, text: "CONNECTING MODULES... [OK]" },
+  { time: 1.30, text: "AUTHENTICATING SYSTEM... [OK]" },
+  { time: 1.75, text: "ACCESS GRANTED // SYSTEM BOOT COMPLETED" }
 ];
 
 export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
@@ -36,11 +31,25 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
   const [zoomOut, setZoomOut] = useState(false);
   const [scrambledTitle, setScrambledTitle] = useState("");
   const [scrambledSub, setScrambledSub] = useState("");
+  const [bootPhase, setBootPhase] = useState(0);
 
   const onCompleteRef = useRef(onComplete);
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setBootPhase(1), 400);
+    const timer2 = setTimeout(() => setBootPhase(2), 800);
+    const timer3 = setTimeout(() => setBootPhase(3), 1200);
+    const timer4 = setTimeout(() => setBootPhase(4), 1600);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(timer4);
+    };
+  }, []);
 
   // Immediate completion if prefers-reduced-motion is active
   useEffect(() => {
@@ -570,13 +579,73 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[99999] bg-[#0C1519] overflow-hidden flex items-center justify-center pointer-events-none select-none"
+      className="fixed inset-0 z-[99999] bg-[#0C1519] overflow-hidden flex items-center justify-center select-none"
     >
       {/* Sci-Fi Canvas Scene */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
       {/* Grid Scanline Scan overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent via-white/[0.008] to-transparent bg-[size:100%_6px] animate-pulse" />
+
+      {/* Central High-Tech Boot Terminal */}
+      <AnimatePresence>
+        {!showLogo && (
+          <motion.div
+            initial={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="z-20 max-w-sm w-[90%] p-6 rounded-xl font-mono text-[10px] md:text-xs text-left backdrop-blur-lg bg-[#0C1519]/60 border border-[#CF9D7B]/20 shadow-[0_0_40px_rgba(207,157,123,0.08)] flex flex-col gap-3 relative select-none pointer-events-auto"
+            style={{
+              clipPath: 'polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px)'
+            }}
+          >
+            {/* HUD Corner Decorations */}
+            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#CF9D7B] opacity-60" />
+            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#CF9D7B] opacity-60" />
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#CF9D7B] opacity-60" />
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#CF9D7B] opacity-60" />
+
+            <div className="flex items-center justify-between border-b border-white/5 pb-2 text-[8px] uppercase tracking-widest text-[#B9ACA3] mb-1">
+              <span>SYNAPSE INTERFACE</span>
+              <span className="animate-pulse">SYS_BOOT_V4.0</span>
+            </div>
+
+            <div className="flex flex-col gap-2.5">
+              {bootPhase >= 0 && (
+                <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }}>
+                  <span className="text-[#CF9D7B]">&gt;</span> SYNAPSE.CORE INITIALIZING...
+                </motion.div>
+              )}
+              {bootPhase >= 1 && (
+                <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }}>
+                  <span className="text-[#CF9D7B]">&gt;</span> LOADING NEURAL NETWORKS... <span className="text-[#CF9D7B] animate-pulse">LOADED</span>
+                </motion.div>
+              )}
+              {bootPhase >= 2 && (
+                <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }}>
+                  <span className="text-[#CF9D7B]">&gt;</span> CONNECTING MODULES... <span className="text-emerald-400">100%</span>
+                </motion.div>
+              )}
+              {bootPhase >= 3 && (
+                <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }}>
+                  <span className="text-[#CF9D7B]">&gt;</span> AUTHENTICATING SYSTEM... <span className="text-emerald-400">SECURE</span>
+                </motion.div>
+              )}
+              {bootPhase >= 4 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                  className="text-emerald-400 font-bold tracking-wider border-t border-white/5 pt-2 flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  ACCESS GRANTED
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Decrypting Glowing Logo Container */}
       <AnimatePresence>

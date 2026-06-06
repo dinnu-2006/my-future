@@ -20,7 +20,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            'glass-input px-4 py-3 text-sm md:text-base w-full',
+            'glass-input px-4 py-3 text-sm md:text-base w-full transition-all duration-300 hover:border-white/20 focus:border-[#CF9D7B] focus:shadow-[0_0_18px_rgba(207,157,123,0.25)] focus:bg-[#162127]/60 focus:outline-none',
             error && 'border-red-500/50 focus:border-red-500 focus:shadow-[0_0_10px_rgba(239,68,68,0.15)]',
             className
           )}
@@ -55,7 +55,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
         <textarea
           className={cn(
-            'glass-input px-4 py-3 text-sm md:text-base w-full min-h-[120px] resize-y',
+            'glass-input px-4 py-3 text-sm md:text-base w-full min-h-[120px] resize-y transition-all duration-300 hover:border-white/20 focus:border-[#CF9D7B] focus:shadow-[0_0_18px_rgba(207,157,123,0.25)] focus:bg-[#162127]/60 focus:outline-none',
             error && 'border-red-500/50 focus:border-red-500 focus:shadow-[0_0_10px_rgba(239,68,68,0.15)]',
             className
           )}

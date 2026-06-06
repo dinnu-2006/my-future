@@ -110,15 +110,29 @@ export const AICursor: React.FC = () => {
     let trailX = mouseRef.current.x;
     let trailY = mouseRef.current.y;
 
-    // Detect click to spawn ripples
+    // Detect click to spawn ripples & sparks
     const handleClick = (e: MouseEvent) => {
       ripples.push({
         x: e.clientX,
         y: e.clientY,
         radius: 2,
-        maxRadius: 35,
-        alpha: 0.8,
+        maxRadius: 40,
+        alpha: 0.9,
       });
+
+      // Spawn click sparks
+      for (let i = 0; i < 14; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 4.5 + 2.5;
+        particles.push({
+          x: e.clientX,
+          y: e.clientY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1.0,
+          size: Math.random() * 2.5 + 2.0,
+        });
+      }
     };
     window.addEventListener('click', handleClick);
 
@@ -221,22 +235,67 @@ export const AICursor: React.FC = () => {
       trailX += (currentX - trailX) * lerpFactor;
       trailY += (currentY - trailY) * lerpFactor;
 
-      // Draw Main Pointer Outer Ring
-      ctx.beginPath();
-      const circleRadius = isHovering ? 20 : 10;
-      ctx.arc(trailX, trailY, circleRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = isHovering ? hexToRgba(primaryColorHex, 0.85) : 'rgba(255, 255, 255, 0.4)';
-      ctx.lineWidth = isHovering ? 1.5 : 1;
-      
-      // If hovering, add outer glow border
+      // Draw Custom Futuristic HUD Reticle Bracket Corners
       if (isHovering) {
-        ctx.shadowColor = primaryColorHex;
-        ctx.shadowBlur = 8;
-      }
-      ctx.stroke();
-      ctx.shadowBlur = 0; // Reset
+        // Draw rotating dashed inner ring (representing hover distortion/HUD interaction)
+        ctx.save();
+        ctx.translate(trailX, trailY);
+        ctx.rotate(Date.now() * 0.0025);
+        ctx.beginPath();
+        ctx.arc(0, 0, 16, 0, Math.PI * 2);
+        ctx.strokeStyle = hexToRgba(primaryColorHex, 0.4);
+        ctx.lineWidth = 0.8;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.restore();
 
-      // Draw Main Dot center
+        // Draw 4 corner brackets around the pointer
+        const bSize = 6;
+        const bOffset = 22; // Distance from center
+        ctx.strokeStyle = primaryColorHex;
+        ctx.lineWidth = 1.5;
+        ctx.shadowColor = primaryColorHex;
+        ctx.shadowBlur = 6;
+
+        // Top Left [
+        ctx.beginPath();
+        ctx.moveTo(trailX - bOffset + bSize, trailY - bOffset);
+        ctx.lineTo(trailX - bOffset, trailY - bOffset);
+        ctx.lineTo(trailX - bOffset, trailY - bOffset + bSize);
+        ctx.stroke();
+
+        // Top Right ]
+        ctx.beginPath();
+        ctx.moveTo(trailX + bOffset - bSize, trailY - bOffset);
+        ctx.lineTo(trailX + bOffset, trailY - bOffset);
+        ctx.lineTo(trailX + bOffset, trailY - bOffset + bSize);
+        ctx.stroke();
+
+        // Bottom Left [
+        ctx.beginPath();
+        ctx.moveTo(trailX - bOffset + bSize, trailY + bOffset);
+        ctx.lineTo(trailX - bOffset, trailY + bOffset);
+        ctx.lineTo(trailX - bOffset, trailY + bOffset - bSize);
+        ctx.stroke();
+
+        // Bottom Right ]
+        ctx.beginPath();
+        ctx.moveTo(trailX + bOffset - bSize, trailY + bOffset);
+        ctx.lineTo(trailX + bOffset, trailY + bOffset);
+        ctx.lineTo(trailX + bOffset, trailY + bOffset - bSize);
+        ctx.stroke();
+
+        ctx.shadowBlur = 0; // Reset
+      } else {
+        // Normal outer tracking circle
+        ctx.beginPath();
+        ctx.arc(trailX, trailY, 10, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      // Draw Main Dot center (the physical pointer)
       ctx.beginPath();
       ctx.arc(currentX, currentY, 3, 0, Math.PI * 2);
       ctx.fillStyle = primaryColorHex;

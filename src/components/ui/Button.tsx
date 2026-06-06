@@ -36,14 +36,27 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const { ref, x, y } = useMagnetic(magnetic ? magneticStrength : 0);
+  const [ripples, setRipples] = React.useState<Array<{ id: number; x: number; y: number }>>([]);
 
-  const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] hover:scale-[1.03] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const newRipple = { id: Date.now(), x, y };
+    setRipples((prev) => [...prev, newRipple]);
+    setTimeout(() => {
+      setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
+    }, 600);
+    if (onClick) onClick(e as any);
+  };
+
+  const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-[4px] hover:scale-[1.04] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.94] active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none';
   
   const variants = {
-    primary: 'bg-[#CF9D7B] text-[#0C1519] border border-[#CF9D7B]/20 hover:border-[#CF9D7B]/40 hover:shadow-[0_8px_25px_rgba(207,157,123,0.25)] font-semibold',
-    secondary: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_8px_20px_rgba(207,157,123,0.15)]',
-    outline: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_8px_20px_rgba(207,157,123,0.15)]',
-    glow: 'bg-transparent text-white border border-[#3A3534] hover:border-[#CF9D7B]/40 hover:shadow-[0_8px_20px_rgba(207,157,123,0.15)]'
+    primary: 'bg-[#CF9D7B] text-[#0C1519] border border-[#CF9D7B]/20 hover:border-[#CF9D7B]/50 hover:shadow-[0_0_25px_rgba(207,157,123,0.45)] font-semibold',
+    secondary: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_0_20px_rgba(207,157,123,0.3)]',
+    outline: 'border border-[#724B39] bg-transparent text-white hover:bg-[#CF9D7B] hover:text-[#0C1519] hover:border-[#CF9D7B] hover:shadow-[0_0_20px_rgba(207,157,123,0.3)]',
+    glow: 'bg-transparent text-white border border-[#3A3534] hover:border-[#CF9D7B]/50 hover:bg-[#CF9D7B]/5 hover:shadow-[0_0_20px_rgba(207,157,123,0.25)]'
   };
 
   const sizes = {
@@ -59,13 +72,26 @@ export const Button: React.FC<ButtonProps> = ({
     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent translate-x-[-150%] translate-y-[-150%] rotate-45 pointer-events-none group-hover:animate-[hud-glimmer_1.1s_ease-out]" />
   );
 
+  const rippleElements = ripples.map((ripple) => (
+    <span
+      key={ripple.id}
+      className="absolute bg-white/20 rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 animate-[ripple-effect_0.6s_ease-out]"
+      style={{
+        left: ripple.x,
+        top: ripple.y,
+        width: 100,
+        height: 100,
+      }}
+    />
+  ));
+
   if (href) {
     if (href.startsWith('http') || href.startsWith('mailto:') || href.endsWith('.pdf')) {
       return (
         <a
           ref={ref as React.RefObject<HTMLAnchorElement>}
           href={href}
-          onClick={onClick}
+          onClick={handleButtonClick}
           className={combinedClassName}
           style={transformStyle}
           target={target || '_blank'}
@@ -73,6 +99,7 @@ export const Button: React.FC<ButtonProps> = ({
           title={title}
         >
           {shineSweep}
+          {rippleElements}
           <span className="relative z-10 flex items-center justify-center gap-1.5">{children}</span>
         </a>
       );
@@ -80,13 +107,14 @@ export const Button: React.FC<ButtonProps> = ({
     return (
       <Link
         href={href}
-        onClick={onClick}
+        onClick={handleButtonClick}
         className={combinedClassName}
         style={transformStyle}
         ref={ref as React.RefObject<HTMLAnchorElement>}
         title={title}
       >
         {shineSweep}
+        {rippleElements}
         <span className="relative z-10 flex items-center justify-center gap-1.5">{children}</span>
       </Link>
     );
@@ -97,13 +125,14 @@ export const Button: React.FC<ButtonProps> = ({
       ref={ref as React.RefObject<HTMLButtonElement>}
       type={type}
       disabled={disabled}
-      onClick={onClick}
+      onClick={handleButtonClick}
       className={combinedClassName}
       style={transformStyle}
       title={title}
       {...props}
     >
       {shineSweep}
+      {rippleElements}
       <span className="relative z-10 flex items-center justify-center gap-1.5">{children}</span>
     </button>
   );

@@ -72,8 +72,11 @@ export const Blog: React.FC = () => {
             >
               <Card
                 glowColor="rgba(207, 157, 123, 0.12)"
-                className="p-6 md:p-8 bg-[#162127]/20 border border-white/8 flex flex-col lg:flex-row gap-8 items-center justify-between group cursor-pointer"
+                className="p-6 md:p-8 bg-[#162127]/20 border border-white/8 flex flex-col lg:flex-row gap-8 items-center justify-between group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:border-[#CF9D7B]/30 hover:shadow-[0_12px_35px_rgba(207,157,123,0.15)] relative overflow-hidden"
               >
+                {/* Reading Progress Indicator */}
+                <div className="absolute top-0 left-0 h-1 bg-gradient-to-r from-[#724B39] to-primary-accent w-0 group-hover:w-full transition-all duration-[2200ms] ease-out pointer-events-none" />
+
                 <div className="flex flex-col items-start gap-4 text-left lg:max-w-2xl">
                   <div className="flex items-center gap-3">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-primary-accent px-2 py-0.5 rounded border border-primary-accent/20 bg-primary-accent/5">
@@ -128,8 +131,11 @@ export const Blog: React.FC = () => {
             >
               <Card
                 glowColor="rgba(207, 157, 123, 0.1)"
-                className="p-6 bg-[#162127]/10 border border-white/6 flex flex-col justify-between h-full group cursor-pointer"
+                className="p-6 bg-[#162127]/10 border border-white/6 flex flex-col justify-between h-full group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-[#CF9D7B]/30 hover:shadow-[0_12px_30px_rgba(207,157,123,0.12)] relative overflow-hidden"
               >
+                {/* Reading Progress Indicator */}
+                <div className="absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#724B39] to-[#CF9D7B] w-0 group-hover:w-full transition-all duration-[1800ms] ease-out pointer-events-none" />
+
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-[#CF9D7B]">

@@ -8,6 +8,7 @@ import { Button } from '../ui/Button';
 import { Input, Textarea } from '../ui/Input';
 import { fadeUp } from '@/lib/animations';
 import { Mail, Cpu, Terminal, Loader2, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { useMagnetic } from '@/hooks/useMagnetic';
 // Contact form submissions are routed via secure backend api route handler (/api/contact)
 
 
@@ -39,6 +40,11 @@ export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitStage, setSubmitStage] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [agentText, setAgentText] = useState('Connection initialized. Awaiting user transmission log...');
+
+  const nameMag = useMagnetic(0.12);
+  const emailMag = useMagnetic(0.12);
+  const subjectMag = useMagnetic(0.12);
+  const messageMag = useMagnetic(0.08);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -226,39 +232,63 @@ export const Contact: React.FC = () => {
                     exit={{ opacity: 0 }}
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div
+                        ref={nameMag.ref as React.RefObject<HTMLDivElement>}
+                        style={{ transform: `translate3d(${nameMag.x}px, ${nameMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                        className="w-full"
+                      >
+                        <Input
+                          label="Your Name"
+                          name="name"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="Sarah Jenkins"
+                        />
+                      </div>
+                      <div
+                        ref={emailMag.ref as React.RefObject<HTMLDivElement>}
+                        style={{ transform: `translate3d(${emailMag.x}px, ${emailMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                        className="w-full"
+                      >
+                        <Input
+                          label="Email Address"
+                          name="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="sarah@nexus.com"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      ref={subjectMag.ref as React.RefObject<HTMLDivElement>}
+                      style={{ transform: `translate3d(${subjectMag.x}px, ${subjectMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                      className="w-full"
+                    >
                       <Input
-                        label="Your Name"
-                        name="name"
-                        required
-                        value={formData.name}
+                        label="Subject"
+                        name="subject"
+                        value={formData.subject}
                         onChange={handleChange}
-                        placeholder="Sarah Jenkins"
-                      />
-                      <Input
-                        label="Email Address"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="sarah@nexus.com"
+                        placeholder="AI Operations Pipeline Enquire"
                       />
                     </div>
-                    <Input
-                      label="Subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder="AI Operations Pipeline Enquire"
-                    />
-                    <Textarea
-                      label="Your Message"
-                      name="message"
-                      required
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Hi! We would love to collaborate with you on building..."
-                    />
+                    <div
+                      ref={messageMag.ref as React.RefObject<HTMLDivElement>}
+                      style={{ transform: `translate3d(${messageMag.x}px, ${messageMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                      className="w-full"
+                    >
+                      <Textarea
+                        label="Your Message"
+                        name="message"
+                        required
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Hi! We would love to collaborate with you on building..."
+                      />
+                    </div>
                     <Button type="submit" variant="primary" className="w-full mt-2 font-semibold">
                       Establish Uplink Connection
                     </Button>

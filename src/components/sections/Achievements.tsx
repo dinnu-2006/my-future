@@ -63,10 +63,12 @@ export const Achievements: React.FC = () => {
               whileInView="unlocked"
               viewport={{ once: true, margin: '-80px' }}
               variants={vaultCardVariants}
-              className="h-full rounded-xl overflow-hidden border pointer-events-auto"
+              className="h-full rounded-xl overflow-hidden border pointer-events-auto transition-all duration-300 hover:border-[#CF9D7B]/30 hover:shadow-[0_0_20px_rgba(207,157,123,0.1)]"
             >
               {/* Inner wrapper simulating card layout with state shifts */}
-              <div className="p-6 flex flex-col justify-between h-full relative group">
+              <div className="p-6 flex flex-col justify-between h-full relative group overflow-hidden">
+                {/* Trophy shine sweep overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[trophy-sweep_1.2s_ease-out] pointer-events-none" />
                 
                 {/* Vault State Indicator (Lock/Unlock) */}
                 <div className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-mono">

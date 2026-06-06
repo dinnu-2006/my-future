@@ -104,7 +104,7 @@ export const Navbar: React.FC<{ onTerminalToggle: () => void }> = ({ onTerminalT
                   {active && (
                     <motion.span 
                       layoutId="activeNavUnderline"
-                      className="absolute bottom-0 left-2 right-2 h-[2px] bg-primary-accent" 
+                      className="absolute bottom-0 left-2 right-2 h-[2px] bg-primary-accent shadow-[0_0_10px_#CF9D7B]" 
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}

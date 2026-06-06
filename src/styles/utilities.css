@@ -240,3 +240,100 @@
 .will-change-transform {
   will-change: transform;
 }
+
+/* Premium Cinematic & Holographic Utilities */
+.animate-glow-breathe {
+  animation: glow-breathe 4s ease-in-out infinite;
+}
+
+.holographic-container {
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.holographic-card {
+  position: relative;
+  background: rgba(22, 33, 39, 0.85);
+  border: 1px solid rgba(207, 157, 123, 0.15);
+  box-shadow: 0 0 25px rgba(207, 157, 123, 0.05), inset 0 0 15px rgba(207, 157, 123, 0.03);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+}
+
+.holographic-card:hover {
+  border-color: rgba(207, 157, 123, 0.4);
+  box-shadow: 0 0 35px rgba(207, 157, 123, 0.15), inset 0 0 25px rgba(207, 157, 123, 0.06);
+}
+
+.holographic-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: #CF9D7B;
+  border-style: solid;
+  opacity: 0.65;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.holographic-corner-tl {
+  top: 6px;
+  left: 6px;
+  border-width: 2px 0 0 2px;
+}
+
+.holographic-corner-tr {
+  top: 6px;
+  right: 6px;
+  border-width: 2px 2px 0 0;
+}
+
+.holographic-corner-bl {
+  bottom: 6px;
+  left: 6px;
+  border-width: 0 0 2px 2px;
+}
+
+.holographic-corner-br {
+  bottom: 6px;
+  right: 6px;
+  border-width: 0 2px 2px 0;
+}
+
+.holographic-card:hover .holographic-corner {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 4px #CF9D7B);
+}
+
+.scanning-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(207, 157, 123, 0.8), transparent);
+  box-shadow: 0 0 8px rgba(207, 157, 123, 0.6);
+  animation: scanline-vertical 3.5s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.code-stream-panel {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.magnetic-element {
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+

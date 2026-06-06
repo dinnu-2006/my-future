@@ -408,23 +408,32 @@ export const Projects: React.FC = () => {
                     }}
                   >
                     <Card
-                      glowColor={isActive ? "rgba(207, 157, 123, 0.2)" : "rgba(255, 255, 255, 0.01)"}
+                      glowColor={isActive ? "rgba(207, 157, 123, 0.25)" : "rgba(255, 255, 255, 0.01)"}
                       className={`p-6 md:p-8 bg-[#162127]/92 border rounded-2xl h-[450px] transition-all duration-300 relative overflow-hidden backdrop-blur-md text-left ${
                         isActive 
-                          ? 'border-[#CF9D7B]/30 shadow-[0_0_30px_rgba(207,157,123,0.15)]' 
+                          ? 'border-[#CF9D7B]/30 shadow-[0_0_35px_rgba(207,157,123,0.2)]' 
                           : 'border-white/5 shadow-md'
                       }`}
                       onMouseMove={isActive ? handleMouseMove : undefined}
                       onMouseLeave={isActive ? handleMouseLeave : undefined}
                       style={{
-                        transform: isActive ? 'perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))' : undefined,
-                        transition: 'transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s',
+                        transform: isActive ? 'perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(24px)' : undefined,
+                        transition: 'transform 0.08s ease-out, border-color 0.3s, box-shadow 0.3s',
                         // Spotlight hover glow
                         background: isActive 
-                          ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(207, 157, 123, 0.08) 0%, transparent 65%), rgba(22, 33, 39, 0.92)' 
+                          ? 'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(207, 157, 123, 0.1) 0%, transparent 65%), rgba(22, 33, 39, 0.92)' 
                           : undefined,
                       }}
                     >
+                      {isActive && (
+                        <>
+                          <div className="scanning-line" />
+                          <div className="holographic-corner holographic-corner-tl" />
+                          <div className="holographic-corner holographic-corner-tr" />
+                          <div className="holographic-corner holographic-corner-bl" />
+                          <div className="holographic-corner holographic-corner-br" />
+                        </>
+                      )}
                       {/* Fade out card content for background slides to prevent text overlapping */}
                       <div 
                         className="flex flex-col justify-between h-full transition-opacity duration-300"

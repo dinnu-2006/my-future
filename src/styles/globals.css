@@ -64,3 +64,9 @@
     transform: none !important;
   }
 }
+
+.scroll-smooth-container {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+

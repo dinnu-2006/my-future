@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { fadeUp, staggerContainer } from '@/lib/animations';
@@ -42,6 +42,134 @@ const STATS = [
   { label: 'Graduation Year', value: '2028' },
   { label: 'Github Repository', value: 'Active' }
 ];
+
+const AIPortrait: React.FC = () => {
+  const [rotate, setRotate] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    setRotate({
+      x: -((y - centerY) / centerY) * 10,
+      y: ((x - centerX) / centerX) * 10
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setRotate({ x: 0, y: 0 });
+    setIsHovered(false);
+  };
+
+  return (
+    <motion.div
+      animate={{
+        y: [0, -6, 0],
+      }}
+      transition={{
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovered(true)}
+      className="relative w-28 h-28 md:w-32 md:h-32 flex-shrink-0 cursor-pointer will-change-transform select-none mb-6 sm:mb-0"
+      style={{
+        transform: `perspective(800px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale(${isHovered ? 1.04 : 1})`,
+        transition: isHovered ? 'transform 0.08s ease-out' : 'transform 0.4s ease',
+        transformStyle: 'preserve-3d'
+      }}
+    >
+      {/* Outer pulsing glow */}
+      <div 
+        className="absolute inset-[-6px] rounded-xl bg-[#CF9D7B]/10 opacity-0 transition-opacity duration-300 blur-md pointer-events-none"
+        style={{ opacity: isHovered ? 0.75 : 0.2 }}
+      />
+
+      {/* Holographic corners */}
+      <div className="holographic-corner holographic-corner-tl" />
+      <div className="holographic-corner holographic-corner-tr" />
+      <div className="holographic-corner holographic-corner-bl" />
+      <div className="holographic-corner holographic-corner-br" />
+
+      {/* Main image container */}
+      <div 
+        className="w-full h-full bg-[#0C1519] border border-[#CF9D7B]/20 overflow-hidden relative rounded-lg flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.4)]"
+        style={{ transform: 'translateZ(10px)' }}
+      >
+        <img
+          src="/profile.jpg"
+          alt="Dinesh P"
+          className="w-full h-full object-cover object-center filter saturate-[0.85] contrast-[1.05]"
+        />
+
+        {/* Code Streams Overlay */}
+        <div className="absolute inset-0 bg-[#0C1519]/30 pointer-events-none z-10" />
+        <div className="code-stream-panel z-10 opacity-15">
+          <div className="animate-[matrix-fade_8s_linear_infinite]" style={{ whiteSpace: 'pre-wrap' }}>
+            {"01011\nCORE\nSYS_\nNET_"}
+          </div>
+        </div>
+
+        {/* Scan line */}
+        <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#CF9D7B] to-transparent opacity-80 animate-scan pointer-events-none z-10" />
+      </div>
+
+      {/* Floating UI micro-panels */}
+      <div 
+        className="absolute -top-2 -left-2 px-1.5 py-0.5 bg-[#162127]/90 border border-white/10 text-[7px] font-mono text-primary-accent rounded pointer-events-none z-20 transition-all duration-300 shadow-lg"
+        style={{ transform: 'translateZ(20px)', opacity: isHovered ? 1 : 0.7 }}
+      >
+        SYS_ONLINE
+      </div>
+      <div 
+        className="absolute -bottom-2 -right-2 px-1.5 py-0.5 bg-[#162127]/90 border border-white/10 text-[7px] font-mono text-[#B9ACA3] rounded pointer-events-none z-20 transition-all duration-300 shadow-lg"
+        style={{ transform: 'translateZ(20px)', opacity: isHovered ? 1 : 0.7 }}
+      >
+        V4.0 // CORE
+      </div>
+    </motion.div>
+  );
+};
+
+const AnimatedCounter: React.FC<{ value: string; duration?: number }> = ({ value, duration = 1.5 }) => {
+  const [current, setCurrent] = useState(0);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
+  
+  const number = parseInt(value.replace(/\D/g, ''), 10) || 0;
+  const suffix = value.replace(/\d/g, '');
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const end = number;
+    if (start === end) {
+      setCurrent(end);
+      return;
+    }
+
+    let startTime: number | null = null;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      setCurrent(Math.floor(progress * (end - start) + start));
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isInView, number, duration]);
+
+  return <span ref={ref}>{current}{suffix}</span>;
+};
 
 export const About: React.FC = () => {
   const [activeStep, setActiveStep] = useState('student');
@@ -84,27 +212,7 @@ export const About: React.FC = () => {
             <Card glowColor="rgba(207, 157, 123, 0.12)" className="p-6 md:p-8 bg-[#162127]/40">
               <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
                 
-                {/* Profile Photo Thumbnail with Cyber Border */}
-                <div 
-                  className="relative w-24 h-24 p-[1.5px] bg-gradient-to-tr from-[#724B39] to-primary-accent shadow-[0_0_15px_rgba(207,157,123,0.15)] flex-shrink-0"
-                  style={{
-                    clipPath: 'polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px)',
-                  }}
-                >
-                  <div 
-                    className="w-full h-full bg-[#0C1519] overflow-hidden relative"
-                    style={{
-                      clipPath: 'polygon(11px 0%, 100% 0%, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0% 100%, 0% 11px)',
-                    }}
-                  >
-                    <img
-                      src="/profile.jpg"
-                      alt="Dinesh P"
-                      className="w-full h-full object-cover object-center"
-                    />
-                    <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary-accent to-transparent opacity-60 animate-scan pointer-events-none" />
-                  </div>
-                </div>
+                <AIPortrait />
 
                 <div className="flex-1 text-center sm:text-left">
                   <h3 className="text-xl md:text-2xl font-semibold mb-4 text-white">
@@ -134,7 +242,7 @@ export const About: React.FC = () => {
               {STATS.map((stat, idx) => (
                 <div key={idx} className="glass-card bg-[#162127]/30 border border-white/6 p-4 rounded-xl flex flex-col items-center justify-center text-center">
                   <span className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-primary-accent to-[#724B39] bg-clip-text text-transparent mb-1">
-                    {stat.value}
+                    <AnimatedCounter value={stat.value} />
                   </span>
                   <span className="text-[10px] md:text-xs text-text-muted uppercase tracking-wider font-mono">
                     {stat.label}
