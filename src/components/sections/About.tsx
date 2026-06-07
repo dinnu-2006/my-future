@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
-import { fadeUp, staggerContainer } from '@/lib/animations';
-import { BookOpen, Code, Cpu, Rocket, Award } from 'lucide-react';
+import { fadeUp } from '@/lib/animations';
+import { BookOpen, Code, Rocket } from 'lucide-react';
 
 const TIMELINE_STEPS = [
   {
@@ -190,11 +190,15 @@ const AnimatedCounter: React.FC<{ value: string; duration?: number }> = ({ value
 
   useEffect(() => {
     if (!isInView) return;
-    let start = 0;
+    const start = 0;
     const end = number;
+    let frameId: number;
+
     if (start === end) {
-      setCurrent(end);
-      return;
+      frameId = requestAnimationFrame(() => {
+        setCurrent(end);
+      });
+      return () => cancelAnimationFrame(frameId);
     }
 
     let startTime: number | null = null;
@@ -204,11 +208,12 @@ const AnimatedCounter: React.FC<{ value: string; duration?: number }> = ({ value
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
       setCurrent(Math.floor(progress * (end - start) + start));
       if (progress < 1) {
-        requestAnimationFrame(animate);
+        frameId = requestAnimationFrame(animate);
       }
     };
 
-    requestAnimationFrame(animate);
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
   }, [isInView, number, duration]);
 
   return <span ref={ref}>{current}{suffix}</span>;
@@ -275,7 +280,7 @@ export const About: React.FC = () => {
                   My Core Creed
                 </span>
                 <p className="text-sm italic text-white/90">
-                  "Bridge the gap between artificial intelligence and beautiful, high-performance web systems to architect the digital future."
+                  &ldquo;Bridge the gap between artificial intelligence and beautiful, high-performance web systems to architect the digital future.&rdquo;
                 </p>
               </div>
             </Card>

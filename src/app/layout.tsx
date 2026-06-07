@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { globalMetadata } from "./metadata";
 import ThemeSelector from "@/components/ui/ThemeSelector";
+import SmoothScroll from "@/components/effects/SmoothScroll";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,6 +29,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-[#0C1519] text-white relative">
         <div className="grain-overlay" />
+        <SmoothScroll />
         {children}
         <ThemeSelector />
       </body>

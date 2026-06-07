@@ -172,8 +172,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
       const isOrbiter = i < particleCount * 0.35;
       let pX = Math.random() * width;
       let pY = Math.random() * height;
-      let angle = Math.random() * Math.PI * 2;
-      let orbitRadius = Math.random() * 80 + 120;
+      const angle = Math.random() * Math.PI * 2;
+      const orbitRadius = Math.random() * 80 + 120;
 
       if (isOrbiter) {
         pX = width / 2 + Math.cos(angle) * orbitRadius;

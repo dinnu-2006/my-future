@@ -7,13 +7,11 @@ import NeuralNetwork from '@/components/effects/NeuralNetwork';
 import DataStreams from '@/components/effects/DataStreams';
 import AICursor from '@/components/effects/AICursor';
 import DeveloperConsole from '@/components/ui/DeveloperConsole';
-import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
 import { experience } from '@/data/experience';
 import { skills } from '@/data/skills';
 import { achievements } from '@/data/achievements';
-import { Printer, ArrowLeft, Mail, Calendar, GraduationCap, Briefcase, Award, ExternalLink } from 'lucide-react';
+import { Printer, ArrowLeft, Mail, ExternalLink } from 'lucide-react';
 
 export default function ResumePage() {
   const [consoleOpen, setConsoleOpen] = useState(false);

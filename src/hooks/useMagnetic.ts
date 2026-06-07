@@ -40,12 +40,12 @@ export const useMagnetic = (strength = 0.35) => {
       setPosition({ x: 0, y: 0 });
     };
 
-    element.addEventListener('mousemove', handleMouseMove as any);
-    element.addEventListener('mouseleave', handleMouseLeave as any);
+    element.addEventListener('mousemove', handleMouseMove as EventListener);
+    element.addEventListener('mouseleave', handleMouseLeave as EventListener);
 
     return () => {
-      element.removeEventListener('mousemove', handleMouseMove as any);
-      element.removeEventListener('mouseleave', handleMouseLeave as any);
+      element.removeEventListener('mousemove', handleMouseMove as EventListener);
+      element.removeEventListener('mouseleave', handleMouseLeave as EventListener);
     };
   }, [strength]);
 

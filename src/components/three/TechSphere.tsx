@@ -15,16 +15,14 @@ const TECHNOLOGIES = [
 interface WordProps {
   children: string;
   position: THREE.Vector3;
+  colorIndex: number;
 }
 
-const Word: React.FC<WordProps> = ({ children, position }) => {
+const Word: React.FC<WordProps> = ({ children, position, colorIndex }) => {
   const color = useMemo(() => {
-    // Randomly assign primary accent (Antique Brass) or secondary accent (Coffee) or Warm Ivory
-    const rand = Math.random();
-    if (rand < 0.45) return '#CF9D7B'; // Antique Brass
-    if (rand < 0.75) return '#724B39'; // Coffee
-    return '#F5EDE8'; // Warm Ivory
-  }, []);
+    const colors = ['#CF9D7B', '#724B39', '#F5EDE8', '#CF9D7B', '#F5EDE8'];
+    return colors[colorIndex % colors.length];
+  }, [colorIndex]);
 
   const textRef = useRef<THREE.Mesh>(null);
 
@@ -103,7 +101,7 @@ export const TechSphere: React.FC<{ mousePos: { x: number; y: number } }> = ({ m
       </mesh>
       
       {words.map(({ word, pos }, index) => (
-        <Word key={index} position={pos}>
+        <Word key={index} position={pos} colorIndex={index}>
           {word}
         </Word>
       ))}

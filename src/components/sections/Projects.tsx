@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Badge } from '../ui/Badge';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -38,6 +38,7 @@ export const Projects: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progressState, setProgressState] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const progressRef = useRef(0);
   const targetRef = useRef(0);
@@ -78,7 +79,7 @@ export const Projects: React.FC = () => {
     if (!ctx) return;
 
     let animFrameId: number;
-    let particles: Particle[] = [];
+    const particles: Particle[] = [];
     const count = 20;
 
     const resize = () => {
@@ -159,6 +160,7 @@ export const Projects: React.FC = () => {
       progressRef.current = targetRef.current;
       setProgressState(progressRef.current);
       animationFrameRef.current = null;
+      setIsAnimating(false);
     } else {
       // Apple-like spring easing factor
       const springDecel = 0.125;
@@ -181,6 +183,7 @@ export const Projects: React.FC = () => {
     setActiveIndex(activeIndexRef.current);
 
     if (!animationFrameRef.current) {
+      setIsAnimating(true);
       animationFrameRef.current = requestAnimationFrame(step);
     }
   };
@@ -209,19 +212,24 @@ export const Projects: React.FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [N]);
 
   // Reset indices on query or filter category switches
   useEffect(() => {
-    setActiveIndex(0);
+    const frameId = requestAnimationFrame(() => {
+      setActiveIndex(0);
+      setProgressState(0);
+      setIsAnimating(false);
+    });
     progressRef.current = 0;
     targetRef.current = 0;
     activeIndexRef.current = 0;
-    setProgressState(0);
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = null;
     }
+    return () => cancelAnimationFrame(frameId);
   }, [activeTab, searchQuery]);
 
   // Mouse Wheel Gesture Handler (with locks)
@@ -404,7 +412,7 @@ export const Projects: React.FC = () => {
                       willChange: 'transform, opacity',
                       transformStyle: 'preserve-3d',
                       // Smooth fallback transition when animation loop stops
-                      transition: animationFrameRef.current 
+                      transition: isAnimating 
                         ? 'none' 
                         : 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
                     }}

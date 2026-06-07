@@ -12,7 +12,7 @@ interface ButtonProps {
   magnetic?: boolean;
   magneticStrength?: number;
   href?: string;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   children: React.ReactNode;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
@@ -47,7 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
     setTimeout(() => {
       setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
     }, 600);
-    if (onClick) onClick(e as any);
+    if (onClick) onClick(e);
   };
 
   const baseStyles = 'group relative overflow-hidden inline-flex items-center justify-center font-medium transition-[transform,border-color,background-color,color] duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-[4px] hover:scale-[1.04] rounded-lg cursor-pointer focus:outline-none select-none active:scale-[0.97] active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none';

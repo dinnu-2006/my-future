@@ -9,7 +9,7 @@ import { fadeUp } from '@/lib/animations';
 import { services } from '@/data/services';
 import { Cpu, Globe, GitFork, TrendingUp, Check } from 'lucide-react';
 
-const ICON_MAP: Record<string, React.ComponentType<any>> = {
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Cpu,
   Globe,
   GitFork,

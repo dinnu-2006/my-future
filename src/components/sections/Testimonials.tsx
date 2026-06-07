@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Badge } from '../ui/Badge';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -170,7 +170,7 @@ export const Testimonials: React.FC = () => {
                       <div>
                         {/* Quote Body */}
                         <p className="text-sm md:text-base text-text-muted leading-relaxed italic mb-6">
-                          "{item.quote}"
+                          &ldquo;{item.quote}&rdquo;
                         </p>
                       </div>
 

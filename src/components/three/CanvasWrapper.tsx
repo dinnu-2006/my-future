@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Cpu, Activity } from 'lucide-react';
 
@@ -275,25 +275,6 @@ export const CanvasWrapper: React.FC = () => {
           <span className="text-[#CF9D7B] font-bold">ACTIVE</span>
         </motion.div>
       </motion.div>
-
-      {/* Floating particles drift in 3D space (around the frame) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-[#CF9D7B]/50"
-            style={{
-              width: `${Math.random() * 2.5 + 1.5}px`,
-              height: `${Math.random() * 2.5 + 1.5}px`,
-              left: `${15 + Math.random() * 70}%`,
-              top: `${20 + Math.random() * 60}%`,
-              boxShadow: '0 0 4px rgba(207, 157, 123, 0.4)',
-              animation: 'star-flicker 4s ease-in-out infinite',
-              animationDelay: `${i * 0.7}s`
-            }}
-          />
-        ))}
-      </div>
     </div>
   );
 };

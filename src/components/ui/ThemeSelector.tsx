@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Palette, RefreshCw } from 'lucide-react';
+import { Palette } from 'lucide-react';
 
 interface ThemeColor {
   name: string;
@@ -47,14 +47,6 @@ export const ThemeSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeCore, setActiveCore] = useState('brass');
 
-  // Initialize theme from localStorage on load
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const stored = localStorage.getItem('synapse-accent-core');
-    const core = THEME_CORES.find((c) => c.name === stored) || THEME_CORES[0];
-    applyCore(core);
-  }, []);
-
   const applyCore = (core: ThemeColor) => {
     setActiveCore(core.name);
     localStorage.setItem('synapse-accent-core', core.name);
@@ -70,6 +62,17 @@ export const ThemeSelector: React.FC = () => {
       })
     );
   };
+
+  // Initialize theme from localStorage on load
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem('synapse-accent-core');
+    const core = THEME_CORES.find((c) => c.name === stored) || THEME_CORES[0];
+    const frameId = requestAnimationFrame(() => {
+      applyCore(core);
+    });
+    return () => cancelAnimationFrame(frameId);
+  }, []);
 
   return (
     <div className="fixed bottom-6 left-6 z-40 hidden md:block">

@@ -3,9 +3,8 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import { Badge } from '../ui/Badge';
-import { Card } from '../ui/Card';
 import { achievements } from '@/data/achievements';
-import { Lock, Unlock, Award, CheckCircle, ExternalLink } from 'lucide-react';
+import { Unlock, ExternalLink } from 'lucide-react';
 
 const vaultCardVariants: Variants = {
   locked: {

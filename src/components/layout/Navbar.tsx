@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Button } from '../ui/Button';
 import { Menu, X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MobileMenu from './MobileMenu';

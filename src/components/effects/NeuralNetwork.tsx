@@ -99,7 +99,7 @@ export const NeuralNetwork: React.FC = () => {
     }> = [];
 
     let dataFragments: DataFragment[] = [];
-    let pulses: Pulse[] = [];
+    const pulses: Pulse[] = [];
     const fragmentTexts = ['SYS_CORE', '0x7F', 'NET_A', '1011', 'AI_NODE', 'SYNAPSE', 'V4.0', 'LIVE', 'PORT_80', 'HOST_ONLINE', 'SEC_HTTPS'];
 
     const initParticles = () => {

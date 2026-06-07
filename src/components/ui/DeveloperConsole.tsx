@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, ShieldAlert, CheckCircle } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 
 const HELP_OUTPUT = [
   'Available Commands:',

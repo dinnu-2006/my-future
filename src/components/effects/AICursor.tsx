@@ -50,19 +50,27 @@ export const AICursor: React.FC = () => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mediaQuery.matches);
+    const animFrame = requestAnimationFrame(() => {
+      setReducedMotion(mediaQuery.matches);
+    });
     
     const handleChange = (e: MediaQueryListEvent) => {
       setReducedMotion(e.matches);
     };
     mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+      cancelAnimationFrame(animFrame);
+    };
   }, []);
 
   useEffect(() => {
     mouseRef.current = mouse;
     if (!isVisible && (mouse.x > 0 || mouse.y > 0)) {
-      setIsVisible(true);
+      const animFrame = requestAnimationFrame(() => {
+        setIsVisible(true);
+      });
+      return () => cancelAnimationFrame(animFrame);
     }
   }, [mouse, isVisible]);
 

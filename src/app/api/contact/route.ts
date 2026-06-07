@@ -144,10 +144,11 @@ export async function POST(request: Request) {
         { status: response.status }
       );
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Contact API handler error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'An internal server error occurred.';
     return NextResponse.json(
-      { error: error?.message || 'An internal server error occurred.' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

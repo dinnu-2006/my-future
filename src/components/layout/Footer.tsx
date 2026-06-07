@@ -3,7 +3,6 @@
 import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useAnimation } from 'framer-motion';
-import { Button } from '../ui/Button';
 import { ArrowUp, Terminal as LogoIcon } from 'lucide-react';
 
 const FOOTER_LINKS = [
@@ -27,8 +26,8 @@ export const Footer: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
-    let height = (canvas.height = 200);
+    const width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
+    const height = (canvas.height = 200);
 
     const stars: Array<{ x: number; y: number; radius: number; speed: number }> = [];
     for (let i = 0; i < 40; i++) {

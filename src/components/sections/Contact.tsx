@@ -41,10 +41,10 @@ export const Contact: React.FC = () => {
   const [submitStage, setSubmitStage] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [agentText, setAgentText] = useState('Connection initialized. Awaiting user transmission log...');
 
-  const nameMag = useMagnetic(0.06);
-  const emailMag = useMagnetic(0.06);
-  const subjectMag = useMagnetic(0.06);
-  const messageMag = useMagnetic(0.04);
+  const { ref: nameRef, x: nameX, y: nameY } = useMagnetic(0.06);
+  const { ref: emailRef, x: emailX, y: emailY } = useMagnetic(0.06);
+  const { ref: subjectRef, x: subjectX, y: subjectY } = useMagnetic(0.06);
+  const { ref: messageRef, x: messageX, y: messageY } = useMagnetic(0.04);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -90,10 +90,11 @@ export const Contact: React.FC = () => {
           throw new Error(data.error || `Server responded with status ${response.status}`);
         }
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Contact transmission error:', error);
       setSubmitStage(4);
-      setAgentText(`ERROR: Uplink failed. Code: ${error?.message || 'UNKNOWN_ERR'}. Run diagnostic debugger.`);
+      const errorMessage = error instanceof Error ? error.message : 'UNKNOWN_ERR';
+      setAgentText(`ERROR: Uplink failed. Code: ${errorMessage}. Run diagnostic debugger.`);
     }
   };
 
@@ -233,8 +234,8 @@ export const Contact: React.FC = () => {
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div
-                        ref={nameMag.ref as React.RefObject<HTMLDivElement>}
-                        style={{ transform: `translate3d(${nameMag.x}px, ${nameMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                        ref={nameRef as React.RefObject<HTMLDivElement>}
+                        style={{ transform: `translate3d(${nameX}px, ${nameY}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
                         className="w-full"
                       >
                         <Input
@@ -247,8 +248,8 @@ export const Contact: React.FC = () => {
                         />
                       </div>
                       <div
-                        ref={emailMag.ref as React.RefObject<HTMLDivElement>}
-                        style={{ transform: `translate3d(${emailMag.x}px, ${emailMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                        ref={emailRef as React.RefObject<HTMLDivElement>}
+                        style={{ transform: `translate3d(${emailX}px, ${emailY}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
                         className="w-full"
                       >
                         <Input
@@ -263,8 +264,8 @@ export const Contact: React.FC = () => {
                       </div>
                     </div>
                     <div
-                      ref={subjectMag.ref as React.RefObject<HTMLDivElement>}
-                      style={{ transform: `translate3d(${subjectMag.x}px, ${subjectMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                      ref={subjectRef as React.RefObject<HTMLDivElement>}
+                      style={{ transform: `translate3d(${subjectX}px, ${subjectY}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
                       className="w-full"
                     >
                       <Input
@@ -276,8 +277,8 @@ export const Contact: React.FC = () => {
                       />
                     </div>
                     <div
-                      ref={messageMag.ref as React.RefObject<HTMLDivElement>}
-                      style={{ transform: `translate3d(${messageMag.x}px, ${messageMag.y}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                      ref={messageRef as React.RefObject<HTMLDivElement>}
+                      style={{ transform: `translate3d(${messageX}px, ${messageY}px, 0)`, transition: 'transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)' }}
                       className="w-full"
                     >
                       <Textarea

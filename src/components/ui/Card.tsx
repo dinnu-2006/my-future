@@ -34,12 +34,16 @@ export const Card: React.FC<CardProps> = ({
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
-    // Asynchronous float offsets
-    setFloatDelay(Math.random() * 4);
-    setFloatDuration(5 + Math.random() * 3);
+    // Asynchronous float offsets (deferred to avoid cascading synchronous render in effect)
+    const animFrame = requestAnimationFrame(() => {
+      setFloatDelay(Math.random() * 4);
+      setFloatDuration(5 + Math.random() * 3);
+    });
 
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      cancelAnimationFrame(animFrame);
+    };
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {

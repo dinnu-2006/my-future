@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
 import { ShieldAlert, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
@@ -36,8 +34,6 @@ export default function NotFound() {
 
     const particles: BlackholeParticle[] = [];
     const particleCount = 200;
-    const centerX = width / 2;
-    const centerY = height / 2;
 
     for (let i = 0; i < particleCount; i++) {
       // Random starting parameters
